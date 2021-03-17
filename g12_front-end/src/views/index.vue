@@ -5,7 +5,6 @@
                 <div class="block_logo"></div>
                 <div class="block_nav">
                     <el-menu
-                            class="home-nav"
                             mode="horizontal"
                             @select="handleSelect"
                             background-color="#545c64"
@@ -118,6 +117,7 @@
     }
     .home-main{
         width: 100%;
+        padding: 10px;
     }
     .home-main .recommendation-carousel{
         width: 100%;
@@ -125,7 +125,9 @@
     }
     .recommendation-carousel .recommendation-title{
         font-size: 1.8rem;
-        color: white;
+        color: rgba(84, 92, 100,1);
+        text-align: left;
+        padding: 10px 10px 10px 2%;
     }
 
 </style>
@@ -135,5 +137,8 @@
     }
     .block_nav li{
         background: transparent!important;
+    }
+    .input_search input{
+        background-color: rgba(255,255,255,0.9);
     }
 </style>

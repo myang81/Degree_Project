@@ -2,6 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import index from '../views/index.vue'
+import Login from '../views/Login/index'
+import Register from '../views/Register/index'
+import Center from '../views/Center/index'
 
 Vue.use(VueRouter)
 
@@ -23,6 +26,21 @@ const routes = [
     path: '/index',
     name: 'Index',
     component: index
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: Register
+  },
+  {
+    path: '/center',
+    name: 'Center',
+    component: Center
   },
 ]
 

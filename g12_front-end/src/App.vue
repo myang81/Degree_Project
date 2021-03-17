@@ -31,7 +31,7 @@
 }
     body{
         margin: 0;
-        background-color: rgba(100,100,100,1);
+        background-color: #eeeef1;
     }
     p{
         margin: 0;

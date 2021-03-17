@@ -119,7 +119,7 @@
         width: 100%;
         padding: 10px;
     }
-    .home-main .recommendation-carousel{
+    .recommendation-carousel{
         width: 100%;
         padding: 10px 0;
     }

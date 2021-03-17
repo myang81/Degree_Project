@@ -75,29 +75,6 @@
                     <el-form-item label="orientation">
                         <el-checkbox-group v-model="form.type">
                             <el-col :span="8">
-                            <el-checkbox label="Less than 50 square meters" name="type"></el-checkbox>
-                            </el-col>
-                            <el-col :span="8">
-                            <el-checkbox label="50-70 square meters" name="type"></el-checkbox>
-                            </el-col>
-                            <el-col :span="8">
-                            <el-checkbox label="70-90 square meters" name="type"></el-checkbox>
-                            </el-col>
-                            <el-col :span="8">
-                            <el-checkbox label="90-120 square meters" name="type"></el-checkbox>
-                            </el-col>
-                            <el-col :span="8">
-                            <el-checkbox label="120-150 square meters" name="type"></el-checkbox>
-                            </el-col>
-                            <el-col :span="8">
-                            <el-checkbox label="more than 150 square meters" name="type"></el-checkbox>
-                            </el-col>
-                        </el-checkbox-group>
-                    </el-form-item>
-                    <el-divider></el-divider>
-                    <el-form-item label="measure">
-                        <el-checkbox-group v-model="form.type">
-                            <el-col :span="8">
                             <el-checkbox label="North South orientation" name="type"></el-checkbox>
                             </el-col>
                             <el-col :span="8">
@@ -121,9 +98,6 @@
                             </el-col>
                             <el-col :span="8">
                             <el-checkbox label="top" name="type"></el-checkbox>
-                            </el-col>
-                            <el-col :span="8">
-                            <el-checkbox label="more than 150 square meters" name="type"></el-checkbox>
                             </el-col>
                         </el-checkbox-group>
                     </el-form-item>

@@ -1,20 +1,7 @@
 <template>
     <div>
         <div class="home-header">
-            <div class="home-header-nav">
-                <div class="block_logo"></div>
-                <div class="block_nav">
-                    <el-menu
-                            mode="horizontal"
-                            @select="handleSelect"
-                            background-color="#545c64"
-                            text-color="#fff"
-                            active-text-color="#ffd04b">
-                        <el-menu-item index="1" style="background: rgba(84, 92, 100, 0.5);">login</el-menu-item>
-                        <el-menu-item index="2" style="background: rgba(84, 92, 100, 0.5);">register</el-menu-item>
-                    </el-menu>
-                </div>
-            </div>
+            <HeaderNav></HeaderNav>
             <div class="home-header-content">
                 <P class="p-header-content">Find your favorite house</P>
                 <el-input
@@ -66,10 +53,15 @@
 </template>
 
 <script>
+    import HeaderNav from '@/components/headerNav_logout/index.vue'
+
     export default {
         name: "index",
         props: {
             msg: String,
+        },
+        components: {
+            HeaderNav
         },
         data() {
             return {
@@ -84,14 +76,40 @@
 <style scoped>
     .home-header{
         width: 100%;
-        height: 600px;
-        background-image: url("https://s1.ljcdn.com/feroot/pc/asset/img/home/bannerV2.jpg");
-        background-position: center;
+        height: 100vh;
+        /*background-image: url("https://s1.ljcdn.com/feroot/pc/asset/img/home/bannerV2.jpg");*/
+        /*background-position: center;*/
+        position: relative;
+        z-index: 10;
+    }
+    .home-header::after{
+        content: '';
         background-repeat:no-repeat;
         background-origin:content-box;
+        animation: infinite forwards indexImg linear 10s;
+        /*background-color: rgba(0,0,0,0.1);*/
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -90;
         background-size: cover;
-        margin-bottom: 20px;
+
+        /*background-image: url("https://s1.ljcdn.com/feroot/pc/asset/img/home/bannerV2.jpg");*/
+        /*background-position: 0;*/
     }
+    .home-header::before{
+        content: '';
+        background-color: rgba(0,0,0,0.3);
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -100;
+    }
+
     .home-header-nav{
         width: 100%;
         height: 50px;
@@ -108,7 +126,7 @@
         text-align: center;
         margin: 150px auto 0 auto;
         color: white;
-        font-size: 2rem;
+        font-size: 2.5rem;
     }
     .block_nav{
         display: flex;
@@ -128,6 +146,108 @@
         color: rgba(84, 92, 100,1);
         text-align: left;
         padding: 10px 10px 10px 2%;
+    }
+    @keyframes indexImg
+    {
+        0% {background-position: 0;background-image: url("../assets/banner.jpg");opacity:0;}
+        12.5% {background-position: 25%;background-image: url("../assets/banner.jpg");opacity:1}
+        37.5% {background-position: 75%;background-image: url("../assets/banner.jpg");opacity:1}
+        50% {background-position: 100%;background-image: url("../assets/banner.jpg");opacity:0}
+        50.1% {background-position: 0;background-image: url("../assets/cyber.jpg");opacity:0;}
+        62.5% {background-position: 25%;background-image: url("../assets/cyber.jpg");opacity:1}
+        87.5% {background-position: 75%;background-image: url("../assets/cyber.jpg");opacity:1}
+        100% {background-position: 100%;background-image: url("../assets/cyber.jpg");opacity:0}
+    }
+
+    .p-header-content,.p-header-content::after{
+        margin-right: 5px;
+        /*width: 55px;*/
+        height: 25px;
+        line-height: 25px;
+        letter-spacing: 2px;
+        color: white;
+        border: 0;
+        position: relative;
+        padding: 0 10px;
+    }
+    .p-header-content:first-of-type::after{
+        --slice-0: inset(50% 50% 50% 50%);
+        --slice-1: inset(80% -6px 0 0);
+        --slice-2: inset(50% -6px 30% 0);
+        --slice-3: inset(10% -6px 85% 0);
+        --slice-4: inset(40% -6px 43% 0);
+        --slice-5: inset(80% -6px 5% 0);
+        display: block;
+        content: "Find your favorite house";
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        /*background: linear-gradient(45deg, transparent 3%, yellow 3%, #3A5FCD 6%);*/
+        text-shadow: -2px -2px yellow, 2px 2px #FF0000 ,4px 4px #3A5FCD;
+        clip-path: var(--slice-0);
+    }
+    .p-header-content:first-of-type::after{
+        animation: glitch 2s infinite;
+        animation-timing-function: steps(1, end);
+        animation-delay: 2s;
+    }
+    @keyframes glitch {
+        50% {
+            clip-path: var(--slice-1);
+            transform: translate(-10px, -10px);
+        }
+
+        55% {
+            clip-path: var(--slice-3);
+            transform: translate(5px, 0px);
+        }
+
+        60% {
+            clip-path: var(--slice-1);
+            transform: translate(-5px, 0px);
+        }
+
+        65% {
+            clip-path: var(--slice-3);
+            transform: translate(0px, 5px);
+        }
+
+        70% {
+            clip-path: var(--slice-2);
+            transform: translate(-2px, 0px);
+        }
+
+        75% {
+            clip-path: var(--slice-3);
+            transform: translate(2px, 0px);
+        }
+
+        80% {
+            clip-path: var(--slice-4);
+            transform: translate(2px, 5px);
+        }
+
+        85% {
+            clip-path: var(--slice-2);
+            transform: translate(-5px, 5px);
+        }
+
+        90% {
+            clip-path: var(--slice-5);
+            transform: translate(10px, -10px);
+        }
+
+        95% {
+            clip-path: var(--slice-1);
+            transform: translate(-5px, 0px);
+        }
+
+        100% {
+            clip-path: var(--slice-1);
+            transform: translate(0);
+        }
     }
 
 </style>

@@ -1,16 +1,45 @@
 <template>
     <div class="home-header-nav">
-        <div class="block_logo"></div>
         <div class="block_nav">
-            <el-menu
-                    mode="horizontal"
-                    @select="handleSelect"
-                    background-color="#545c64"
-                    text-color="#fff"
-                    active-text-color="#ffd04b">
-                <el-menu-item index="1" class="nav_choice">login</el-menu-item>
-                <el-menu-item index="2" class="nav_choice">register</el-menu-item>
-            </el-menu>
+            <b-navbar toggleable="lg" type="dark">
+            <b-navbar-brand href="#">IDM</b-navbar-brand>
+
+            <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+            <b-collapse id="nav-collapse" is-nav>
+<!--                <b-navbar-nav>-->
+<!--                    <b-nav-item href="#">Link</b-nav-item>-->
+<!--                    <b-nav-item href="#" disabled>Disabled</b-nav-item>-->
+<!--                </b-navbar-nav>-->
+
+                <!-- Right aligned nav items -->
+                <b-navbar-nav class="ml-auto">
+<!--                    <b-nav-form>-->
+<!--                        <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>-->
+<!--                        <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>-->
+<!--                    </b-nav-form>-->
+                    <b-navbar-nav style="text-align: left">
+                        <b-nav-item href="#">Login</b-nav-item>
+                        <b-nav-item href="#">register</b-nav-item>
+                    </b-navbar-nav>
+<!--                    <b-nav-item-dropdown text="Lang" right>-->
+<!--                        <b-dropdown-item href="#">EN</b-dropdown-item>-->
+<!--                        <b-dropdown-item href="#">ES</b-dropdown-item>-->
+<!--                        <b-dropdown-item href="#">RU</b-dropdown-item>-->
+<!--                        <b-dropdown-item href="#">FA</b-dropdown-item>-->
+<!--                    </b-nav-item-dropdown>-->
+
+<!--                    <b-nav-item-dropdown right>-->
+<!--                        &lt;!&ndash; Using 'button-content' slot &ndash;&gt;-->
+<!--                        <template v-slot:button-content>-->
+<!--                            <em>User</em>-->
+<!--                        </template>-->
+<!--                        <b-dropdown-item href="#">Profile</b-dropdown-item>-->
+<!--                        <b-dropdown-item href="#">Sign Out</b-dropdown-item>-->
+<!--                    </b-nav-item-dropdown>-->
+                </b-navbar-nav>
+            </b-collapse>
+        </b-navbar>
         </div>
     </div>
 </template>
@@ -25,10 +54,11 @@
     .home-header-nav{
         width: 100%;
         height: 60px;
+        z-index: 999;
     }
     .block_nav{
-        display: flex;
-        flex-direction: row-reverse;
+        /*display: flex;*/
+        /*flex-direction: row-reverse;*/
         background: rgba(84, 92, 100, 0.5);
     }
     .nav_choice{

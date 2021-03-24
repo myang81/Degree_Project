@@ -6,6 +6,8 @@ import Login from '../views/Login/index'
 import Register from '../views/Register/index'
 import Center from '../views/Center/index'
 import Show from '../views/Show/index'
+import Detail from '../views/Detail/index'
+
 
 
 Vue.use(VueRouter)
@@ -48,6 +50,11 @@ const routes = [
     path: '/houseList',
     name: 'houseList',
     component: Show
+  },
+  {
+    path: '/detail',
+    name: 'detail',
+    component: Detail
   },
 ]
 

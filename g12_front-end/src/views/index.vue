@@ -3,7 +3,7 @@
         <div class="home-header">
             <HeaderNav></HeaderNav>
             <div class="home-header-content">
-                <P class="p-header-content">Find your favorite house</P>
+                <P class="p-header-content">Find your house</P>
                 <el-input
                     placeholder="Please input the house name, location, house type and other characteristics"
                     suffix-icon="el-icon-search"
@@ -67,8 +67,17 @@
             return {
                 searchValue: "",
                 activeIndex:0,
-                recommendationList:[{name:"house1",image:"../assets/home_header_bg.jpg"},{name:"house1",image:"../assets/home_header_bg.jpg"},{name:"house1",image:"../assets/home_header_bg.jpg"},{name:"house1",image:"../assets/home_header_bg.jpg"}]
+                recommendationList:[{name:"house1",image:"../assets/home_header_bg.jpg"},{name:"house1",image:"../assets/home_header_bg.jpg"},{name:"house1",image:"../assets/home_header_bg.jpg"},{name:"house1",image:"../assets/home_header_bg.jpg"}],
+                animationTime:0,
             }
+        },
+        created() {
+            setInterval(()=>{
+                this.animationTime++;
+                if(this.animationTime>15){
+                    this.animationTime=this.animationTime%15
+                }
+            },1000)
         }
     }
 </script>
@@ -86,7 +95,7 @@
         content: '';
         background-repeat:no-repeat;
         background-origin:content-box;
-        animation: infinite forwards indexImg linear 10s;
+        animation: infinite forwards indexImg linear 15s;
         /*background-color: rgba(0,0,0,0.1);*/
         width: 100%;
         height: 100%;
@@ -118,21 +127,55 @@
         width: 100%;
         height: calc(100% - 50px);
     }
-    .home-header-content .input_search{
-        width: 60%;
-        margin: 40px auto 0 auto;
+
+    @media (min-width: 992px){
+        .home-header-content .input_search{
+            width: 60%;
+            margin: 12vh auto 0 auto;
+        }
+        .home-header-content .p-header-content{
+            text-align: center;
+            color: white;
+            font-size: 4rem;
+            font-family: herculanum,fantasy;
+        }
+    }
+    @media (max-width: 992px){
+        .home-header-content .input_search{
+            width: 90%;
+            margin: 12vh auto 0 auto;
+        }
+        .home-header-content .p-header-content{
+            text-align: center;
+            color: white;
+            font-size: 2.5rem;
+            font-family: herculanum,fantasy;
+        }
     }
     .home-header-content .p-header-content{
         text-align: center;
-        margin: 150px auto 0 auto;
+        margin: 20vh auto 0 auto;
         color: white;
-        font-size: 2.5rem;
+        font-family: herculanum,fantasy;
+        padding: 0 15px;
+        animation:  infinite forwards cyberLight linear 15s;
+        box-sizing:border-box;
     }
-    .block_nav{
-        display: flex;
-        flex-direction: row-reverse;
-        background: rgba(84, 92, 100, 0.5);
+    @keyframes cyberLight{
+
+        0% {border: solid 10px transparent;box-shadow: 0 0 0;}
+        8.33% {border: solid 10px transparent;box-shadow: 0 0 0;}
+        24.99% {border: solid 10px transparent;box-shadow: 0 0 0;}
+        33.32% {border: solid 10px transparent;box-shadow: 0 0 0;}
+        41.65% {border: solid 10px rgba(255,0,0,.5);border-radius: 10px;box-shadow: 0 0 90px rgba(255,0,0,.8);}
+        49.98% {border: solid 10px #fff;border-radius: 10px;box-shadow: 0 0 70px rgb(190,40,210);}
+        58.31% {border: solid 10px rgba(255,0,0,.5);border-radius: 10px;box-shadow: 0 0 90px rgba(255,0,0,.8);}
+        66.64% {border: solid 10px #fff;border-radius: 10px;box-shadow: 0 0 70px rgb(190,40,210);}
+        74.97% {border: solid 10px transparent;box-shadow: 0 0 0;}
+        91.63% {border: solid 10px transparent;box-shadow: 0 0 0;}
+        100% {border: solid 10px transparent;box-shadow: 0 0 0;}
     }
+
     .home-main{
         width: 100%;
         padding: 10px;
@@ -150,35 +193,40 @@
     @keyframes indexImg
     {
         0% {background-position: 0;background-image: url("../assets/banner.jpg");opacity:0;}
-        12.5% {background-position: 25%;background-image: url("../assets/banner.jpg");opacity:1}
-        37.5% {background-position: 75%;background-image: url("../assets/banner.jpg");opacity:1}
-        50% {background-position: 100%;background-image: url("../assets/banner.jpg");opacity:0}
-        50.1% {background-position: 0;background-image: url("../assets/cyber.jpg");opacity:0;}
-        62.5% {background-position: 25%;background-image: url("../assets/cyber.jpg");opacity:1}
-        87.5% {background-position: 75%;background-image: url("../assets/cyber.jpg");opacity:1}
-        100% {background-position: 100%;background-image: url("../assets/cyber.jpg");opacity:0}
+        8.33% {background-position: 25%;background-image: url("../assets/banner.jpg");opacity:1}
+        24.99% {background-position: 75%;background-image: url("../assets/banner.jpg");opacity:1}
+        33.32% {background-position: 100%;background-image: url("../assets/banner.jpg");opacity:0}
+        33.321% {background-position: 0;background-image: url("../assets/cyber.jpg");opacity:0;}
+        41.65% {background-position: 25%;background-image: url("../assets/cyber.jpg");opacity:1}
+        58.31% {background-position: 75%;background-image: url("../assets/cyber.jpg");opacity:1}
+        66.64% {background-position: 100%;background-image: url("../assets/cyber.jpg");opacity:0}
+        66.641% {background-position: 0;background-image: url("../assets/Chinese.jpg");opacity:0;}
+        74.97% {background-position: 25%;background-image: url("../assets/Chinese.jpg");opacity:1}
+        91.63% {background-position: 75%;background-image: url("../assets/Chinese.jpg");opacity:1}
+        100% {background-position: 100%;background-image: url("../assets/Chinese.jpg");opacity:0}
     }
 
     .p-header-content,.p-header-content::after{
         margin-right: 5px;
-        /*width: 55px;*/
-        height: 25px;
-        line-height: 25px;
+        /*height: 25px;*/
+        /*line-height: 25px;*/
         letter-spacing: 2px;
         color: white;
-        border: 0;
         position: relative;
-        padding: 0 10px;
+        /*border: solid 10px #fff;*/
+        /*box-shadow: 0 0 70px rgb(190,40,210);*/
+        padding: 0 auto;
+        width: fit-content;
     }
     .p-header-content:first-of-type::after{
         --slice-0: inset(50% 50% 50% 50%);
         --slice-1: inset(80% -6px 0 0);
-        --slice-2: inset(50% -6px 30% 0);
-        --slice-3: inset(10% -6px 85% 0);
-        --slice-4: inset(40% -6px 43% 0);
-        --slice-5: inset(80% -6px 5% 0);
+        --slice-2: inset(50% -6px 45% 0);
+        --slice-3: inset(10% -6px 60% 0);
+        --slice-4: inset(40% -6px 50% 0);
+        --slice-5: inset(75% -6px 5% 0);
         display: block;
-        content: "Find your favorite house";
+        content: "Find your house";
         position: absolute;
         left: 0;
         top: 0;
@@ -189,65 +237,34 @@
         clip-path: var(--slice-0);
     }
     .p-header-content:first-of-type::after{
-        animation: glitch 2s infinite;
+        animation: glitch 15s infinite;
         animation-timing-function: steps(1, end);
-        animation-delay: 2s;
     }
-    @keyframes glitch {
-        50% {
-            clip-path: var(--slice-1);
-            transform: translate(-10px, -10px);
-        }
-
-        55% {
-            clip-path: var(--slice-3);
-            transform: translate(5px, 0px);
-        }
-
-        60% {
-            clip-path: var(--slice-1);
-            transform: translate(-5px, 0px);
-        }
-
-        65% {
-            clip-path: var(--slice-3);
-            transform: translate(0px, 5px);
-        }
-
-        70% {
-            clip-path: var(--slice-2);
-            transform: translate(-2px, 0px);
-        }
-
-        75% {
-            clip-path: var(--slice-3);
-            transform: translate(2px, 0px);
-        }
-
-        80% {
-            clip-path: var(--slice-4);
-            transform: translate(2px, 5px);
-        }
-
-        85% {
-            clip-path: var(--slice-2);
-            transform: translate(-5px, 5px);
-        }
-
-        90% {
-            clip-path: var(--slice-5);
-            transform: translate(10px, -10px);
-        }
-
-        95% {
-            clip-path: var(--slice-1);
-            transform: translate(-5px, 0px);
-        }
-
-        100% {
-            clip-path: var(--slice-1);
-            transform: translate(0);
-        }
+    @keyframes glitch  {
+        48.749% { opacity: 0}
+        48.75% {            clip-path: var(--slice-1);
+            transform: translate(-10px, -10px); opacity: 1}
+        49.5% {            clip-path: var(--slice-2);
+            transform: translate(5px, 0px);}
+        50.25% {            clip-path: var(--slice-1);
+            transform: translate(-5px, 0px);}
+        51% {            clip-path: var(--slice-4);
+            transform: translate(0px, 5px);}
+        51.75% {            clip-path: var(--slice-2);
+            transform: translate(-2px, 0px);}
+        52.5% {            clip-path: var(--slice-3);
+            transform: translate(2px, 0px);}
+        53.25% {            clip-path: var(--slice-4);
+            transform: translate(2px, 5px);}
+        54% {            clip-path: var(--slice-2);
+            transform: translate(-5px, 5px);}
+        54.75% {            clip-path: var(--slice-5);
+            transform: translate(10px, -10px);}
+        55.5% {            clip-path: var(--slice-1);
+            transform: translate(-5px, 0px);}
+        56.25% {            clip-path: var(--slice-3);
+            transform: translate(0px, 5px) ;opacity: 1}
+        56.251% { opacity: 0}
     }
 
 </style>

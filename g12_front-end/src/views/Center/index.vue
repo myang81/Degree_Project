@@ -1,6 +1,6 @@
 <template>
     <div>
-        <HeaderNav></HeaderNav>
+      <HeaderNav :navContent="navContent"></HeaderNav>
         <div>
             <Sidebar></Sidebar>
             <div class="center-main">
@@ -155,7 +155,8 @@
                     type: [],
                     resource: '',
                     desc: ''
-                }
+                },
+              navContent:[{name:'Renting',router:''},{name:'Purchase',router:'/'},{name:'Purchase',router:'/'},{name:'Publishing',router:'/'}]
             }
         }
     }

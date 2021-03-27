@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="home-header">
-            <HeaderNav></HeaderNav>
+            <HeaderNav :navContent="navContent"></HeaderNav>
             <div class="home-header-content">
                 <P class="p-header-content">Find your house</P>
                 <el-input
@@ -53,7 +53,7 @@
 </template>
 
 <script>
-    import HeaderNav from '@/components/headerNav_logout/index.vue'
+import HeaderNav from '@/components/headerNav/index.vue'
 
     export default {
         name: "index",
@@ -65,10 +65,11 @@
         },
         data() {
             return {
-                searchValue: "",
-                activeIndex:0,
-                recommendationList:[{name:"house1",image:"../assets/home_header_bg.jpg"},{name:"house1",image:"../assets/home_header_bg.jpg"},{name:"house1",image:"../assets/home_header_bg.jpg"},{name:"house1",image:"../assets/home_header_bg.jpg"}],
-                animationTime:0,
+              searchValue: "",
+              activeIndex:0,
+              recommendationList:[{name:"house1",image:"../assets/home_header_bg.jpg"},{name:"house1",image:"../assets/home_header_bg.jpg"},{name:"house1",image:"../assets/home_header_bg.jpg"},{name:"house1",image:"../assets/home_header_bg.jpg"}],
+              animationTime:0,
+              navContent:[{name:'Login',router:'/login'},{name:'Register',router:'/register'}]
             }
         },
         created() {
@@ -148,7 +149,7 @@
         .home-header-content .p-header-content{
             text-align: center;
             color: white;
-            font-size: 2.5rem;
+            font-size: 2.0em;
             font-family: herculanum,fantasy;
         }
     }

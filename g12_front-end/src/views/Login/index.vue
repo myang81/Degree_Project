@@ -1,6 +1,6 @@
 <template>
     <div>
-        <HeaderNav></HeaderNav>
+        <HeaderNav :navContent="navContent"></HeaderNav>
         <el-card class="card_login">
             <el-form ref="form" :model="form" >
                 <el-form-item label="Name" label-width="80px">
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-    import HeaderNav from '@/components/headerNav_logout/index.vue'
+    import HeaderNav from '@/components/headerNav/index.vue'
 
     export default {
         name: "login",
@@ -32,6 +32,8 @@
         data() {
             return {
                 form:{},
+              navContent:[{name:'Login',router:'/login'},{name:'Register',router:'/register'}]
+
             }
         }
     }

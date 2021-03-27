@@ -2,15 +2,67 @@
   <div style="padding: 0 10px">
     <HeaderNav :navContent="navContent" show-search="true"></HeaderNav>
     <div style="">
-      <div>
-        <el-button class="choice-button" @click="handleChoiceButton('date')">
-          date
-          <div class="choice-card">
-            renshu1111
-          </div>
-        </el-button>
 
+      <div  class="choice-button-group">
+
+        <div class="choice-div">
+          <el-button class="choice-button" @click="handleChoiceButton('date')">
+            date
+          </el-button>
+          <el-card class="choice-card" :class="{'choice-card-show':choiceCardVisible.date}">
+            <vc-date-picker v-model="choice.dateRange" :columns="$screens({ default: 1, lg: 2 })" is-range style="border: 0"/>
+            <div class="choice-card-bottom">
+              <span class="cancel" @click="handleHideChoice">Cancel</span>
+              <span class="confirm" @click="handleHideChoice">Confirm</span>
+            </div>
+          </el-card>
+        </div>
+
+        <div class="choice-div">
+          <el-button class="choice-button" @click="handleChoiceButton('type')">
+            type
+          </el-button>
+          <el-card class="choice-card" :class="{'choice-card-show':choiceCardVisible.type}">
+            <div>
+              <el-checkbox-group v-model="choice.houseType">
+                <el-checkbox v-for="item in houseType" :label="item.title" :key="item.value" size="medium">{{item.title}}</el-checkbox>
+              </el-checkbox-group>
+            </div>
+            <div class="choice-card-bottom">
+              <span class="cancel" @click="handleHideChoice">Cancel</span>
+              <span class="confirm" @click="handleHideChoice">Confirm</span>
+            </div>
+          </el-card>
+        </div>
+
+        <div class="choice-div">
+          <el-button class="choice-button" @click="handleChoiceButton('price')">
+            price
+          </el-button>
+          <el-card class="choice-card" :class="{'choice-card-show':choiceCardVisible.price}">
+            <div style="width: 500px;padding: 0 20px">
+              <el-slider
+                      v-model="choice.price"
+                      range
+                      :max="50000">
+              </el-slider>
+              <div style="display: flex;align-items: center;margin-bottom: 20px">
+                <el-input v-model="choice.price[0]" style="flex: 2" type="text"></el-input><span style="flex: 1">-</span>
+                <el-input v-model="choice.price[1]" style="flex: 2" type="text"></el-input>
+              </div>
+            </div>
+            <div class="choice-card-bottom">
+              <span class="cancel" @click="handleHideChoice">Cancel</span>
+              <span class="confirm" @click="handleHideChoice">Confirm</span>
+            </div>
+          </el-card>
+        </div>
+
+
+
+        <div style="clear: both"></div>
       </div>
+
       <el-card class="check-block">
         <el-form ref="form" :model="form" label-width="80px">
           <el-form-item label="price">
@@ -140,8 +192,6 @@
           </el-row>
         </div>
       </div>
-
-
       <div class="recommendation-carousel">
         <p class="recommendation-title">recommendation housing</p>
         <el-carousel :interval="4000" type="card" height="300px">
@@ -161,6 +211,7 @@
         </el-carousel>
       </div>
     </div>
+    <div :class="{'bland':choiceCardVisible.bland}" @click="handleHideChoice" style="transition: .3s"></div>
   </div>
 </template>
 
@@ -170,7 +221,7 @@ import HeaderNav from '@/components/headerNav/index.vue'
 export default {
   name: "index",
   components: {
-    HeaderNav
+    HeaderNav,
   },
   data() {
     return {
@@ -181,6 +232,16 @@ export default {
         name: "house1",
         image: "../assets/home_header_bg.jpg"
       }],
+      choiceCardVisible:{bland:false,date:false,type:false,price:false},
+      choice:{
+        dateRange: {
+          start: undefined,
+          end: undefined
+        },
+        houseType:[],
+        price:[0,0]
+      },
+      houseType:[{title:'Whole house',value:0},{title:'Separate room',value:1},{title:'Separate room',value:1},{title:'Shared room',value:2}],
       form: {
         name: '',
         region: '',
@@ -260,7 +321,27 @@ export default {
     }
   },
   methods:{
-    
+    handleChoiceButton(choice){
+      switch (choice) {
+        case 'date':
+          this.choiceCardVisible.date=true;
+          break
+        case 'type':
+          this.choiceCardVisible.type=true;
+          break
+        case 'price':
+          this.choiceCardVisible.price=true;
+          break
+      }
+      this.choiceCardVisible.bland=true
+      console.log('-----choiceCardVisible-------',this.choiceCardVisible)
+  },
+    handleHideChoice(){
+      this.choiceCardVisible.bland=true;
+      for (let item in this.choiceCardVisible) {
+        console.log(this.choiceCardVisible[item]=false)
+      }
+    }
   }
 }
 </script>
@@ -281,7 +362,15 @@ export default {
 .check-block {
   margin: 20px 10px;
 }
-
+.choice-button-group {
+  margin: 20px 10px;
+}
+.choice-div{
+  display: inline-block;
+  position: relative;
+  margin-right: 10px;
+  float: left;
+}
 .main-block {
   background-color: white;
   max-width: 1200px;
@@ -322,9 +411,47 @@ export default {
 }
 .choice-card{
   position: absolute;
-  opacity: 0;
-  bottom: -20px;
+  display: none;
+  top: calc(100% + 10px);
   left: 0;
+  z-index: 99;
+}
+.choice-card .confirm{
+   float: right;
+   color: #008489;
+   font-weight: bold;
+  cursor: pointer;
+ }
+.choice-card .cancel{
+  float: left;
+  font-weight: bold;
+  cursor: pointer;
+}
+.choice-card-bottom{
+width: 100%;
+  overflow: auto;
+}
+.choice-card-show{
+  display: block;
+}
+  .bland{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background: rgba(255, 255, 255, 0.6);
+    transition: .3s;
+  }
+.bland-hide{
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  background: rgba(255, 255, 255, 0);
+  display: none;
+  transition: .3s;
 }
 </style>
 <style>
@@ -339,5 +466,20 @@ export default {
 .check-block .el-form-item__content {
   text-align: left;
 }
-
+  .choice-card .el-checkbox__inner{
+    width: 19px;
+    height: 19px;
+  }
+  .choice-card .el-checkbox__label{
+    font-size: 19px;
+    line-height: 30px;
+  }
+  .choice-card .el-checkbox{
+    display: flex;
+    align-items: center;
+    padding: 15px;
+  }
+.choice-card .el-checkbox-group{
+  margin-bottom: 20px;
+}
 </style>

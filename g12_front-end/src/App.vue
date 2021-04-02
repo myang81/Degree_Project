@@ -37,4 +37,7 @@
     p{
         margin: 0;
     }
+a:hover {
+  text-decoration: blink!important;
+}
 </style>

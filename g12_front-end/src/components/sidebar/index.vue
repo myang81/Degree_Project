@@ -8,22 +8,36 @@
                     <span slot="title">Profile</span>
                 </template>
                 <el-menu-item-group>
-                    <el-menu-item index="1-1">Detail</el-menu-item>
-                    <el-menu-item index="1-2">Target</el-menu-item>
+                  <router-link to="userDetail">
+                    <el-menu-item index="1-1">
+                      <router-link to="detail">Detail</router-link>
+                    </el-menu-item>
+                  </router-link>
+                  <router-link to="target">
+                    <el-menu-item index="1-2">
+                      Target
+                    </el-menu-item>
+                  </router-link>
                 </el-menu-item-group>
             </el-submenu>
+          <router-link to="collection">
             <el-menu-item index="2">
                 <i class="el-icon-menu"></i>
                 <span slot="title">Collection</span>
             </el-menu-item>
-            <el-menu-item index="3">
+          </router-link>
+          <router-link to="published">
+          <el-menu-item index="3">
                 <i class="el-icon-menu"></i>
                 <span slot="title">Published</span>
             </el-menu-item>
-            <el-menu-item index="4">
+          </router-link>
+          <router-link to="sale">
+          <el-menu-item index="4">
                 <i class="el-icon-menu"></i>
                 <span slot="title">Sale</span>
             </el-menu-item>
+          </router-link>
         </el-menu>
     </div>
 </template>
@@ -84,10 +98,16 @@
         from {transform: rotate(0);margin-left: 15px;}
         to {transform: rotate(-180deg);margin-left: 150px;}
     }
+    a{
+      color: initial;
+    }
 </style>
 <style>
     .el-menu-vertical-demo:not(.el-menu--collapse) {
         width: 200px;
         min-height: 400px;
+    }
+    .el-menu-item.is-active a{
+      color: #409EFF !important;
     }
 </style>

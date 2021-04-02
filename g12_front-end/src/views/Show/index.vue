@@ -482,4 +482,19 @@ width: 100%;
 .choice-card .el-checkbox-group{
   margin-bottom: 20px;
 }
+.choice-card .el-checkbox__inner::after {
+  box-sizing: content-box;
+  content: "";
+  border: 1px solid #FFF;
+  border-left: 0;
+  border-top: 0;
+  height: 9px;
+  left: 5px;
+  position: absolute;
+  top: 2px;
+  transform: rotate(45deg) scaleY(0);
+  width: 5px;
+  transition: transform .15s ease-in .05s;
+  transform-origin: center;
+}
 </style>

@@ -3,9 +3,15 @@ import VueRouter from 'vue-router'
 import index from '../views/index.vue'
 import Login from '../views/Login/index'
 import Register from '../views/Register/index'
-import Center from '../views/Center/index'
 import Show from '../views/Show/index'
 import Detail from '../views/Detail/index'
+import Center from '../views/Center/index'
+import Target from '../views/Center/Target/index'
+import UserDetail from '../views/Center/Detail/index'
+import Collection from '../views/Center/Collection/index'
+import Published from '../views/Center/Published/index'
+import Sale from '../views/Center/Sale/index'
+
 
 
 
@@ -43,7 +49,39 @@ const routes = [
   {
     path: '/center',
     name: 'Center',
-    component: Center
+    component: Center,
+    children: [
+      {
+        path: '/',
+        name: 'Target',
+        component: Target
+      },
+      {
+        path: 'target',
+        name: 'Target',
+        component: Target
+      },
+      {
+        path: 'userDetail',
+        name: 'UserDetail',
+        component: UserDetail
+      },
+      {
+        path: 'collection',
+        name: 'Collection',
+        component: Collection
+      },
+      {
+        path: 'published',
+        name: 'Published',
+        component: Published
+      },
+      {
+        path: 'sale',
+        name: 'Sale',
+        component: Sale
+      }
+    ]
   },
   {
     path: '/houseList',
@@ -58,7 +96,8 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  routes
+  routes,
+  mode: 'history'
 })
 
 export default router

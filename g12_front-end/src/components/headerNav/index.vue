@@ -48,7 +48,7 @@ export default {
 .home-header-nav{
   width: 100%;
   height: 60px;
-  z-index: 999;
+  z-index: 9999;
 }
 .block_nav{
   background: rgba(84, 92, 100, 0.5);

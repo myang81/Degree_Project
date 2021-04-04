@@ -266,11 +266,11 @@ const district = {
     Shunyi: 16
 };
 
-const property_information = {non_co_ownership: 0, co_ownership: 1};
+const propertyInfo= {non_co_ownership: 0, co_ownership: 1};//  '产权信息': {'非共有': 0, '共有': 1},
 
-const house_type_structure = {flat_floor: 0, duplex: 1, skip_floor: 2, staggered_floor: 3, no_data_yet: 4};
+const house_structure = {flat_floor: 0, duplex: 1, skip_floor: 2, staggered_floor: 3, no_data_yet: 4};//'户型结构': {'平层': 0, "复式": 1, '跃层': 2, '错层': 3,'暂无数据':4},
 
-const building_type = {Banlou: 0, "tower": 1, banta_combination: 2, bungalow: 3, No_data_yet: 4};
+const building_type = {Banlou: 0, "tower": 1, banta_combination: 2, bungalow: 3, No_data_yet: 4};// '建筑类型': {'板楼': 0, "塔楼": 1, '板塔结合': 2, '平房': 3, '暂无数据':4},
 
 const building_structure = {
     steel_concrete_structure: 0,
@@ -280,13 +280,13 @@ const building_structure = {
     steel_structure: 4,
     brick_wood_structure: 5,
     frame_structure: 6
-};
+};// '建筑结构': {'钢混结构': 0, "混合结构": 1, '砖混结构': 2, '未知结构': 3,'钢结构':4, '砖木结构': 5, '框架结构':6},
 
-const decoration = {hardcover: 0, simple_decoration: 1, others: 2, rough: 3};
+const decoration = {hardcover: 0, simple_decoration: 1, others: 2, rough: 3};//    '装修': {'精装': 0, "简装": 1, '其他': 2, '毛坯': 3},
 
-const heating = {central_heating: 0, self_heating: 1, no_data_yet: 2};
+const heating = {central_heating: 0, self_heating: 1, no_data_yet: 2};//    '供暖': {'集中供暖': 0, "自供暖": 1, '暂无数据': 2},
 
-const elevator = {yes: 0, no: 1, no_data: 2};
+const elevator = {yes: 0, no: 1, no_data: 2};//  '电梯': {'有': 0, "无": 1, '暂无数据': 2},
 
 const floor_type = {
     middle_floor: 0,
@@ -296,18 +296,29 @@ const floor_type = {
     bottom_floor: 4,
     basement: 5,
     unknown: 6
-};
+};// '楼层类型': {'中楼层 ': 0, "低楼层 ": 1, '高楼层 ': 2, '顶层 ': 3,'底层 ':4, '地下室 ': 5, '未知 ':6}
 
+const direction = {
+    east:0,
+    south:1,
+    west:2,
+    north:3,
+    southeast:4,
+    northeast:5,
+    southwest:6,
+    northwest:7,
+}
 
 export default {
     region,
     district,
-    property_information,
-    house_type_structure,
+    propertyInfo,
+    house_structure,
     building_type,
     building_structure,
     decoration,
     heating,
     elevator,
-    floor_type
+    floor_type,
+    direction
 }

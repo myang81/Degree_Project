@@ -8,31 +8,31 @@
                     <span slot="title">Profile</span>
                 </template>
                 <el-menu-item-group>
-                  <router-link to="userDetail">
+                  <router-link to="/center/userDetail">
                     <el-menu-item index="1-1">
                       <router-link to="detail">Detail</router-link>
                     </el-menu-item>
                   </router-link>
-                  <router-link to="target">
+                  <router-link to="/center/target">
                     <el-menu-item index="1-2">
                       Target
                     </el-menu-item>
                   </router-link>
                 </el-menu-item-group>
             </el-submenu>
-          <router-link to="collection">
+          <router-link to="/center/collection">
             <el-menu-item index="2">
                 <i class="el-icon-menu"></i>
                 <span slot="title">Collection</span>
             </el-menu-item>
           </router-link>
-          <router-link to="published">
+          <router-link to="/center/published">
           <el-menu-item index="3">
                 <i class="el-icon-menu"></i>
                 <span slot="title">Published</span>
             </el-menu-item>
           </router-link>
-          <router-link to="sale">
+          <router-link to="/center/sale">
           <el-menu-item index="4">
                 <i class="el-icon-menu"></i>
                 <span slot="title">Sale</span>
@@ -89,14 +89,14 @@
     }
     @keyframes sidebarOpen
     {
-        from {transform: rotate(180deg);margin-left: 150px;
+        from {transform: rotate(180deg);margin-left: 110px;
         }
         to {transform: rotate(0);margin-left: 15px;}
     }
     @keyframes sidebarClose
     {
         from {transform: rotate(0);margin-left: 15px;}
-        to {transform: rotate(-180deg);margin-left: 150px;}
+        to {transform: rotate(-180deg);margin-left: 110px;}
     }
     a{
       color: initial;
@@ -104,10 +104,13 @@
 </style>
 <style>
     .el-menu-vertical-demo:not(.el-menu--collapse) {
-        width: 200px;
+        width: 160px;
         min-height: 400px;
     }
     .el-menu-item.is-active a{
       color: #409EFF !important;
+    }
+    .el-submenu .el-menu-item {
+      min-width: auto!important;
     }
 </style>

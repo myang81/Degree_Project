@@ -47,10 +47,11 @@
                       <ul id="divcss4"><li><a href="#">[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture</a></li></ul>
                       <div class="bottom clearfix">
                       <el-dropdown>
-                      <el-button type="primary">
+                      <el-button type="primary" icon="el-icon-s-tools">
                         Option<i class="el-icon-arrow-down el-icon--right"></i>
                       </el-button>
                       <el-dropdown-menu slot="dropdown">
+<!--                        <el-button type="primary" icon="el-icon-search">搜索</el-button>-->
                         <el-dropdown-item>Detail</el-dropdown-item>
                         <el-dropdown-item v-on:click="deldiv">Delete</el-dropdown-item>
                       </el-dropdown-menu>
@@ -96,10 +97,11 @@
                       <ul id="divcss4"><li><a href="#">[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture</a></li></ul>
                       <div class="bottom clearfix">
                       <el-dropdown>
-                      <el-button type="primary">
+                      <el-button type="primary" icon="el-icon-s-tools">
                         Option<i class="el-icon-arrow-down el-icon--right"></i>
                       </el-button>
                       <el-dropdown-menu slot="dropdown">
+<!--                        <el-button type="primary" icon="el-icon-search">搜索</el-button>-->
                         <el-dropdown-item>Detail</el-dropdown-item>
                         <el-dropdown-item v-on:click="deldiv">Delete</el-dropdown-item>
                       </el-dropdown-menu>
@@ -146,10 +148,11 @@
                       <ul id="divcss4"><li><a href="#">[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture</a></li></ul>
                       <div class="bottom clearfix">
                       <el-dropdown>
-                      <el-button type="primary">
+                      <el-button type="primary" icon="el-icon-s-tools">
                         Option<i class="el-icon-arrow-down el-icon--right"></i>
                       </el-button>
                       <el-dropdown-menu slot="dropdown">
+<!--                        <el-button type="primary" icon="el-icon-search">搜索</el-button>-->
                         <el-dropdown-item>Detail</el-dropdown-item>
                         <el-dropdown-item v-on:click="deldiv">Delete</el-dropdown-item>
                       </el-dropdown-menu>
@@ -195,60 +198,11 @@
                       <ul id="divcss4"><li><a href="#">[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture</a></li></ul>
                       <div class="bottom clearfix">
                       <el-dropdown>
-                      <el-button type="primary">
+                      <el-button type="primary" icon="el-icon-s-tools">
                         Option<i class="el-icon-arrow-down el-icon--right"></i>
                       </el-button>
                       <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item>Detail</el-dropdown-item>
-                        <el-dropdown-item v-on:click="deldiv">Delete</el-dropdown-item>
-                      </el-dropdown-menu>
-                    </el-dropdown>
-
-                      </div>
-                      </div>
-                      </el-card>
-                          </div>
-                           </div>
-                         </el-col>
-
-
-
-                       <el-col :span="6" >
-                         <div>
-                       <div id="div2">
-                      <el-card :body-style="{ padding: '0px' }" >
-<!--                      <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">-->
-
-                        <div id="content2">
-                        <article class="post-152 post type-post status-publish format-standard hentry category-people category-photos">
-                        <div class="post-format-content">
-                        <div class="post-thumbnail">
-                          <img width="280" height="280" src="https://cdn.homedit.com/wp-content/uploads/2014/05/minimalist-interior-design.jpg" class="attachment-thumbnail wp-post-image" alt="105694702">
-                        </div>
-                        <div class="content-wrap">
-                        <h1 class="entry-title"><a href="" class="featured-image" title="amp; Fashion" rel="bookmark">
-                          <div>Seller：liangbj0405</div>
-                          <br>
-                          <div>Date：2020.1.1</div>
-                          <br>
-                          <div>Current price：200W</div>
-                        </a></h1>
-
-                        </div>
-
-
-                        </div>
-                        </article>
-                        </div>
-
-                      <div style="padding: 0px;">
-                      <ul id="divcss4"><li><a href="#">[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture</a></li></ul>
-                      <div class="bottom clearfix">
-                      <el-dropdown>
-                      <el-button type="primary">
-                        Option<i class="el-icon-arrow-down el-icon--right"></i>
-                      </el-button>
-                      <el-dropdown-menu slot="dropdown">
+<!--                        <el-button type="primary" icon="el-icon-search">搜索</el-button>-->
                         <el-dropdown-item>Detail</el-dropdown-item>
                         <el-dropdown-item v-on:click="deldiv">Delete</el-dropdown-item>
                       </el-dropdown-menu>
@@ -295,10 +249,11 @@
                       <ul id="divcss4"><li><a href="#">[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture</a></li></ul>
                       <div class="bottom clearfix">
                       <el-dropdown>
-                      <el-button type="primary">
+                      <el-button type="primary" icon="el-icon-s-tools">
                         Option<i class="el-icon-arrow-down el-icon--right"></i>
                       </el-button>
                       <el-dropdown-menu slot="dropdown">
+<!--                        <el-button type="primary" icon="el-icon-search">搜索</el-button>-->
                         <el-dropdown-item>Detail</el-dropdown-item>
                         <el-dropdown-item v-on:click="deldiv">Delete</el-dropdown-item>
                       </el-dropdown-menu>
@@ -345,10 +300,62 @@
                       <ul id="divcss4"><li><a href="#">[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture</a></li></ul>
                       <div class="bottom clearfix">
                       <el-dropdown>
-                      <el-button type="primary">
+                      <el-button type="primary" icon="el-icon-s-tools">
                         Option<i class="el-icon-arrow-down el-icon--right"></i>
                       </el-button>
                       <el-dropdown-menu slot="dropdown">
+<!--                        <el-button type="primary" icon="el-icon-search">搜索</el-button>-->
+                        <el-dropdown-item>Detail</el-dropdown-item>
+                        <el-dropdown-item v-on:click="deldiv">Delete</el-dropdown-item>
+                      </el-dropdown-menu>
+                    </el-dropdown>
+
+                      </div>
+                      </div>
+                      </el-card>
+                          </div>
+                           </div>
+                         </el-col>
+
+
+
+                       <el-col :span="6" >
+                         <div>
+                       <div id="div2">
+                      <el-card :body-style="{ padding: '0px' }" >
+<!--                      <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">-->
+
+                        <div id="content2">
+                        <article class="post-152 post type-post status-publish format-standard hentry category-people category-photos">
+                        <div class="post-format-content">
+                        <div class="post-thumbnail">
+                          <img width="280" height="280" src="https://cdn.homedit.com/wp-content/uploads/2014/05/minimalist-interior-design.jpg" class="attachment-thumbnail wp-post-image" alt="105694702">
+                        </div>
+                        <div class="content-wrap">
+                        <h1 class="entry-title"><a href="" class="featured-image" title="amp; Fashion" rel="bookmark">
+                          <div>Seller：liangbj0405</div>
+                          <br>
+                          <div>Date：2020.1.1</div>
+                          <br>
+                          <div>Current price：200W</div>
+                        </a></h1>
+
+                        </div>
+
+
+                        </div>
+                        </article>
+                        </div>
+
+                      <div style="padding: 0px;">
+                      <ul id="divcss4"><li><a href="#">[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture</a></li></ul>
+                      <div class="bottom clearfix">
+                      <el-dropdown>
+                      <el-button type="primary" icon="el-icon-s-tools">
+                        Option<i class="el-icon-arrow-down el-icon--right"></i>
+                      </el-button>
+                      <el-dropdown-menu slot="dropdown">
+<!--                        <el-button type="primary" icon="el-icon-search">搜索</el-button>-->
                         <el-dropdown-item>Detail</el-dropdown-item>
                         <el-dropdown-item v-on:click="deldiv">Delete</el-dropdown-item>
                       </el-dropdown-menu>

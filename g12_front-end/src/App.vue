@@ -16,6 +16,7 @@
   text-align: center;
   color: #2c3e50;
     overflow-x: hidden;
+  height: 100vh;
 }
 
 #nav {
@@ -37,4 +38,7 @@
     p{
         margin: 0;
     }
+a:hover {
+  text-decoration: blink!important;
+}
 </style>

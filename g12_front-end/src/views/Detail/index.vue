@@ -11,7 +11,6 @@
     import icon from 'leaflet/dist/images/marker-icon.png';
     import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
-
     export default {
         name: "detail",
         data() {

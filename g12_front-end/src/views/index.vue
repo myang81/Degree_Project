@@ -6,10 +6,11 @@
                 <P class="p-header-content">Find your house</P>
                 <el-input
                     placeholder="Please input the house name, location, house type and other characteristics"
-                    suffix-icon="el-icon-search"
+                    suffix-icon=""
                     v-model="searchValue"
                     class="input_search"
                 >
+                  <el-button slot="append" icon="el-icon-search" size="small" @click="handleSearch"></el-button>
                 </el-input>
             </div>
         </div>
@@ -79,7 +80,12 @@ import HeaderNav from '@/components/headerNav/index.vue'
                     this.animationTime=this.animationTime%15
                 }
             },1000)
+        },
+      methods:{
+        handleSearch(){
+          this.$router.push({name:'houseList', params: { q: this.searchValue }})
         }
+      }
     }
 </script>
 
@@ -278,5 +284,8 @@ import HeaderNav from '@/components/headerNav/index.vue'
     }
     .input_search input{
         background-color: rgba(255,255,255,0.9);
+    }
+    .input_search .el-input-group__append, .el-input-group__prepend {
+      background-color: rgba(255,255,255,0.9);
     }
 </style>

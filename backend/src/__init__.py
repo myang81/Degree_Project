@@ -64,6 +64,7 @@ def register_shell_context(app):
     def make_shell_context():
         return dict(db=db,User=User,Pet=Pet,Message=Message)
 
+#Customized Commands
 def register_commands(app):
     @app.cli.command()
     def initdb():

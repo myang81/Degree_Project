@@ -11,7 +11,6 @@ import VCalendar from 'v-calendar';
 import store from './store'
 
 Vue.config.productionTip = false;
-
 Vue.use(ElementUI);
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);

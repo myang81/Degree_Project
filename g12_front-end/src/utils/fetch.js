@@ -1,12 +1,13 @@
 import axios from 'axios'
 import { MessageBox,Message } from 'element-ui'
 import store from '../store'
+import Vue from "vue/types/vue";
 
-axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
+axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8';
 // 创建axios实例
 const service = axios.create({
     // axios中请求配置有baseURL选项，表示请求URL公共部分
-    baseURL: 'https://127.0.0.1/',
+    // '/api:': 'http://127.0.0.1:5000/',
     // 超时
     timeout: 10000,
 });
@@ -96,6 +97,8 @@ service.interceptors.response.use(res => {
         return Promise.reject(error)
     }
 )
+axios.defaults.baseURL = '/api'
+
 export default service
 
 

@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import {testAxios} from '@/utils/api'
+import {getExample} from '@/utils/api'
 import HeaderNav from '@/components/headerNav/index.vue'
 
     export default {
@@ -88,7 +88,7 @@ import HeaderNav from '@/components/headerNav/index.vue'
           this.$router.push({name:'houseList', params: { q: this.searchValue }})
         },
           getTestData(){
-              testAxios().then(res=>{
+              getExample().then(res=>{
                 console.log('调用接口成功',res)
             })
           }

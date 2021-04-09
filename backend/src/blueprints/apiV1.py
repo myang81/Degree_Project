@@ -1,10 +1,16 @@
-from flask import Blueprint, render_template, session, flash, redirect,request,url_for
+from flask import Blueprint
+from  src.extension import db
 
 apiv1=Blueprint('api',__name__)
 
 @apiv1.route("/apiV1/home", methods=['GET', 'POST'])
 def hello():
     return "hello"
+
+#
+# @apiv1.route("/apiV1/home",methods=['GET','POST'])
+# def dbTest():
+
 
 
 

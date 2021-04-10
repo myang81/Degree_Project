@@ -1,6 +1,6 @@
 <template>
   <div style="display: flex;height: 100%;flex-direction: column">
-    <P class="center-title">Title and Money</P>
+    <P class="center-title">Title and Price</P>
     <el-row style="height: 100%" :gutter=20>
       <el-col :span=24>
         <div class="form-block">

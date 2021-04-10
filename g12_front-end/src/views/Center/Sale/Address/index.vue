@@ -1394,7 +1394,7 @@ name: "address",
       function onMapClick(e) {
         popup.setLatLng(e.latlng).setContent("You choose the coordinate of your house at " + e.latlng.toString()).openOn(map);
         _this.form.lng=e.latlng.lng;
-        _this.form.lat=e.latlng.lat;
+        _this.form.lat =e.latlng.lat;
       }
       map.on('click', onMapClick);
     },

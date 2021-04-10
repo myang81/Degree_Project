@@ -1,12 +1,8 @@
 import jwt
 from src.extension import db
 from time import time
-from src.Models.Pets import Pet
-from src.Models.Reservations import Reservation
 from flask import current_app
 from datetime import datetime
-from src.Models.Role import Role
-from src.Models.Role import Permission
 from flask_avatars import Identicon
 
 

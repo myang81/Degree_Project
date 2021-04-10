@@ -1,19 +1,22 @@
 from flask_cors import CORS
 import os
-
+from src.blueprints.collection import collection
 from src.blueprints.apiV1 import apiv1
 from src.blueprints.apiV2 import apiv2
+from src.blueprints.login import login
+from src.blueprints.register import register
+from src.blueprints.list import list
 from src.setting import config
 from flask import Flask,render_template,Blueprint
 from src.Models.Users import User
-from src.Models.Users import Role
 from src.Models.Messages import Message
-from src.Models.Pets import Pet
 from src.extension import avatars
 from src.extension import mail,db,moment,bootstrap,migrate,dropzone
 from src.extension import socketio
 import click
 
+
+# 构建FLask APP 导入设置，允许跨域
 def create_app(config_name=None):
     if config_name is None:
         config_name=os.getenv('FLASK_CONFIG','development')
@@ -32,12 +35,13 @@ def create_app(config_name=None):
     register_commands(app)
     return app
 
+
+# 绑定蓝图
 def register_blueprint(app):
-    # app.register_blueprint(blueprint=auth)
-    # app.register_blueprint(blueprint=reservation)
-    # app.register_blueprint(blueprint=main)
-    # app.register_blueprint(blueprint=admin)
-    # app.register_blueprint(blueprint=chatroom)
+    app.register_blueprint(blueprint=register)
+    app.register_blueprint(blueprint=collection)
+    app.register_blueprint(blueprint=list)
+    app.register_blueprint(blueprint=login)
     app.register_blueprint(blueprint=apiv2)
     app.register_blueprint(blueprint=apiv1)
 
@@ -49,6 +53,8 @@ def register_error(app):
 def register_logging(app):
     pass
 
+
+# 注册flask拓展
 def register_externsion(app):
     mail.init_app(app)
     moment.init_app(app)
@@ -58,6 +64,8 @@ def register_externsion(app):
     dropzone.init_app(app)
     avatars.init_app(app)
     socketio.init_app(app)
+
+
 
 def register_shell_context(app):
     @app.shell_context_processor
@@ -77,12 +85,7 @@ def register_commands(app):
         db.drop_all()
         click.echo('Initialized database')
 
-    @app.cli.command()
-    def init():
-        """initialize the program"""
-        click.echo('Initializaing the roles and permissions...')
-        Role.init_role()
-        click.echo('Done.')
+
 
 
 app=create_app(None)

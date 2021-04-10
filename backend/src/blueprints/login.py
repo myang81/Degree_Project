@@ -1,15 +1,15 @@
 from flask import Blueprint, render_template, session, flash, redirect,request,url_for
+from src.extension import db
 
-apiv2=Blueprint('api2',__name__)
-
-@apiv2.route("/apiV2/home", methods=['GET', 'POST'])
-def hello():
-    return "hello"
+login=Blueprint('login',__name__)
+#1. 登录页接口
 
 
 #login in
-@apiv2.route("/login", methods=['GET', 'POST'])
-def login():
+@login.route("/login", methods=['GET', 'POST'])
+def loginPage():
+    #connect to the database
+    #db.session
     username="username" #add database then
     password="password" #add database then
     return {
@@ -20,5 +20,4 @@ def login():
         },
         "error":None
     }
-
 

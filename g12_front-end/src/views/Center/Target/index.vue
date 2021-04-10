@@ -2,7 +2,7 @@
   <div>
     <P class="center-title">Expected house type</P>
     <el-form ref="form" :model="form" label-width="80px">
-      <el-form-item label="price">
+      <el-form-item label="price" prop="price">
         <el-checkbox-group v-model="form.type">
           <el-col :span="8">
             <el-checkbox label="Less than 2 million" name="type"></el-checkbox>
@@ -25,7 +25,7 @@
         </el-checkbox-group>
       </el-form-item>
       <el-divider></el-divider>
-      <el-form-item label="layout">
+      <el-form-item label="layout" prop="layout">
         <el-checkbox-group v-model="form.type">
           <el-col :span="8">
             <el-checkbox label="One room" name="type"></el-checkbox>
@@ -45,7 +45,7 @@
         </el-checkbox-group>
       </el-form-item>
       <el-divider></el-divider>
-      <el-form-item label="measure">
+      <el-form-item label="measure" prop="measure">
         <el-checkbox-group v-model="form.type">
           <el-col :span="8">
             <el-checkbox label="Less than 50 square meters" name="type"></el-checkbox>
@@ -68,7 +68,7 @@
         </el-checkbox-group>
       </el-form-item>
       <el-divider></el-divider>
-      <el-form-item label="orientation">
+      <el-form-item label="orientation" prop="orientation">
         <el-checkbox-group v-model="form.type">
           <el-col :span="8">
             <el-checkbox label="North South orientation" name="type"></el-checkbox>
@@ -78,7 +78,7 @@
           </el-col>
         </el-checkbox-group>
       </el-form-item>
-      <el-form-item label="floor">
+      <el-form-item label="floor" prop="floor">
         <el-checkbox-group v-model="form.type">
           <el-col :span="8">
             <el-checkbox label="bottom" name="type"></el-checkbox>
@@ -98,7 +98,7 @@
         </el-checkbox-group>
       </el-form-item>
       <el-divider></el-divider>
-      <el-form-item label="decoration">
+      <el-form-item label="decoration" prop="decoration">
         <el-checkbox-group v-model="form.type">
           <el-col :span="8">
             <el-checkbox label="None" name="type"></el-checkbox>
@@ -141,7 +141,34 @@ export default {
         delivery: false,
         type: [],
         resource: '',
-        desc: ''
+        desc: '',
+        price: undefined,
+        layout: undefined,
+        measure: undefined,
+        orientation: undefined,
+        floor: undefined,
+        decoration: undefined,
+
+      },
+      rules:{
+        price: [
+            { type: 'array', required: true, message: 'at least choose one', trigger: 'blur' }
+          ],
+         layout: [
+            { type: 'array', required: true, message: 'at least choose one', trigger: 'change' }
+          ],
+         measure: [
+            { type: 'array', required: true, message: 'at least choose one', trigger: 'change' }
+          ],
+         orientation: [
+            { type: 'array', required: true, message: 'at least choose one', trigger: 'change' }
+          ],
+         floor: [
+            { type: 'array', required: true, message: 'at least choose one', trigger: 'change' }
+          ],
+         decoration: [
+            { type: 'array', required: true, message: 'at least choose one', trigger: 'change' }
+          ],
       },
       navContent:[{name:'Renting',router:''},{name:'Purchase',router:'/'},{name:'Purchase',router:'/'},{name:'Publishing',router:'/'}]
     }

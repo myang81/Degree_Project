@@ -2,7 +2,7 @@
   <div class="home-header-nav">
     <div class="block_nav">
       <b-navbar toggleable="lg" type="dark">
-        <b-navbar-brand href="#">IDM</b-navbar-brand>
+        <b-navbar-brand to="/">IDM</b-navbar-brand>
         <b-navbar-toggle target="nav-collapse">
 
         </b-navbar-toggle>
@@ -47,11 +47,12 @@ export default {
 <style scoped>
 .home-header-nav{
   width: 100%;
-  height: 60px;
+  /*height: 60px;*/
   z-index: 9999;
 }
 .block_nav{
   background: rgba(84, 92, 100, 0.5);
+  z-index: 9999;
 }
 .search-block{
   padding-left: 2%;

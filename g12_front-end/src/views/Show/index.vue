@@ -180,6 +180,10 @@
                 <el-button type="primary" @click="onSubmit" size="medium">S a v e</el-button>
                 &lt;!&ndash;                        <el-button>取消</el-button>&ndash;&gt;
             </el-form-item>-->
+            <div class="choice-card-bottom">
+              <span class="cancel" @click="handleHideChoice">Cancel</span>
+              <span class="confirm" @click="handleHideChoice">Confirm</span>
+            </div>
           </el-form>
         </el-card>
 
@@ -196,10 +200,11 @@
           </el-tabs>
         </div>-->
         <div class="list-container">
-          <div class="list-block" v-for="(item,index) in houseList" :key="index">
+          <p style="font-size: 2em;padding: 20px 0 10px 20px;font-weight: bold;text-align: left">We find more than 100 houses for you:</p>
+          <el-card class="list-block" v-for="(item,index) in houseList" :key="index" shadow="hover" >
             <el-row class="house-item">
-              <el-col span="8">
-                <el-image class="item-img" :src=item.img></el-image>
+              <el-col span="8" style="height: 100%;">
+                <el-image class="item-img" :src=item.img fit="cover"></el-image>
               </el-col>
               <el-col span="12">
                 <div class="item-text">
@@ -213,7 +218,7 @@
                 <div class="item-price">3.5 <span style="color: red">million</span></div>
               </el-col>
             </el-row>
-          </div>
+          </el-card>
         </div>
         <div id="map" :class="[ mapShow ? 'map_show' : 'map_hide' ]"></div>
       </div>
@@ -465,6 +470,8 @@ export default {
   margin: 0 auto;
   height: calc(100vh - 140px);
   display: flex;
+  -webkit-box-shadow:  0 -10px 10px rgba(0,0,0,0.2);
+  box-shadow:  0 -10px 10px rgba(0,0,0,0.2);
 }
 .list-container::-webkit-scrollbar {
   /*滚动条整体样式*/
@@ -500,7 +507,7 @@ export default {
 }
 .house-item {
   padding: 20px;
-  border-bottom: 2px solid black;
+  /*border-bottom: 2px solid black;*/
   height: 260px;
 }
 
@@ -522,6 +529,9 @@ export default {
   overflow: hidden;
   text-overflow:ellipsis;
   white-space: nowrap;
+}
+.house-item .item-img{
+  height: 100%;
 }
 .house-item .item-details{
 
@@ -555,14 +565,14 @@ export default {
   z-index: 999999;
 }
 
-.choice-card .confirm {
+.choice-card-bottom .confirm {
   float: right;
   color: #008489;
   font-weight: bold;
   cursor: pointer;
 }
 
-.choice-card .cancel {
+.choice-card-bottom .cancel {
   float: left;
   font-weight: bold;
   cursor: pointer;
@@ -611,7 +621,7 @@ export default {
     border-bottom: solid 1px rgba(0,0,0,0.1);
   }
   100% {
-    height: 200px;
+    height: 220px;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0 , 0.1);
     border: 1px solid #EBEEF5;
     border-bottom: solid 1px rgba(0,0,0,0.1);
@@ -620,7 +630,7 @@ export default {
 
 @keyframes hideMore {
   0% {
-    height: 200px;
+    height: 220px;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0  ,0.1);
     border: 1px solid #EBEEF5;
     border-bottom: solid 1px rgba(0,0,0,0.1);
@@ -632,6 +642,12 @@ export default {
     border-bottom: solid 1px rgba(0,0,0,0.1);
   }
 }
+.list-block{
+  margin: 10px;
+}
+  #map{
+    z-index: 1;
+  }
 </style>
 <style>
 .check-block .el-form-item {

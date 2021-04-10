@@ -54,7 +54,6 @@
 </template>
 
 <script>
-import {getExample} from '@/utils/api'
 import HeaderNav from '@/components/headerNav/index.vue'
 
     export default {
@@ -70,28 +69,16 @@ import HeaderNav from '@/components/headerNav/index.vue'
               searchValue: "",
               activeIndex:0,
               recommendationList:[{name:"house1",image:"../assets/home_header_bg.jpg"},{name:"house1",image:"../assets/home_header_bg.jpg"},{name:"house1",image:"../assets/home_header_bg.jpg"},{name:"house1",image:"../assets/home_header_bg.jpg"}],
-              // animationTime:0,
               navContent:[{name:'Login',router:'/login'},{name:'Register',router:'/register'}]
             }
         },
         created() {
-            // setInterval(()=>{
-            //     this.animationTime++;
-            //     if(this.animationTime>15){
-            //         this.animationTime=this.animationTime%15
-            //     }
-            // },1000)
             this.getTestData()
         },
       methods:{
         handleSearch(){
           this.$router.push({name:'houseList', params: { q: this.searchValue }})
         },
-          getTestData(){
-              getExample().then(res=>{
-                console.log('调用接口成功',res)
-            })
-          }
       }
     }
 </script>

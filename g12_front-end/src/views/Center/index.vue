@@ -1,7 +1,7 @@
 <template>
     <div>
       <HeaderNav :navContent="navContent"></HeaderNav>
-        <div>
+        <div style="position: relative">
             <Sidebar></Sidebar>
             <div class="center-main">
               <router-view></router-view>

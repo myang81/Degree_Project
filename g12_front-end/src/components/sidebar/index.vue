@@ -2,7 +2,7 @@
     <div class="sidebar-basic">
         <div class="sidebar-icon" :class="{'sidebarOpen':isCollapse,'sidebarClose':!isCollapse}" @click="handleSwitch"></div>
         <el-menu default-active="1-2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
-            <el-submenu index="1">
+           <!-- <el-submenu index="1">
                 <template slot="title">
                     <i class="el-icon-user-solid"></i>
                     <span slot="title">Profile</span>
@@ -19,7 +19,13 @@
                     </el-menu-item>
                   </router-link>
                 </el-menu-item-group>
-            </el-submenu>
+            </el-submenu>-->
+            <router-link to="/center/target">
+                <el-menu-item index="1">
+                    <i class="el-icon-user-solid"></i>
+                    <span slot="title">Profile</span>
+                </el-menu-item>
+            </router-link>
           <router-link to="/center/collection">
             <el-menu-item index="2">
                 <i class="el-icon-star-on"></i>
@@ -67,7 +73,7 @@
 <style scoped>
     .sidebar-basic{
         height: 100%;
-        position: fixed;
+        position: absolute;
         left: 0;
         top: 0;
         background-color: white;

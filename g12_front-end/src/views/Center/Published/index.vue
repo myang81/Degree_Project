@@ -1,6 +1,6 @@
 <template>
   <div>
-                <P class="center-title" type="danger" icon="el-icon-delete">Your collection</P>
+                <P class="center-title" type="danger" icon="el-icon-delete">Your Published</P>
                 <el-form ref="form" :model="form" label-width="80px">
 
 

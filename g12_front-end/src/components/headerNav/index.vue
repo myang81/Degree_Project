@@ -34,7 +34,8 @@ export default {
   name: "index",
   props: {
     navContent: Array,
-    showSearch: {type: Boolean, default: false}
+    showSearch: {type: Boolean, default: false},
+    searchValue: {type: String, default: ''}
   },
   data() {
     return {

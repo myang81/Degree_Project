@@ -7,41 +7,43 @@
           <el-form label-position="right" label-width="80px" :model="form">
             <el-row>
               <el-form-item label="decoration">
-                <el-checkbox-group v-model="form.decoration">
+                <el-radio-group v-model="form.decoration" style="line-height: 50px;width: 100%">
                   <el-col :span=6 v-for="(value,key) in global.decoration" :key="value">
-                    <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
+                    <el-radio :label="key" name="type" :value="value"></el-radio>
                   </el-col>
-                </el-checkbox-group>
+                </el-radio-group>
               </el-form-item>
             </el-row>
             <el-row>
               <el-form-item label="heating">
-                <el-checkbox-group v-model="form.heating">
+                <el-radio-group v-model="form.heating" style="line-height: 50px;width: 100%">
                   <el-col :span=6 v-for="(value,key) in global.heating" :key="value">
-                    <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
+                    <el-radio :label="key" name="type" :value="value"></el-radio>
                   </el-col>
-                </el-checkbox-group>
+                </el-radio-group>
               </el-form-item>
             </el-row>
             <el-row>
               <el-form-item label="elevator">
-                <el-checkbox-group v-model="form.elevator">
+                <el-radio-group v-model="form.elevator" style="line-height: 50px;width: 100%">
                   <el-col :span=6 v-for="(value,key) in global.elevator" :key="value">
-                    <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
+                    <el-radio :label="key" name="type" :value="value"></el-radio>
                   </el-col>
-                </el-checkbox-group>
+                </el-radio-group>
               </el-form-item>
             </el-row>
             <el-row>
               <el-form-item label="rate">
                 <el-row :gutter=30>
                   <el-col :span=11>
-                    <el-input-number v-model="form.elevatorNum"></el-input-number>
-                    <span>elevator</span>
+<!--                    <el-input-number v-model="form.elevatorNum"></el-input-number>-->
+                    <b-form-input type="number" v-model="form.elevatorNum" class="sale-form_numberInput"></b-form-input><span style="padding-left: 20px">elevators</span>
+<!--                    <span>elevator</span>-->
                   </el-col>
                   <el-col :span=11  >
-                    <el-input-number v-model="form.houseNum"></el-input-number>
-                    <span>house</span>
+<!--                    <el-input-number v-model="form.houseNum"></el-input-number>-->
+                    <b-form-input type="number" v-model="form.houseNum" class="sale-form_numberInput"></b-form-input><span style="padding-left: 20px">houses</span>
+<!--                    <span>house</span>-->
                   </el-col>
                 </el-row>
 
@@ -69,9 +71,11 @@ export default {
   data() {
     return {
       form: {
-        decoration: [],
-        heating: [],
-        elevator: []
+        decoration: undefined,
+        heating: undefined,
+        elevator: undefined,
+        elevatorNum:undefined,
+        houseNum:undefined
       },
       global: global,
     }

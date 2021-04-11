@@ -11,14 +11,14 @@
               </el-form-item>
             </el-row>
             <el-row>
-              <el-col :span="12">
-                <el-form-item label="unit-price">
-                  <el-input v-model="form.unitPrice"></el-input>
+              <el-col :span="24">
+                <el-form-item label="unit-price" style="text-align: left">
+                  <el-input v-model="form.unitPrice" style="max-width: 200px" v-b-tooltip.hover title="The house price is predicted by the system algorithm, and the error is about 8000￥/m2"></el-input><span style="padding-left: 10px">￥/m2</span>
                 </el-form-item>
               </el-col>
-              <el-col :span="12">
-                <el-form-item label="total-price">
-                  <el-input v-model="form.totalPrice"></el-input>
+              <el-col :span="24">
+                <el-form-item label="total-price" style="text-align: left">
+                  <el-input v-model="form.totalPrice" style="max-width: 200px"></el-input><span style="padding-left: 10px">￥</span>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -54,9 +54,9 @@ name: "index",
   data() {
     return {
       form: {
-        decoration: [],
-        heating: [],
-        elevator: []
+        title: '',
+        unitPrice: '58957.51',
+        totalPrice: '4447164.97'
       },
       global: global,
     }
@@ -116,4 +116,9 @@ name: "index",
   from {left:-100%;}
   to {left: 0}
 }
+</style>
+<style>
+  .tooltip-inner{
+    max-width: 300px!important;
+  }
 </style>

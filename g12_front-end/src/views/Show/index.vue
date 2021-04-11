@@ -1,6 +1,6 @@
 <template>
   <div>
-    <HeaderNav :navContent="navContent" show-search="true"></HeaderNav>
+    <HeaderNav :navContent="navContent" show-search="true" :searchValue="searchValue"></HeaderNav>
     <div  style="padding: 0 10px">
       <div class="head-content">
         <div class="choice-button-group">
@@ -204,18 +204,18 @@
           <el-card class="list-block" v-for="(item,index) in houseList" :key="index" shadow="hover" >
             <el-row class="house-item">
               <el-col span="8" style="height: 100%;">
-                <el-image class="item-img" :src=item.img fit="cover"></el-image>
+                <el-image class="item-img" :src=item.imgUrl fit="cover"></el-image>
               </el-col>
               <el-col span="12">
                 <div class="item-text">
-                  <div class="item-name">{{ item.name }}</div>
-                  <div class="item-pos item-little"><i class="el-icon-position"> </i>{{ item.pos }}</div>
-                  <div class="item-details item-little"><i class="el-icon-s-home"> </i>{{ item.detail }}</div>
-                  <div class="item-collection item-little"><i class="el-icon-star-off"> </i>{{ item.collection }}</div>
+                  <div class="item-name">{{ item.title }}</div>
+                  <div class="item-pos item-little"><i class="el-icon-position"> </i>{{ item.position }}</div>
+                  <div class="item-details item-little"><i class="el-icon-s-home"> </i>{{ item.describe }}</div>
+<!--                  <div class="item-collection item-little"><i class="el-icon-star-off"> </i>{{ item.collection }}</div>-->
                 </div>
               </el-col>
               <el-col span="4" style="height: 100%">
-                <div class="item-price">3.5 <span style="color: red">million</span></div>
+                <div class="item-price">{{item.totalPrice}}<span style="color: red;padding-left: 5px">million</span></div>
               </el-col>
             </el-row>
           </el-card>
@@ -232,6 +232,8 @@ import HeaderNav from '@/components/headerNav/index.vue'
 import * as L from 'leaflet'
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+import {getHouseList} from '@/utils/api'
+
 
 export default {
   name: "index",
@@ -242,6 +244,7 @@ export default {
     return {
       map:undefined,
       mapShow:true,
+      searchValue:undefined,
       recommendationList: [{name: "house1", image: "../assets/home_header_bg.jpg"}, {
         name: "house1",
         image: "../assets/home_header_bg.jpg"
@@ -273,72 +276,13 @@ export default {
         desc: ''
       },
       activeName: 'first',
-      houseList: [{
-        'name': 'Xin\'anli fine decoration one bedroom owners sincerely sell',
-        'pos': 'XINANLI Zaoyuan',
-        'detail': '1 room 2 halls | 51.56 square meters | North South | hardcover | top floor (6 floors in total) | built in 1997 | slab building',
-        'collection': 139,
-        'img': 'https://ns-strategy.cdn.bcebos.com/ns-strategy/upload/fc_big_pic/part-00277-440.jpg'
-      }, {
-        'name': 'Xin\'anli fine decoration one bedroom owners sincerely sell',
-        'pos': 'XINANLI Zaoyuan',
-        'detail': '1 room 2 halls | 51.56 square meters | North South | hardcover | top floor (6 floors in total) | built in 1997 | slab building',
-        'collection': 139,
-        'img': 'https://ns-strategy.cdn.bcebos.com/ns-strategy/upload/fc_big_pic/part-00277-440.jpg'
-      }, {
-        'name': 'Xin\'anli fine decoration one bedroom owners sincerely sell',
-        'pos': 'XINANLI Zaoyuan',
-        'detail': '1 room 2 halls | 51.56 square meters | North South | hardcover | top floor (6 floors in total) | built in 1997 | slab building',
-        'collection': 139,
-        'img': 'https://ns-strategy.cdn.bcebos.com/ns-strategy/upload/fc_big_pic/part-00277-440.jpg'
-      }, {
-        'name': 'Xin\'anli fine decoration one bedroom owners sincerely sell',
-        'pos': 'XINANLI Zaoyuan',
-        'detail': '1 room 2 halls | 51.56 square meters | North South | hardcover | top floor (6 floors in total) | built in 1997 | slab building',
-        'collection': 139,
-        'img': 'https://ns-strategy.cdn.bcebos.com/ns-strategy/upload/fc_big_pic/part-00277-440.jpg'
-      }, {
-        'name': 'Xin\'anli fine decoration one bedroom owners sincerely sell',
-        'pos': 'XINANLI Zaoyuan',
-        'detail': '1 room 2 halls | 51.56 square meters | North South | hardcover | top floor (6 floors in total) | built in 1997 | slab building',
-        'collection': 139,
-        'img': 'https://ns-strategy.cdn.bcebos.com/ns-strategy/upload/fc_big_pic/part-00277-440.jpg'
-      }, {
-        'name': 'Xin\'anli fine decoration one bedroom owners sincerely sell',
-        'pos': 'XINANLI Zaoyuan',
-        'detail': '1 room 2 halls | 51.56 square meters | North South | hardcover | top floor (6 floors in total) | built in 1997 | slab building',
-        'collection': 139,
-        'img': 'https://ns-strategy.cdn.bcebos.com/ns-strategy/upload/fc_big_pic/part-00277-440.jpg'
-      }, {
-        'name': 'Xin\'anli fine decoration one bedroom owners sincerely sell',
-        'pos': 'XINANLI Zaoyuan',
-        'detail': '1 room 2 halls | 51.56 square meters | North South | hardcover | top floor (6 floors in total) | built in 1997 | slab building',
-        'collection': 139,
-        'img': 'https://ns-strategy.cdn.bcebos.com/ns-strategy/upload/fc_big_pic/part-00277-440.jpg'
-      }, {
-        'name': 'Xin\'anli fine decoration one bedroom owners sincerely sell',
-        'pos': 'XINANLI Zaoyuan',
-        'detail': '1 room 2 halls | 51.56 square meters | North South | hardcover | top floor (6 floors in total) | built in 1997 | slab building',
-        'collection': 139,
-        'img': 'https://ns-strategy.cdn.bcebos.com/ns-strategy/upload/fc_big_pic/part-00277-440.jpg'
-      }, {
-        'name': 'Xin\'anli fine decoration one bedroom owners sincerely sell',
-        'pos': 'XINANLI Zaoyuan',
-        'detail': '1 room 2 halls | 51.56 square meters | North South | hardcover | top floor (6 floors in total) | built in 1997 | slab building',
-        'collection': 139,
-        'img': 'https://ns-strategy.cdn.bcebos.com/ns-strategy/upload/fc_big_pic/part-00277-440.jpg'
-      }, {
-        'name': 'Xin\'anli fine decoration one bedroom owners sincerely sell',
-        'pos': 'XINANLI Zaoyuan',
-        'detail': '1 room 2 halls | 51.56 square meters | North South | hardcover | top floor (6 floors in total) | built in 1997 | slab building',
-        'collection': 139,
-        'img': 'https://ns-strategy.cdn.bcebos.com/ns-strategy/upload/fc_big_pic/part-00277-440.jpg'
-      }],
-      navContent: [{name: 'Renting', router: ''}, {name: 'Purchase', router: '/'}, {
-        name: 'Purchase',
-        router: '/'
-      }, {name: 'Publishing', router: '/'}]
+      houseList: [],
+      navContent: [{name: 'Center', router: '/center'}, {name: 'Collection', router: '/center/collection'}, {name: 'Start to Sale', router: '/center/sale'}]
     }
+  },
+  created(){
+    this.getList()
+    if(this.$route.params.searchValue) this.searchValue=this.$route.params.searchValue
   },
   mounted() {
     this.initMap()
@@ -411,7 +355,15 @@ export default {
       setTimeout(()=>{
         this.map.invalidateSize(true)
       }, 400)
-    }
+    },
+    getList(){
+      getHouseList(this.form).then(res=>{
+        console.log(res);
+        if(res.data.success){
+          this.houseList=res.data.data.houseList
+        }
+      })
+    },
   }
 }
 </script>

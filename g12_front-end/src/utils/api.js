@@ -30,12 +30,19 @@ export function login(params){
         params
     })
 }
-
+export function getHouseList(params){
+    return axios({
+        url:'/getHouseList',
+        method:'get',
+        params
+    })
+}
 
 
 export default {
     getExample,
     postExample,
     apiV1,
-    login
+    login,
+    getHouseList
 }

@@ -1,6 +1,6 @@
 <template>
     <div class="sidebar-basic">
-        <div class="sidebar-icon" :class="{'sidebarOpen':isCollapse,'sidebarClose':!isCollapse}" @click="handleSwitch"></div>
+        <div class="sidebar-icon" :class="{'sidebarOpen':isCollapse&&!isFirst,'sidebarClose':!isCollapse&&!isFirst}" @click="handleSwitch"></div>
         <el-menu default-active="1-2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
            <!-- <el-submenu index="1">
                 <template slot="title">
@@ -53,7 +53,8 @@
         name: "index",
         data() {
             return {
-                isCollapse: true
+                isCollapse: true,
+                isFirst:true,
             };
         },
         methods: {
@@ -65,6 +66,7 @@
             },
             handleSwitch(){
                 this.isCollapse=!this.isCollapse
+                if(this.isFirst) this.isFirst=false
             }
         }
     }

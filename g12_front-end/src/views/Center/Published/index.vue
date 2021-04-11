@@ -1,11 +1,6 @@
 <template>
   <div>
-    <div>
-        <HeaderNav></HeaderNav>
-        <div>
-            <Sidebar></Sidebar>
-            <div class="center-main">
-                <P class="center-title" type="danger" icon="el-icon-delete">Your collection</P>
+                <P class="center-title" type="danger" icon="el-icon-delete">Your Published</P>
                 <el-form ref="form" :model="form" label-width="80px">
 
 
@@ -15,13 +10,13 @@
 
 
 <!--111-->
-                       <el-col :span="6" >
+                       <el-col :span="5" >
                          <div>
-                       <div id="div2">
+                       <div class="div2">
                       <el-card :body-style="{ padding: '0px' }" >
 <!--                      <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">-->
 
-                        <div id="content2">
+                        <div>
                         <article class="post-152 post type-post status-publish format-standard hentry category-people category-photos">
                         <div class="post-format-content">
                         <div class="post-thumbnail">
@@ -44,11 +39,15 @@
                         </div>
 
                       <div style="padding: 0px;">
-                      <ul id="divcss4"><li><a href="#">[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture</a></li></ul>
+                      <ul class="divcss4"><li><a href="#">[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture</a></li></ul>
                       <div class="bottom clearfix">
+
+                        <el-row>
+                          <el-col :span="16"><ul class="divcss6"><li><time class="time">{{ currentDate }}</time></li></ul></el-col>
+                         <el-col :span="8">
                       <el-dropdown>
-                      <el-button type="primary" icon="el-icon-s-tools">
-                        Option<i class="el-icon-arrow-down el-icon--right"></i>
+                      <el-button size="mini" type="primary" icon="el-icon-s-tools">
+                       <i class="el-icon-arrow-down el-icon--right"></i>
                       </el-button>
                       <el-dropdown-menu slot="dropdown">
 <!--                        <el-button type="primary" icon="el-icon-search">搜索</el-button>-->
@@ -56,7 +55,8 @@
                         <el-dropdown-item v-on:click="deldiv">Delete</el-dropdown-item>
                       </el-dropdown-menu>
                     </el-dropdown>
-
+                           </el-col>
+                      </el-row>
                       </div>
                       </div>
                       </el-card>
@@ -65,13 +65,13 @@
                          </el-col>
 
 <!--                       222-->
-                     <el-col :span="6" >
+                     <el-col :span="5" >
                          <div>
-                       <div id="div2">
+                       <div class="div2">
                       <el-card :body-style="{ padding: '0px' }" >
 <!--                      <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">-->
 
-                        <div id="content2">
+                        <div>
                         <article class="post-152 post type-post status-publish format-standard hentry category-people category-photos">
                         <div class="post-format-content">
                         <div class="post-thumbnail">
@@ -94,11 +94,15 @@
                         </div>
 
                       <div style="padding: 0px;">
-                      <ul id="divcss4"><li><a href="#">[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture</a></li></ul>
+                      <ul class="divcss4"><li><a href="#">[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture</a></li></ul>
                       <div class="bottom clearfix">
+
+                        <el-row>
+                          <el-col :span="16"><ul class="divcss6"><li><time class="time">{{ currentDate }}</time></li></ul></el-col>
+                         <el-col :span="8">
                       <el-dropdown>
-                      <el-button type="primary" icon="el-icon-s-tools">
-                        Option<i class="el-icon-arrow-down el-icon--right"></i>
+                      <el-button size="mini" type="primary" icon="el-icon-s-tools">
+                       <i class="el-icon-arrow-down el-icon--right"></i>
                       </el-button>
                       <el-dropdown-menu slot="dropdown">
 <!--                        <el-button type="primary" icon="el-icon-search">搜索</el-button>-->
@@ -106,7 +110,8 @@
                         <el-dropdown-item v-on:click="deldiv">Delete</el-dropdown-item>
                       </el-dropdown-menu>
                     </el-dropdown>
-
+                           </el-col>
+                      </el-row>
                       </div>
                       </div>
                       </el-card>
@@ -116,13 +121,13 @@
 
 
 <!--                       333-->
-                       <el-col :span="6" >
+                       <el-col :span="5" >
                          <div>
-                       <div id="div2">
+                       <div class="div2">
                       <el-card :body-style="{ padding: '0px' }" >
 <!--                      <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">-->
 
-                        <div id="content2">
+                        <div>
                         <article class="post-152 post type-post status-publish format-standard hentry category-people category-photos">
                         <div class="post-format-content">
                         <div class="post-thumbnail">
@@ -145,11 +150,15 @@
                         </div>
 
                       <div style="padding: 0px;">
-                      <ul id="divcss4"><li><a href="#">[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture</a></li></ul>
+                      <ul class="divcss4"><li><a href="#">[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture</a></li></ul>
                       <div class="bottom clearfix">
+
+                        <el-row>
+                          <el-col :span="16"><ul class="divcss6"><li><time class="time">{{ currentDate }}</time></li></ul></el-col>
+                         <el-col :span="8">
                       <el-dropdown>
-                      <el-button type="primary" icon="el-icon-s-tools">
-                        Option<i class="el-icon-arrow-down el-icon--right"></i>
+                      <el-button size="mini" type="primary" icon="el-icon-s-tools">
+                       <i class="el-icon-arrow-down el-icon--right"></i>
                       </el-button>
                       <el-dropdown-menu slot="dropdown">
 <!--                        <el-button type="primary" icon="el-icon-search">搜索</el-button>-->
@@ -157,7 +166,8 @@
                         <el-dropdown-item v-on:click="deldiv">Delete</el-dropdown-item>
                       </el-dropdown-menu>
                     </el-dropdown>
-
+                           </el-col>
+                      </el-row>
                       </div>
                       </div>
                       </el-card>
@@ -166,13 +176,13 @@
                          </el-col>
 
 
-                       <el-col :span="6" >
+                       <el-col :span="5" >
                          <div>
-                       <div id="div2">
+                       <div class="div2">
                       <el-card :body-style="{ padding: '0px' }" >
 <!--                      <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">-->
 
-                        <div id="content2">
+                        <div>
                         <article class="post-152 post type-post status-publish format-standard hentry category-people category-photos">
                         <div class="post-format-content">
                         <div class="post-thumbnail">
@@ -195,11 +205,15 @@
                         </div>
 
                       <div style="padding: 0px;">
-                      <ul id="divcss4"><li><a href="#">[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture</a></li></ul>
+                      <ul class="divcss4"><li><a href="#">[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture</a></li></ul>
                       <div class="bottom clearfix">
+
+                        <el-row>
+                          <el-col :span="16"><ul class="divcss6"><li><time class="time">{{ currentDate }}</time></li></ul></el-col>
+                         <el-col :span="8">
                       <el-dropdown>
-                      <el-button type="primary" icon="el-icon-s-tools">
-                        Option<i class="el-icon-arrow-down el-icon--right"></i>
+                      <el-button size="mini" type="primary" icon="el-icon-s-tools">
+                       <i class="el-icon-arrow-down el-icon--right"></i>
                       </el-button>
                       <el-dropdown-menu slot="dropdown">
 <!--                        <el-button type="primary" icon="el-icon-search">搜索</el-button>-->
@@ -207,58 +221,8 @@
                         <el-dropdown-item v-on:click="deldiv">Delete</el-dropdown-item>
                       </el-dropdown-menu>
                     </el-dropdown>
-
-                      </div>
-                      </div>
-                      </el-card>
-                          </div>
-                           </div>
-                         </el-col>
-
-
-
-                       <el-col :span="6" >
-                         <div>
-                       <div id="div2">
-                      <el-card :body-style="{ padding: '0px' }" >
-<!--                      <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">-->
-
-                        <div id="content2">
-                        <article class="post-152 post type-post status-publish format-standard hentry category-people category-photos">
-                        <div class="post-format-content">
-                        <div class="post-thumbnail">
-                          <img width="280" height="280" src="https://cdn.homedit.com/wp-content/uploads/2014/05/minimalist-interior-design.jpg" class="attachment-thumbnail wp-post-image" alt="105694702">
-                        </div>
-                        <div class="content-wrap">
-                        <h1 class="entry-title"><a href="" class="featured-image" title="amp; Fashion" rel="bookmark">
-                          <div>Seller：liangbj0405</div>
-                          <br>
-                          <div>Date：2020.1.1</div>
-                          <br>
-                          <div>Current price：200W</div>
-                        </a></h1>
-
-                        </div>
-
-
-                        </div>
-                        </article>
-                        </div>
-
-                      <div style="padding: 0px;">
-                      <ul id="divcss4"><li><a href="#">[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture</a></li></ul>
-                      <div class="bottom clearfix">
-                      <el-dropdown>
-                      <el-button type="primary" icon="el-icon-s-tools">
-                        Option<i class="el-icon-arrow-down el-icon--right"></i>
-                      </el-button>
-                      <el-dropdown-menu slot="dropdown">
-<!--                        <el-button type="primary" icon="el-icon-search">搜索</el-button>-->
-                        <el-dropdown-item>Detail</el-dropdown-item>
-                        <el-dropdown-item v-on:click="deldiv">Delete</el-dropdown-item>
-                      </el-dropdown-menu>
-                    </el-dropdown>
-
+                           </el-col>
+                      </el-row>
                       </div>
                       </div>
                       </el-card>
@@ -268,13 +232,13 @@
 
 
 
-                       <el-col :span="6" >
+                       <el-col :span="5" >
                          <div>
-                       <div id="div2">
+                       <div class="div2">
                       <el-card :body-style="{ padding: '0px' }" >
 <!--                      <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">-->
 
-                        <div id="content2">
+                        <div>
                         <article class="post-152 post type-post status-publish format-standard hentry category-people category-photos">
                         <div class="post-format-content">
                         <div class="post-thumbnail">
@@ -297,11 +261,15 @@
                         </div>
 
                       <div style="padding: 0px;">
-                      <ul id="divcss4"><li><a href="#">[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture</a></li></ul>
+                      <ul class="divcss4"><li><a href="#">[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture</a></li></ul>
                       <div class="bottom clearfix">
+
+                        <el-row>
+                          <el-col :span="16"><ul class="divcss6"><li><time class="time">{{ currentDate }}</time></li></ul></el-col>
+                         <el-col :span="8">
                       <el-dropdown>
-                      <el-button type="primary" icon="el-icon-s-tools">
-                        Option<i class="el-icon-arrow-down el-icon--right"></i>
+                      <el-button size="mini" type="primary" icon="el-icon-s-tools">
+                       <i class="el-icon-arrow-down el-icon--right"></i>
                       </el-button>
                       <el-dropdown-menu slot="dropdown">
 <!--                        <el-button type="primary" icon="el-icon-search">搜索</el-button>-->
@@ -309,7 +277,8 @@
                         <el-dropdown-item v-on:click="deldiv">Delete</el-dropdown-item>
                       </el-dropdown-menu>
                     </el-dropdown>
-
+                           </el-col>
+                      </el-row>
                       </div>
                       </div>
                       </el-card>
@@ -319,13 +288,13 @@
 
 
 
-                       <el-col :span="6" >
+                       <el-col :span="5" >
                          <div>
-                       <div id="div2">
+                       <div class="div2">
                       <el-card :body-style="{ padding: '0px' }" >
 <!--                      <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">-->
 
-                        <div id="content2">
+                        <div>
                         <article class="post-152 post type-post status-publish format-standard hentry category-people category-photos">
                         <div class="post-format-content">
                         <div class="post-thumbnail">
@@ -348,11 +317,15 @@
                         </div>
 
                       <div style="padding: 0px;">
-                      <ul id="divcss4"><li><a href="#">[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture</a></li></ul>
+                      <ul class="divcss4"><li><a href="#">[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture</a></li></ul>
                       <div class="bottom clearfix">
+
+                        <el-row>
+                          <el-col :span="16"><ul class="divcss6"><li><time class="time">{{ currentDate }}</time></li></ul></el-col>
+                         <el-col :span="8">
                       <el-dropdown>
-                      <el-button type="primary" icon="el-icon-s-tools">
-                        Option<i class="el-icon-arrow-down el-icon--right"></i>
+                      <el-button size="mini" type="primary" icon="el-icon-s-tools">
+                       <i class="el-icon-arrow-down el-icon--right"></i>
                       </el-button>
                       <el-dropdown-menu slot="dropdown">
 <!--                        <el-button type="primary" icon="el-icon-search">搜索</el-button>-->
@@ -360,7 +333,64 @@
                         <el-dropdown-item v-on:click="deldiv">Delete</el-dropdown-item>
                       </el-dropdown-menu>
                     </el-dropdown>
+                           </el-col>
+                      </el-row>
+                      </div>
+                      </div>
+                      </el-card>
+                          </div>
+                           </div>
+                         </el-col>
 
+
+
+                       <el-col :span="5" >
+                         <div>
+                       <div class="div2">
+                      <el-card :body-style="{ padding: '0px' }" >
+<!--                      <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">-->
+
+                        <div>
+                        <article class="post-152 post type-post status-publish format-standard hentry category-people category-photos">
+                        <div class="post-format-content">
+                        <div class="post-thumbnail">
+                          <img width="280" height="280" src="https://cdn.homedit.com/wp-content/uploads/2014/05/minimalist-interior-design.jpg" class="attachment-thumbnail wp-post-image" alt="105694702">
+                        </div>
+                        <div class="content-wrap">
+                        <h1 class="entry-title"><a href="" class="featured-image" title="amp; Fashion" rel="bookmark">
+                          <div>Seller：liangbj0405</div>
+                          <br>
+                          <div>Date：2020.1.1</div>
+                          <br>
+                          <div>Current price：200W</div>
+                        </a></h1>
+
+                        </div>
+
+
+                        </div>
+                        </article>
+                        </div>
+
+                      <div style="padding: 0px;">
+                      <ul class="divcss4"><li><a href="#">[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture</a></li></ul>
+                      <div class="bottom clearfix">
+
+                        <el-row>
+                          <el-col :span="16"><ul class="divcss6"><li><time class="time">{{ currentDate }}</time></li></ul></el-col>
+                         <el-col :span="8">
+                      <el-dropdown>
+                      <el-button size="mini" type="primary" icon="el-icon-s-tools">
+                       <i class="el-icon-arrow-down el-icon--right"></i>
+                      </el-button>
+                      <el-dropdown-menu slot="dropdown">
+<!--                        <el-button type="primary" icon="el-icon-search">搜索</el-button>-->
+                        <el-dropdown-item>Detail</el-dropdown-item>
+                        <el-dropdown-item v-on:click="deldiv">Delete</el-dropdown-item>
+                      </el-dropdown-menu>
+                    </el-dropdown>
+                           </el-col>
+                      </el-row>
                       </div>
                       </div>
                       </el-card>
@@ -389,20 +419,19 @@
 
 
 
-                    <el-form-item  style="text-align: right">
-                        <el-button type="primary" @click="onSubmit" size="medium">S a v e</el-button>
-<!--                        <el-button>取消</el-button>-->
-                    </el-form-item>
+
                 </el-form>
             </div>
-        </div>
-    </div>
-  </div>
 </template>
 
 <script>
 export default {
 name: "published",
+  data() {
+    return {
+      currentDate: new Date()
+    };
+  },
 methods: {
           deldiv:function () {
          var obj=document.getElementById('div2');
@@ -426,13 +455,26 @@ methods: {
 /*    a{ text-decoration:none;color:#6699ff}*/
 /*    ul,li{ list-style:none; text-align:left}*/
 
-    #divcss4{padding:10px; width:240px;
+    .divcss4{padding:2px; width:280px;
      margin-top:10px}
-    #divcss4 li{width:250px;height:24px;line-height:24px; font-size:14px;
+    .divcss4 li{width:280px;height:24px;line-height:24px; font-size:14px;
     color:#6699ff;overflow:hidden;text-overflow:ellipsis;
     /*border-bottom:1px #ff8000 dashed;*/
     }
-    #divcss4 li a:hover{ color:#333}
+    .divcss4 li a:hover{ color:#333}
+
+
+    .divcss6{padding:0px; width:200px;
+     margin-right:10px;margin-bottom: 5px;}
+    .divcss6 li{width:200px;height:24px;line-height:20px; font-size:14px;
+    color:#6699ff;overflow:hidden;text-overflow:ellipsis;
+    /*border-bottom:1px #ff8000 dashed;*/
+    }
+    .divcss6 li a:hover{ color:#333}
+
+
+
+
 
 
 
@@ -450,7 +492,7 @@ methods: {
 #content article {
 float: left;
 margin-right: 4%;
-max-width: 236px;
+/*max-width: 236px;*/
 position: relative;
 width: 22%;
 margin-bottom: 3.5%;
@@ -527,14 +569,14 @@ height: auto;
 
 
 
-    #div1, #div2, #div3{
+.div2{
         display: inline-block;
     }
 
 .divcss5{
   /*border:3px solid #AAAAAA;*/
-  width:1500px;
-	height:1160px;
+  width:100%;
+	height:100%;
 	/*transition:width 2s;*/
 	/*-webkit-transition:width 2s; !* Safari *!*/
 
@@ -712,11 +754,11 @@ a:hover, a:active {
 
 
 
-    .center-main{
-        height: 100%;
-        width: calc(80% - 65px);
-        margin: 0 10% 0 calc(10% + 65px);
-    }
+    /*.center-main{*/
+    /*    height: 100%;*/
+    /*    width: calc(80% - 65px);*/
+    /*    margin: 0 10% 0 calc(10% + 65px);*/
+    /*}*/
     .center-title{
         font-size: 2rem;
         padding: 30px;

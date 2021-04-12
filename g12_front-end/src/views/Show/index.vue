@@ -208,7 +208,7 @@
               </el-col>
               <el-col span="12">
                 <div class="item-text">
-                  <div class="item-name">{{ item.title }}</div>
+                  <div class="item-name" @click="handleClickTitle(item.houseId)">{{ item.title }}</div>
                   <div class="item-pos item-little"><i class="el-icon-position"> </i>{{ item.position }}</div>
                   <div class="item-details item-little"><i class="el-icon-s-home"> </i>{{ item.describe }}</div>
 <!--                  <div class="item-collection item-little"><i class="el-icon-star-off"> </i>{{ item.collection }}</div>-->
@@ -356,6 +356,9 @@ export default {
         this.map.invalidateSize(true)
       }, 400)
     },
+    handleClickTitle(houseId){
+      this.$router.push({name: 'detail', params: {houseId: houseId}})
+    },
     getList(){
       getHouseList(this.form).then(res=>{
         console.log(res);
@@ -476,6 +479,11 @@ export default {
   overflow: hidden;
   text-overflow:ellipsis;
   white-space: nowrap;
+  transition: color .2s;
+  cursor: pointer;
+}
+.house-item .item-name:hover{
+  color: #409EFF;
 }
 .house-item .item-pos{
   overflow: hidden;

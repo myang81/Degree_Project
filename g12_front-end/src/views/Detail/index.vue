@@ -1,67 +1,80 @@
 <template>
+  <div>
+    <HeaderNav :navContent="navContent" show-search="true"></HeaderNav>
     <div>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-        <div id="map">
+      <div class="detail-container">
+        <div class="detail-left">
+          <div class="picture-div full-width mg-b-20">
+
+          </div>
+          <div class="chart-div full-width mg-b-20">
+
+          </div>
+          <div class="recommend-div full-width">
+
+          </div>
         </div>
+        <div class="detail-right">
+          <div class="price-div full-width mg-b-20">
+
+          </div>
+          <div class="detail-div full-width mg-b-20">
+
+          </div>
+          <div class="seller-div full-width">
+
+          </div>
+        </div>
+
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
-    import * as L from 'leaflet'
-    import icon from 'leaflet/dist/images/marker-icon.png';
-    import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+import HeaderNav from '@/components/headerNav/index.vue'
 
-    export default {
-        name: "detail",
-        data() {
-            return {
-                msg: 'Welcome to Your Vue.js App',
-                id: '00'
-            }
-        },
-        mounted() {
-            this.initMap()
-        },
-        methods:{
-            initMap(){
-                const map = L.map('map', {
-                });
-                L.Marker.prototype.options.icon = L.icon({
-                    iconUrl: icon,
-                    shadowUrl: iconShadow
-                });
-                map.locate({setView: true, maxZoom: 16});
-                L.tileLayer(
-                    "http://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}",
-                    {
-                        subdomains: ["1", "2", "3", "4"],
-                        attribution: "高德"
-                    }
-                ).addTo(map);
-                function onLocationFound(e) {
-                    console.log(e)
-                    var radius = e.accuracy;
-                    L.marker(e.latlng).addTo(map)
-                        .bindPopup("You are within " + radius + " meters from this point").openPopup();
-
-                    L.circle(e.latlng, radius).addTo(map);
-                }
-
-                map.on('locationfound', onLocationFound);
-
-                // function onLocationError(e) {
-                //     alert(e.message);
-                // }
-                //
-                // map.on('locationerror', onLocationError);
-            }
-        }
+export default {
+  name: "detail",
+  components: {
+    HeaderNav,
+  },
+  data() {
+    return {
+      houseId: '',
+      navContent: [{name: 'Center', router: '/center'}, {
+        name: 'Collection',
+        router: '/center/collection'
+      }, {name: 'Start to Sale', router: '/center/sale'}]
     }
+  },
+  created() {
+    if (this.$route.params.houseId) this.houseId = this.$route.params.houseId
+  },
+  mounted() {
+  },
+  methods: {}
+}
 </script>
 
 <style scoped>
-    #map {
-        width: 100%;
-        height: calc(100vh);
-    }
+.detail-container{
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-direction: row;
+}
+.detail-left{
+  flex: 2;
+  padding: 10px;
+}
+.detail-right{
+  flex: 1;
+  padding: 10px;
+}
+.full-width{
+  width: 100%;
+}
+.mg-b-20{
+  margin-bottom: 20px;
+}
 </style>

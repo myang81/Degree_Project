@@ -9,7 +9,7 @@ from src.blueprints.list import list
 from src.setting import config
 from flask import Flask,render_template,Blueprint
 from src.Models.Users import User
-from src.Models.Messages import Message
+from src.Models.Houses import House
 from src.extension import avatars
 from src.extension import mail,db,moment,bootstrap,migrate,dropzone
 from src.extension import socketio
@@ -70,7 +70,7 @@ def register_externsion(app):
 def register_shell_context(app):
     @app.shell_context_processor
     def make_shell_context():
-        return dict(db=db,User=User,Pet=Pet,Message=Message)
+        return dict(db=db,User=User,House=House)
 
 #Customized Commands
 def register_commands(app):

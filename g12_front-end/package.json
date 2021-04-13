@@ -13,6 +13,7 @@
     "core-js": "^3.6.5",
     "element-ui": "^2.15.1",
     "leaflet": "^1.7.1",
+    "node-sass": "^4.14.1",
     "v-calendar": "^2.3.0",
     "vue": "^2.6.12",
     "vue-router": "^3.2.0",
@@ -28,6 +29,7 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "sass-loader": "^7.3.1",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {

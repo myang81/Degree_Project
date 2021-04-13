@@ -1,6 +1,6 @@
 <template>
   <div>
-    <HeaderNav :navContent="navContent" show-search="true" :searchValue="form.searchValue" @getSearch="getSearch"></HeaderNav>
+    <HeaderNav :navContent="navContent" :show-search=true :searchValue="form.searchValue" @getSearch="getSearch"></HeaderNav>
     <div  style="padding: 0 10px">
       <div class="head-content">
         <div class="choice-button-group">
@@ -194,10 +194,10 @@
           <p style="font-size: 2em;padding: 20px 0 10px 20px;font-weight: bold;text-align: left">We find more than 100 houses for you:</p>
           <el-card class="list-block" v-for="(item,index) in houseList" :key="index" shadow="hover" >
             <el-row class="house-item">
-              <el-col span=8 style="height: 100%;">
+              <el-col :span=8 style="height: 100%;">
                 <el-image class="item-img" :src=item.imgUrl fit="cover"></el-image>
               </el-col>
-              <el-col span=12>
+              <el-col :span=12>
                 <div class="item-text">
                   <div class="item-name" @click="handleClickTitle(item.houseId)">{{ item.title }}</div>
                   <div class="item-pos item-little"><i class="el-icon-position"> </i>{{ item.position }}</div>
@@ -205,7 +205,7 @@
 <!--                  <div class="item-collection item-little"><i class="el-icon-star-off"> </i>{{ item.collection }}</div>-->
                 </div>
               </el-col>
-              <el-col span=4 style="height: 100%">
+              <el-col :span=4 style="height: 100%">
                 <div class="item-price">{{item.totalPrice}}<span style="color: red;padding-left: 5px">million</span></div>
               </el-col>
             </el-row>

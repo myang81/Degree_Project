@@ -10,11 +10,11 @@
           <div class="search-block" v-if="showSearch">
             <el-input
                 placeholder="Please input the house name, location, house type and other characteristics"
-                suffix-icon="el-icon-search"
                 v-model="searchValue"
                 class="input_search"
                 size="small"
             >
+              <el-button slot="append" icon="el-icon-search" size="small" @click="handleSearch"></el-button>
             </el-input>
           </div>
           <!-- Right aligned nav items -->
@@ -42,6 +42,12 @@ export default {
 
     }
   },
+  methods: {
+    handleSearch() {
+      console.log(this.$route)
+      this.$route.name!=='houseList'?this.$router.push({name: 'houseList', params: {searchValue: this.searchValue}}):this.$emit('getSearch', this.searchValue)
+    },
+  }
 }
 </script>
 

@@ -178,9 +178,6 @@ export default {
   background-image: linear-gradient(to right, #cc7575, #ffd544 50%, #cc7575);
   animation:colorLine 1s alternate infinite;
 }
-.ds-flex{
-  display: flex;
-}
 @keyframes colorLine
 {
   from {left:-100%;}

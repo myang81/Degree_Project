@@ -137,18 +137,6 @@ export default {
   flex: 1;
   padding: 10px;
 }
-.full-width{
-  width: 100%;
-}
-.mg-b-20{
-  margin-bottom: 20px;
-}
-.mg-b-8{
-  margin-bottom: 8px;
-}
-p{
-  margin-bottom: 0!important;
-}
 .title-block{
   font-size: 2rem;
   font-weight: bold;

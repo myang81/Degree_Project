@@ -38,3 +38,51 @@ class House(db.Model):
     imgUrl = db.Column(db.String(120), index=True, unique=False)
     None2 = db.Column(db.String(120), index=True, unique=False)
     _None = db.Column(db.String(120), index=True, unique=False)
+
+
+    def generateDetail(self):
+        direction_str=""
+        if self.east=='no':
+            direction_str+=""
+        else:
+            direction_str+=self.east
+        if self.west == 'no':
+            direction_str += ""
+        else:
+            direction_str += self.west+" "
+        if self.south == 'no':
+            direction_str += ""
+        else:
+            direction_str += self.south+" "
+        if self.north == 'no':
+            direction_str += ""
+        else:
+            direction_str += self.north+" "
+        if self.east_south == 'no':
+            direction_str += ""
+        else:
+            direction_str += self.east_south+" "
+        if self.west_south == 'no':
+            direction_str += ""
+        else:
+            direction_str += self.west_south+" "
+        if self.east_north == 'no':
+            direction_str += ""
+        else:
+            direction_str += self.east_north+" "
+        if self.west_north == 'no':
+            direction_str += ""
+        else:
+            direction_str += self.west_north+" "
+
+        return     {'title': self.title,
+     'position': self.Specific_area,
+     'houseId': self.id,
+     'describe': str(self.room) +' room'+ str(self.hall) +' halls' + ' |'+ str(self.floor_area)+' square meters '+'| '+str(direction_str) +'| '
+                 +str(self.Building_Type)+  ' | '+
+                 str(self.House_structure)+' ( total: '+
+                 str(self.total_floors)+' )',
+     'unitPrice':str(self._unit_price),
+     'collected': 'true',
+     'totalPrice': self.price,
+     'imgUrl': 'https://img1.baidu.com/it/u=1947907598,3262319172&fm=26&fmt=auto&gp=0.jpg'}

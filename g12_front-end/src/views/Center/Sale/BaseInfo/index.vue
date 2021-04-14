@@ -7,24 +7,23 @@
           <div class="form-block">
             <el-form label-position="right" label-width="120px" :model="form">
               <el-row>
-                <el-col  :span=12 >
-                  <el-form-item label="direction">
-                    <el-radio-group v-model="form.property" style="display: contents">
+                  <el-col :span=12>
+                      <el-form-item label="area">
+                          <!--                    <el-input-number v-model="form.area" controls-position="right" ></el-input-number> m2-->
+                          <b-form-input type="number" v-model="form.area" class="sale-form_numberInput"></b-form-input><span style="padding-left: 20px">m2</span>
+                      </el-form-item>
+                  </el-col>
+                <el-col  :span=24 >
+                  <el-form-item label="property">
+                    <el-radio-group v-model="form.property" style="line-height: 50px;width: 100%">
 <!--                      <el-row style="display: flex;align-items: center">-->
-<!--                        <el-col style="height: 100%" :span=12  v-for="(value,key) in global.propertyInfo"  :key="value">-->
-                          <el-radio :label="key" :value="value" v-for="(value,key) in global.propertyInfo"  :key="value"></el-radio>
-<!--                        </el-col>-->
+                        <el-col :span=11  v-for="(value,key) in global.propertyInfo"  :key="value">
+                          <el-radio :label="value">{{key}}</el-radio>
+                        </el-col>
 <!--                      </el-row>-->
                     </el-radio-group>
                   </el-form-item>
                 </el-col>
-                <el-col :span=12>
-                  <el-form-item label="area">
-                    <el-input-number v-model="form.area" controls-position="right" ></el-input-number> m2
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
                 <el-col :span=24>
                   <el-form-item label="house structure">
                     <el-radio-group v-model="form.houseStructure" style="line-height: 50px;width: 100%">
@@ -89,8 +88,12 @@ name: "baseInfo",
   data(){
     return{
       form:{
-        property:"0",
-        houseStructure:"0",
+        property:undefined,
+        houseStructure:undefined,
+          buildingType:undefined,
+          buildingStructure:undefined,
+          floorType:undefined,
+          floors:undefined
 
       },
       global:global,
@@ -135,4 +138,10 @@ name: "baseInfo",
   from {left:-100%;}
   to {left: 0}
 }
+
+</style>
+<style>
+    .sale-form_numberInput{
+        max-width: 150px;display: inline-block!important;text-align: center;
+    }
 </style>

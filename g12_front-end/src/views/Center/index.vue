@@ -1,7 +1,7 @@
 <template>
     <div>
       <HeaderNav :navContent="navContent"></HeaderNav>
-        <div>
+        <div style="position: relative">
             <Sidebar></Sidebar>
             <div class="center-main">
               <router-view></router-view>
@@ -22,7 +22,7 @@
         },
         data(){
             return{
-              navContent:[{name:'Renting',router:''},{name:'Purchase',router:'/'},{name:'Purchase',router:'/'},{name:'Publishing',router:'/'}]
+                navContent: [{name: 'Center', router: '/center'}, {name: 'Collection', router: '/center/collection'}, {name: 'Start to Sale', router: '/center/sale'}]
             }
         }
     }

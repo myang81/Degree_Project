@@ -268,26 +268,48 @@ const district = {
 
 const propertyInfo= {non_co_ownership: 0, co_ownership: 1};//  '产权信息': {'非共有': 0, '共有': 1},
 
-const house_structure = {flat_floor: 0, duplex: 1, skip_floor: 2, staggered_floor: 3, no_data_yet: 4};//'户型结构': {'平层': 0, "复式": 1, '跃层': 2, '错层': 3,'暂无数据':4},
+// const house_structure = {flat_floor: 0, duplex: 1, skip_floor: 2, staggered_floor: 3, no_data_yet: 4};//'户型结构': {'平层': 0, "复式": 1, '跃层': 2, '错层': 3,'暂无数据':4},
+const house_structure = {flat_floor: 0, duplex: 1, skip_floor: 2, staggered_floor: 3};
 
-const building_type = {Banlou: 0, "tower": 1, banta_combination: 2, bungalow: 3, No_data_yet: 4};// '建筑类型': {'板楼': 0, "塔楼": 1, '板塔结合': 2, '平房': 3, '暂无数据':4},
 
+// const building_type = {Banlou: 0, "tower": 1, banta_combination: 2, bungalow: 3, no_data_yet: 4};// '建筑类型': {'板楼': 0, "塔楼": 1, '板塔结合': 2, '平房': 3, '暂无数据':4},
+const building_type = {Banlou: 0, "tower": 1, banta_combination: 2, bungalow: 3};
+
+// const building_structure = {
+//     steel_concrete_structure: 0,
+//     mixed_structure: 1,
+//     brick_concrete_structure: 2,
+//     unknown_structure: 3,
+//     steel_structure: 4,
+//     brick_wood_structure: 5,
+//     frame_structure: 6
+// };// '建筑结构': {'钢混结构': 0, "混合结构": 1, '砖混结构': 2, '未知结构': 3,'钢结构':4, '砖木结构': 5, '框架结构':6},
 const building_structure = {
     steel_concrete_structure: 0,
     mixed_structure: 1,
     brick_concrete_structure: 2,
-    unknown_structure: 3,
     steel_structure: 4,
     brick_wood_structure: 5,
     frame_structure: 6
-};// '建筑结构': {'钢混结构': 0, "混合结构": 1, '砖混结构': 2, '未知结构': 3,'钢结构':4, '砖木结构': 5, '框架结构':6},
+}
 
 const decoration = {hardcover: 0, simple_decoration: 1, others: 2, rough: 3};//    '装修': {'精装': 0, "简装": 1, '其他': 2, '毛坯': 3},
 
-const heating = {central_heating: 0, self_heating: 1, no_data_yet: 2};//    '供暖': {'集中供暖': 0, "自供暖": 1, '暂无数据': 2},
+// const heating = {central_heating: 0, self_heating: 1, no_data_yet: 2};//    '供暖': {'集中供暖': 0, "自供暖": 1, '暂无数据': 2},
+const heating = {central_heating: 0, self_heating: 1};
 
-const elevator = {yes: 0, no: 1, no_data: 2};//  '电梯': {'有': 0, "无": 1, '暂无数据': 2},
+// const elevator = {yes: 0, no: 1, no_data: 2};//  '电梯': {'有': 0, "无": 1, '暂无数据': 2},
+const elevator = {yes: 0, no: 1};
 
+// const floor_type = {
+//     middle_floor: 0,
+//     low_floor: 1,
+//     high_floor: 2,
+//     top_floor: 3,
+//     bottom_floor: 4,
+//     basement: 5,
+//     unknown: 6
+// };// '楼层类型': {'中楼层 ': 0, "低楼层 ": 1, '高楼层 ': 2, '顶层 ': 3,'底层 ':4, '地下室 ': 5, '未知 ':6}
 const floor_type = {
     middle_floor: 0,
     low_floor: 1,
@@ -295,8 +317,7 @@ const floor_type = {
     top_floor: 3,
     bottom_floor: 4,
     basement: 5,
-    unknown: 6
-};// '楼层类型': {'中楼层 ': 0, "低楼层 ": 1, '高楼层 ': 2, '顶层 ': 3,'底层 ':4, '地下室 ': 5, '未知 ':6}
+}
 
 const direction = {
     east:0,

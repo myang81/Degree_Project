@@ -174,7 +174,7 @@ def getHouse():
     return {
             "success": 1,
             "data": {
-                "total": 100,
+                "total": total,
                 "houseList":houseList
 
             },

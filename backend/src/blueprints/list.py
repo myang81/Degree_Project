@@ -81,6 +81,7 @@ def test():
 #	3.1. 获取列表数据接口：
 @list.route("/getHouseList",methods=['GET','POST'])
 def getHouse():
+    argdict={}
     if request.method == 'POST':
         timeRange = request.json.get('timeRange')
         priceRange = request.json.get('priceRange')
@@ -89,9 +90,10 @@ def getHouse():
         pageSize = request.json.get('pageSize')
         searchString = request.json.get('searchString')
         argdict = queryHouseList(timeRange, priceRange, otherfeatrue, pageNum, pageSize, searchString)
-        return argdict
 
-
+    #从数据库查找数据 在价格区间内的数据
+    total=House.query.filter(House.price >priceRange[0],House.price<priceRange[1]).count()
+    print(total)
     return 'success'
 
 

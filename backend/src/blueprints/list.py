@@ -81,6 +81,15 @@ def test():
 #	3.1. 获取列表数据接口：
 @list.route("/getHouseList",methods=['GET','POST'])
 def getHouse():
+    district = None
+    houseStructrue =None
+    direction = None
+    decoration = None
+    heating =None
+    elevator = None
+    pageNum = None
+    pageSize = None
+    searchString =None
     global argdict #get the parameter from the front
     if request.method == 'POST':
         timeRange = request.json.get('timeRange')
@@ -119,7 +128,7 @@ def getHouse():
         "pageSize":pageSize,
         "searchString":searchString
         }
-
+    direction={}
     # #process the drection
     # direction=argdict[direction]
     print(direction)

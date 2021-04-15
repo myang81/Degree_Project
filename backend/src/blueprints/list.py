@@ -4,48 +4,9 @@ from src.Models.Houses import House
 
 list=Blueprint('list',__name__)
 
-
-#	3.1. 获取列表数据接口：
-
-# 输入： timeRange	Array	发布时间区间	内部为字符串日历时间："yyyy-mm-dd"
-# priceRange	Array	价格区间	内部为字符串格式价格："1000000"
-# otherFeatures	Object	其他特征包装变量	对象内部特征根据配置静态文件中字典解析
-# pageNum	String	当前页数	分页用数据
-# pageSize	String	每页个数	分页用数据
-# searchString	String	搜索字符串	bm25搜索
-
-#输出： "success": 1,
-# "data": {
-#     "total": ""//数据总数，分页用       *****新增*****
-#     "houseList":[//房源数据列表，注意数量与参数中每页信息数相同
-#         {
-#         "imgUrl":"",//房源图片url
-#         "title":""//房源标题
-#         "describe":""//房源描述
-#         "position":""//房源地址（包含region和district，后端连接）
-#         "coordinate":[]//房源经纬坐标（用于地图展示）
-#         "houseId":""//房源Id
-#         "totalPrice":""//房源总计 *****新增*****
-#         "unitPrice":""//房源单价 *****新增*****
-#         "collected": true//布尔值，是否已被收藏，仅是对这个用户自身       *****新增*****
-#         }，
-#     ]
-# },
-#
-
-#变量解释: argDict： 请求用的参数字典
-
-#相关的方法
-def queryHouseList(timeRange,priceRange,otherFeatures,pageNum,pageSize,searchString):
-    dict={}
-    dict["timeRange"]=timeRange
-    dict['priceRange']=priceRange
-    dict['otherFeatrue']=otherFeatures
-    dict['pageNum']=pageNum
-    dict['pageSize']=pageSize
-    dict['searchString']=searchString
-    return dict
-
+###################################################
+#3. 列表接口
+############################################
 @list.route("/test",methods=['GET','POST'])
 def test():
     timeRange=[]
@@ -57,33 +18,41 @@ def test():
     else:
         return "false"
 
+####################################
+#	3.1. 获取列表数据接口：        ###
+####################################
 
-# @list.route("/getHouseList",methods=['GET','POST'])
-# def getHouse():
-#     argdict={}
-#     if request.method=='POST':
-#         #接收请求中的Post数据，储存到参数字典\
-#         # print(request.json)
-#         timeRange=request.json.get('timeRange')
-#         priceRange=request.json.get('priceRange')
-#         otherfeatrue=request.json.get('otherFeatrue')
-#         pageNum=request.json.get('pageNum')
-#         pageSize=request.json.get('pageSize')
-#         searchString=request.json.get('searchString')
-#         argdict=queryHouseList(timeRange,priceRange,otherfeatrue,pageNum,pageSize,searchString)
-#         #
-#         return 'argd' #可以post数据到后端了
-#     return argdict
+        # 输入： timeRange	Array	发布时间区间	内部为字符串日历时间："yyyy-mm-dd"
+        # priceRange	Array	价格区间	内部为字符串格式价格："1000000"
+        # otherFeatures	Object	其他特征包装变量	对象内部特征根据配置静态文件中字典解析
+        # pageNum	String	当前页数	分页用数据
+        # pageSize	String	每页个数	分页用数据
+        # searchString	String	搜索字符串	bm25搜索
 
+        #输出： "success": 1,
+        # "data": {
+        #     "total": ""//数据总数，分页用       *****新增*****
+        #     "houseList":[//房源数据列表，注意数量与参数中每页信息数相同
+        #         {
+        #         "imgUrl":"",//房源图片url
+        #         "title":""//房源标题
+        #         "describe":""//房源描述
+        #         "position":""//房源地址（包含region和district，后端连接）
+        #         "coordinate":[]//房源经纬坐标（用于地图展示）
+        #         "houseId":""//房源Id
+        #         "totalPrice":""//房源总计 *****新增*****
+        #         "unitPrice":""//房源单价 *****新增*****
+        #         "collected": true//布尔值，是否已被收藏，仅是对这个用户自身       *****新增*****
+        #         }，
+        #     ]
+        # },
+        #
 
-#3. 列表接口
-
-#	3.1. 获取列表数据接口：
+#变量解释: argDict： 请求用的参数字典
 @list.route("/getHouseList",methods=['GET','POST'])
 def getHouse():
     district = None
     houseStructrue =None
-    direction = None
     decoration = None
     heating =None
     elevator = None
@@ -106,13 +75,14 @@ def getHouse():
             area=[0,99999999]
         district=request.json.get('district')
         houseStructrue=request.json.get('houseStructrue')
-        direction=request.json.get('direction')
+        direction_list=request.json.get('direction')
         decoration=request.json.get('decoration')
         heating=request.json.get('heating')
         elevator=request.json.get('elevator')
         pageNum = request.json.get('pageNum')
         pageSize = request.json.get('pageSize')
         searchString = request.json.get('searchString')
+
         argdict={
         "timeRange": timeRange,
         "totalPriceRange":totalPriceRange,
@@ -120,7 +90,7 @@ def getHouse():
         "area":area,
         "district":district,
         "houseStructrue":houseStructrue,
-        "direction":direction,
+        "direction":direction_list,
         "decoration":decoration,
         "heating":heating,
         "elevator":elevator,
@@ -131,17 +101,18 @@ def getHouse():
     direction={}
     # #process the drection
     # direction=argdict[direction]
-    print(direction)
+
     direction={
-        "west": "west" if "west" in direction else "no",
-        "east": "east" if "east" in direction else "no",
-        "south": "south" if "south" in direction else "no",
-        "north": "north" if "north" in direction else "no",
-        "southwest": "southwest" if "southwest" in direction else "no",
-        "southeast": "southeast" if "southeast" in direction else "no",
-        "northeast":"northeast" if "northeast" in direction else "no",
-        "northwest":"northwest" if "northwest" in direction else "no"
+        "west": "west" if "west" in direction_list else "no",
+        "east": "east" if "east" in direction_list else "no",
+        "south": "south" if "south" in direction_list else "no",
+        "north": "north" if "north" in direction_list else "no",
+        "southwest": "southwest" if "southwest" in direction_list else "no",
+        "southeast": "southeast" if "southeast" in direction_list else "no",
+        "northeast":"northeast" if "northeast" in direction_list else "no",
+        "northwest":"northwest" if "northwest" in direction_list else "no"
     }
+
     print(direction)
     print(request.json)
 
@@ -151,7 +122,7 @@ def getHouse():
                               House._unit_price>argdict['unitPriceRange'][0],House._unit_price<argdict['unitPriceRange'][1],
                              House.District.in_(argdict["district"]),
                              House.House_structure.in_(argdict['houseStructrue']),
-
+                             #
                              House.east==direction["east"],House.west==direction["west"],House.east_north==direction["northeast"],House.east_south==direction["southeast"]
                              ,House.north==direction["north"],House.south==direction["south"],House.west_south==direction["southwest"],House.east_south==direction["southwest"]
                              ,
@@ -174,6 +145,8 @@ def getHouse():
                               ,House.elevator.in_(argdict["elevator"])
                              ).count()
     #返回房子模型的数组
+    print(direction)
+    print(request.json)
     print(Houses)
     print(total)
     houseList=[]
@@ -192,7 +165,16 @@ def getHouse():
 
 
 
+####################################
+#	3.2. 添加收藏接口：        ###
+####################################
+#输入
 
+# @list.route("/addCollection",methods=['GET','POST'])
+# def addCollection():
+#
+
+#注释区域
 # @list.route("/getHouseList", methods=['GET', 'POST'])
 # def houses():
 #     #connect to the database
@@ -331,7 +313,6 @@ def getHouse():
 #     }
 #     str_json = json.dumps(nDict, indent=2, ensure_ascii=False)
 #     return str_json
-# >>>>>>> b5fa07ac013f7e2fd94a3e44313184f558901831
 #
 #
 #

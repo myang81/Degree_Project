@@ -10,6 +10,9 @@ login=Blueprint('login',__name__)
 def loginPage():
     #connect to the database
     #db.session
+
+
+
     username="username" #add database then
     password="password" #add database then
     return {

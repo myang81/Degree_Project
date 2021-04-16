@@ -8,11 +8,11 @@ export function getExample(params){
         params
     })
 }
-export function postExample(params){
+export function postExample(data){
     return axios({
         url:'/postTest',
         method:'post',
-        params
+        data
     })
 }
 export function apiV1(params){
@@ -30,11 +30,11 @@ export function login(params){
         params
     })
 }
-export function getHouseList(params){
+export function getHouseList(data){
     return axios({
         url:'/getHouseList',
-        method:'get',
-        params
+        method:'post',
+        data
     })
 }
 

@@ -134,7 +134,7 @@
           <div style="clear: both"></div>
         </div>
 
-        <moreFilter :form="form" @handleCancel="handleHideChoice" @handleConfirm="handleConfirmChoice"></moreFilter>
+        <moreFilter :form="form" @handleCancel="handleHideChoice" @handleConfirm="handleConfirmChoice" :choiceCardVisible="choiceCardVisible"></moreFilter>
 
       </div>
 
@@ -178,7 +178,7 @@
 
 <script>
 import HeaderNav from '@/components/headerNav/index.vue'
-import moreFilter from '@/components/headerNav/index.vue'
+import moreFilter from '@/components/moreFilter/index.vue'
 import * as L from 'leaflet'
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';

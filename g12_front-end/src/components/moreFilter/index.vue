@@ -50,6 +50,7 @@ export default {
 name: "index",
   props: {
     form: {type: Object},
+    choiceCardVisible: {type: Object}
   },
   methods:{
     handleCancel(){

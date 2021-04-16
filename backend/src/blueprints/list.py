@@ -69,12 +69,31 @@ def getHouse():
         area=request.json.get('area')
         if area == [0,0]:
             area=[0,99999999]
-        district=request.json.get('district')
-        houseStructrue=request.json.get('houseStructrue')
-        direction_list=request.json.get('direction')
-        decoration=request.json.get('decoration')
-        heating=request.json.get('heating')
-        elevator=request.json.get('elevator')
+        districtEnum=request.json.get('district')
+        district=[]
+        for item in districtEnum:
+            district.append(enumMachine.District.enum2field(item))
+        houseStructrueEnum=request.json.get('houseStructrue')
+        houseStructrue=[]
+        for item in houseStructrueEnum:
+            houseStructrue.append(enumMachine.House_structrue.enum2field(item))
+
+        direction_list=[]
+        direction_listEnum=request.json.get('direction')
+        for item in direction_listEnum:
+            direction_list.append(enumMachine.Direction.enum2field(item))
+        decoration=[]
+        decorationEnum=request.json.get('decoration')
+        for item in decorationEnum:
+            decoration.append(enumMachine.Ddecoration.enum2field(item))
+        heatingEnum=request.json.get('heating')
+        heating=[]
+        for item in heatingEnum:
+            heating.append(enumMachine.Heating.enum2field(item))
+        elevatorEnum=request.json.get('elevator')
+        elevator=[]
+        for item in elevatorEnum:
+            elevator.append(enumMachine.Elevator.enum2field(item))
         pageNum = request.json.get('pageNum')
         pageSize = request.json.get('pageSize')
         searchString = request.json.get('searchString')

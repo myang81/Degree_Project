@@ -206,10 +206,3 @@ class Region():
 
 
 
-if __name__ == '__main__':
-    enum=Region.field2enum(field="Huangcunzhong")
-    print(enum)
-    field = Region.enum2field(enum=241)
-    print(field)
-    enum = District.field2enum(field="Yizhuang")
-    print(enum)

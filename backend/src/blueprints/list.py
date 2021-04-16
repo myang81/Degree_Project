@@ -1,22 +1,18 @@
 from flask import Blueprint, render_template, session, flash, redirect,request,url_for
 from src.extension import db
 from src.Models.Houses import House
+from src.Utility import enumMachine
 
 list=Blueprint('list',__name__)
+
 
 ###################################################
 #3. 列表接口
 ############################################
 @list.route("/test",methods=['GET','POST'])
 def test():
-    timeRange=[]
-    if request.method=='POST':
-        timeRange=request.json.get('timeRange')
-    i = 10
-    if i in timeRange:
-        return "true"
-    else:
-        return "false"
+    return 0
+
 
 ####################################
 #	3.1. 获取列表数据接口：        ###

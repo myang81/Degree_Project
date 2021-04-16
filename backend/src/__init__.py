@@ -11,6 +11,7 @@ from flask import Flask,render_template,Blueprint
 from src.Models.Users import User
 from src.Models.Houses import House
 from src.extension import avatars
+from src.extension import loginmanager
 from src.extension import mail,db,moment,bootstrap,migrate,dropzone
 from src.extension import socketio
 import click
@@ -64,6 +65,7 @@ def register_externsion(app):
     dropzone.init_app(app)
     avatars.init_app(app)
     socketio.init_app(app)
+    loginmanager.init_app(app)
 
 
 

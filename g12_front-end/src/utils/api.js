@@ -33,7 +33,7 @@ export function login(params){
 export function getHouseList(params){
     return axios({
         url:'/getHouseList',
-        method:'get',
+        method:'post',
         params
     })
 }

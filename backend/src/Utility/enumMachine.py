@@ -2,6 +2,7 @@
 
 class District():
     district={"Dongcheng":0,"Fengtai":1,"Yizhuang":2,"Daxing":3,"Miyun":4,"Pinggu":5,"Yanqing":6,"Huairou":7,"Fangshan":8,"Changping":9,"Chaoyang":10,"Haidian":11,"Shijingshan":12,"Xicheng":13,"Tongzhou":14,"Mentougou":15,"Shunyi":16}
+    values=district.values()
     @staticmethod
     def field2enum(field):
         enum=District.district[field]
@@ -14,6 +15,7 @@ class District():
 
 class PropertyInfo():
     propertyInfo={"non_co_ownership": 0, "co_ownership": 1}
+    values=propertyInfo.values()
 
     @staticmethod
     def field2enum(field):
@@ -27,6 +29,8 @@ class PropertyInfo():
 
 class House_structrue():
     house_structure = {"flat_floor": 0, "duplex": 1, "skip_floor": 2, "staggered_floor": 3}
+    values=house_structure.values()
+
     @staticmethod
     def field2enum(field):
         enum = House_structrue.house_structure[field]
@@ -39,6 +43,7 @@ class House_structrue():
 
 class Building_type():
     building_type = {"Banlou": 0, "tower": 1, "banta_combination": 2, "bungalow": 3}
+    values=building_type.values()
 
     @staticmethod
     def field2enum(field):
@@ -52,6 +57,7 @@ class Building_type():
 
 class Ddecoration():
     decortaion={"hardcover": 0, "simple_decoration": 1, "others": 2, "rough": 3}
+    values=decortaion.values()
 
     @staticmethod
     def field2enum(field):
@@ -65,6 +71,8 @@ class Ddecoration():
 
 class Heating():
     heating = {"central_heating": 0, "self_heating": 1}
+    values=heating.values()
+
     @staticmethod
     def field2enum(field):
         enum = Heating.heating[field]
@@ -77,6 +85,8 @@ class Heating():
 
 class Elevator():
     elevator = {"elevator": 0, "no": 1,"no_data_yet":3}
+    values=elevator.values()
+
     @staticmethod
     def field2enum(field):
         enum = Elevator.elevator[field]
@@ -97,6 +107,8 @@ class Floor_type():
         "bottom_floor": 4,
         "basement": 5,
     }
+    values=floor_type.values()
+
     @staticmethod
     def field2enum(field):
         enum = Floor_type.floor_type[field]
@@ -119,6 +131,7 @@ class Direction():
         "southwest": 6,
         "northwest": 7,
     }
+    values=direction.values()
 
     @staticmethod
     def field2enum(field):
@@ -133,6 +146,7 @@ class Direction():
 
 class Building_structrue():
     building_structrue={"steel_concrete_structure":0,"mixed_structure":1,"brick_concrete_structure":2,"steel_structure":4,"brick_wood_structure":5,"frame_structure":6}
+    values=building_structrue.values()
 
     @staticmethod
     def field2enum(field):
@@ -191,7 +205,7 @@ class Region():
      "Shunyi_City": 228, "Summer_Palace": 229, "Capital_Airport": 230, "Ma_Po": 231, "Majiabao": 232, "Madian": 233,
      "malianwa": 234, "malian_road": 235, "majuqiao": 236, "Gaobeidian": 237, "Gaomi_shop": 238, "Weigong_Village": 239,
      "Lugu": 240, "Huangcunzhong": 241, "Huangcun_railway_station": 242, "Gulou_Street": 243, "Gulou_Streets": 244}
-
+    values=region.values()
 
     @staticmethod
     def field2enum(field):

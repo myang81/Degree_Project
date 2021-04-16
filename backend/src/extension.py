@@ -6,6 +6,7 @@ from flask_migrate import Migrate
 from flask_dropzone import Dropzone
 from flask_avatars import Avatars
 from flask_socketio import SocketIO
+from flask_login import LoginManager
 
 mail=Mail()
 moment=Moment()
@@ -15,4 +16,5 @@ migrate=Migrate()
 dropzone=Dropzone()
 avatars=Avatars()
 socketio = SocketIO()
+loginmanager=LoginManager()
 

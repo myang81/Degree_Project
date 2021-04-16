@@ -2,11 +2,7 @@
   <div class="home-header-nav">
     <div class="block_nav">
       <b-navbar toggleable="lg" type="dark">
-        <b-navbar-brand to="/">IDM</b-navbar-brand>
-        <b-navbar-toggle target="nav-collapse">
-
-        </b-navbar-toggle>
-        <b-collapse id="nav-collapse" is-nav>
+        <b-navbar-brand to="/" style="position: relative">IDM
           <div class="search-block" v-if="showSearch">
             <el-input
                 placeholder="Please input the house name, location, house type and other characteristics"
@@ -16,7 +12,22 @@
             >
               <el-button slot="append" icon="el-icon-search" size="small" @click="handleSearch"></el-button>
             </el-input>
-          </div>
+          </div></b-navbar-brand>
+
+        <b-navbar-toggle target="nav-collapse">
+
+        </b-navbar-toggle>
+        <b-collapse id="nav-collapse" is-nav>
+<!--          <div class="search-block" v-if="showSearch">-->
+<!--            <el-input-->
+<!--                placeholder="Please input the house name, location, house type and other characteristics"-->
+<!--                v-model="searchValue"-->
+<!--                class="input_search"-->
+<!--                size="small"-->
+<!--            >-->
+<!--              <el-button slot="append" icon="el-icon-search" size="small" @click="handleSearch"></el-button>-->
+<!--            </el-input>-->
+<!--          </div>-->
           <!-- Right aligned nav items -->
           <b-navbar-nav class="ml-auto">
             <b-navbar-nav style="text-align: left" v-for="(item,index) in navContent" :key="index">
@@ -63,11 +74,26 @@ export default {
 }
 .search-block{
   padding-left: 2%;
-  /*padding-top: 20px;*/
-  /*padding-bottom: 20px;*/
   justify-content: space-between;
   align-items: center;
   display: flex;
-  width: 50%;
+  width: 50vw;
+  position: absolute;
+  top: 10%;
+  left: 50px;
 }
+</style>
+<style>
+.check-block .el-form-item {
+  margin-bottom: 0;
+}
+
+.check-block .el-form-item__content, .check-block .el-form-item__label {
+  line-height: 15px !important;
+}
+
+.check-block .el-form-item__content {
+  text-align: left;
+}
+
 </style>

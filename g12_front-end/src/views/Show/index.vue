@@ -1,6 +1,6 @@
 <template>
     <div>
-        <HeaderNav :navContent="navContent" :show-search=true :searchValue="form.searchValue"
+        <HeaderNav :navContent="navContent" :show-search=true :searchString="form.searchString"
                    @getSearch="getSearch"></HeaderNav>
         <div style="padding: 0 10px">
             <div class="head-content">
@@ -11,10 +11,9 @@
                             date
                         </el-button>
                         <el-card class="choice-card" :class="{'choice-card-show':choiceCardVisible.date}">
-                            <vc-date-picker v-model="form.dateRange" :columns="$screens({ default: 1, lg: 2 })"
+                            <vc-date-picker v-model="choice.dateRange" :columns="$screens({ default: 1, lg: 2 })"
                                             is-range
-                                            style="border: 0"
-                                            :model-config="{type: 'string',mask: 'YYYY-MM-DD'}"/>
+                                            style="border: 0"/>
                             <div class="choice-card-bottom">
                                 <span class="cancel" @click="handleHideChoice">Cancel</span>
                                 <span class="confirm" @click="handleConfirmChoice">Confirm</span>
@@ -26,13 +25,14 @@
                         <el-button class="choice-button" @click="handleChoiceButton('type')">
                             district
                         </el-button>
-                        <el-card class="choice-card" :class="{'choice-card-show':choiceCardVisible.type}" style="width: 500px
+                        <el-card class="choice-card choice-district"
+                                 :class="{'choice-card-show':choiceCardVisible.type}" style="width: 500px
 ">
                             <div>
                                 <el-row :gutter=20>
-                                    <el-checkbox-group v-model="form.district">
+                                    <el-checkbox-group v-model="choice.houseType">
                                         <el-col :span=8 v-for="(value,key) in global.district" :key="value">
-                                            <el-checkbox :label="value" name="type" :value="value">{{key}}</el-checkbox>
+                                            <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
                                         </el-col>
                                     </el-checkbox-group>
                                 </el-row>
@@ -54,18 +54,18 @@
                                 <p>totalPrice</p>
                                 <el-row :gutter=20>
                                     <el-col :span=6 class="ds-flex ds-ver_center">
-                                        <el-input v-model="form.totalPrice[0]" style="flex: 2" type="text"></el-input>
+                                        <el-input v-model="form.totalPriceRange[0]" style="flex: 2" type="text"></el-input>
                                         <span>￥</span>
                                     </el-col>
                                     <el-col :span=12>
                                         <el-slider
-                                                v-model="form.totalPrice"
+                                                v-model="form.totalPriceRange"
                                                 range
                                                 :max="100000000">
                                         </el-slider>
                                     </el-col>
                                     <el-col :span=6 class="ds-flex ds-ver_center">
-                                        <el-input v-model="form.totalPrice[1]" style="flex: 2" type="text"></el-input>
+                                        <el-input v-model="form.totalPriceRange[1]" style="flex: 2" type="text"></el-input>
                                         <span>￥</span>
                                     </el-col>
                                 </el-row>
@@ -75,18 +75,18 @@
                                 <p>unitPrice</p>
                                 <el-row :gutter=20>
                                     <el-col :span=6 class="ds-flex ds-ver_center">
-                                        <el-input v-model="form.unitPrice[0]" style="flex: 2" type="text"></el-input>
+                                        <el-input v-model="form.unitPriceRange[0]" style="flex: 2" type="text"></el-input>
                                         <span>￥/m2</span>
                                     </el-col>
                                     <el-col :span=12>
                                         <el-slider
-                                                v-model="form.unitPrice"
+                                                v-model="form.unitPriceRange"
                                                 range
                                                 :max="1000000">
                                         </el-slider>
                                     </el-col>
                                     <el-col :span=6 class="ds-flex ds-ver_center">
-                                        <el-input v-model="form.unitPrice[1]" style="flex: 2" type="text"></el-input>
+                                        <el-input v-model="form.unitPriceRange[1]" style="flex: 2" type="text"></el-input>
                                         <span>￥/m2</span>
                                     </el-col>
                                 </el-row>
@@ -137,50 +137,9 @@
 
                     <div style="clear: both"></div>
                 </div>
-                <el-card class="check-block"
-                         :class="{'check-block_show':choiceCardVisible.more&&!choiceCardVisible.init,'check-block_hide':(!choiceCardVisible.more&&!choiceCardVisible.init)}">
-                    <el-form ref="form" :model="form" label-width="120px">
-                        <el-form-item label="house structure" prop="houseStructure">
-                            <el-checkbox-group v-model="form.houseStructure">
-                                <el-col :span=6 v-for="(value,key) in global.house_structure" :key="value">
-                                    <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
-                                </el-col>
-                            </el-checkbox-group>
-                        </el-form-item>
-                        <el-form-item label="direction" prop="direction">
-                            <el-checkbox-group v-model="form.direction">
-                                <el-col :span=6 v-for="(value,key) in global.direction" :key="value">
-                                    <el-checkbox :label="value" name="type" :value="value">{{key}}</el-checkbox>
-                                </el-col>
-                            </el-checkbox-group>
-                        </el-form-item>
-                        <el-form-item label="decoration" prop="decoration">
-                            <el-checkbox-group v-model="form.decoration">
-                                <el-col :span=6 v-for="(value,key) in global.decoration" :key="value">
-                                    <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
-                                </el-col>
-                            </el-checkbox-group>
-                        </el-form-item>
-                        <el-form-item label="heating" prop="heating">
-                            <el-checkbox-group v-model="form.heating">
-                                <el-col :span=6 v-for="(value,key) in global.heating" :key="value">
-                                    <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
-                                </el-col>
-                            </el-checkbox-group>
-                        </el-form-item>
-                        <el-form-item label="elevator" prop="elevator">
-                            <el-checkbox-group v-model="form.elevator">
-                                <el-col :span=6 v-for="(value,key) in global.elevator" :key="value">
-                                    <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
-                                </el-col>
-                            </el-checkbox-group>
-                        </el-form-item>
-                        <div class="choice-card-bottom">
-                            <span class="cancel" @click="handleHideChoice">Cancel</span>
-                            <span class="confirm" @click="handleConfirmChoice">Confirm</span>
-                        </div>
-                    </el-form>
-                </el-card>
+
+                <moreFilter :form="form" @handleCancel="handleHideChoice" @handleConfirm="handleConfirmChoice"
+                            :choiceCardVisible="choiceCardVisible"></moreFilter>
 
             </div>
 
@@ -222,8 +181,7 @@
                         </el-row>
                     </el-card>
                     <el-pagination
-                            :page-size="10"
-                            :pager-count="form.pageNum"
+                            :page-size="form.pageSize"
                             layout="prev, pager, next"
                             :total="total">
                     </el-pagination>
@@ -237,6 +195,7 @@
 
 <script>
     import HeaderNav from '@/components/headerNav/index.vue'
+    import moreFilter from '@/components/moreFilter/index.vue'
     import * as L from 'leaflet'
     import icon from 'leaflet/dist/images/marker-icon.png';
     import iconShadow from 'leaflet/dist/images/marker-shadow.png';
@@ -248,12 +207,13 @@
         name: "index",
         components: {
             HeaderNav,
+            moreFilter
         },
         data() {
             return {
                 map: undefined,
                 mapShow: true,
-                total:undefined,
+                total: 0,
                 recommendationList: [{name: "house1", image: "../assets/home_header_bg.jpg"}, {
                     name: "house1",
                     image: "../assets/home_header_bg.jpg"
@@ -262,27 +222,31 @@
                     image: "../assets/home_header_bg.jpg"
                 }],
                 choiceCardVisible: {bland: false, date: false, type: false, price: false, more: false, init: true},
+                choice: {
+                    dateRange: {
+                        start: undefined,
+                        end: undefined
+                    },
+                    houseType: [],
+                    price: [0, 0]
+                },
                 houseType: [{title: 'Whole house', value: 0}, {title: 'Separate room', value: 1}, {
                     title: 'Separate room',
                     value: 1
                 }, {title: 'Shared room', value: 2}],
                 form: {
-                    dateRange: {
-                        start: undefined,
-                        end: undefined
-                    },
-                    totalPrice: [0, 0],
-                    unitPrice: [0, 0],
-                    area: [0, 0],
+                    totalPriceRange: [0, 0],
+                    unitPriceRange: [0, 0],
+                    area: [0, 50],
                     district: [],
                     houseStructure: [],
                     direction: [],
                     decoration: [],
                     heating: [],
                     elevator: [],
-                    searchValue: "",
+                    searchString: "",
                     pageNum: 1,
-                    pageSize: 10,
+                    pageSize: 10
                 },
                 activeName: 'first',
                 houseList: [],
@@ -296,7 +260,7 @@
         },
         created() {
             this.getList()
-            if (this.$route.params.searchValue) this.form.searchValue = this.$route.params.searchValue
+            if (this.$route.params.searchString) this.form.searchString = this.$route.params.searchString
         },
         mounted() {
             this.initMap()
@@ -363,7 +327,7 @@
                 }
                 this.choiceCardVisible.init = init
             },
-            handleConfirmChoice(){
+            handleConfirmChoice() {
                 this.getList()
                 this.handleHideChoice()
             },
@@ -379,7 +343,6 @@
                 this.$router.push({name: 'detail', params: {houseId: houseId}})
             },
             getList() {
-                console.log(this.form);
                 getHouseList(this.form).then(res => {
                     console.log(res);
                     if (res.data.success) {
@@ -389,8 +352,8 @@
                 })
             },
             getSearch(sv) {
-                console.log(sv)
-                this.form.searchValue = sv
+                console.log(sv);
+                this.form.searchString = sv;
                 this.getList()
             },
         }
@@ -410,27 +373,6 @@
         padding: 10px 10px 10px 2%;
     }
 
-    .check-block {
-        /*margin: 20px 10px;*/
-        height: 0;
-        box-shadow: 0 0;
-        border: 0;
-        /*width: 100%;*/
-        width: calc(100% - 20px);
-        position: absolute;
-        z-index: 99;
-        border-bottom: solid 1px rgba(0, 0, 0, 0.1);
-    }
-
-    .check-block_show {
-        animation: forwards showMore .4s;
-    }
-
-    .check-block_hide {
-        animation: forwards hideMore .4s;
-    }
-
-
     .choice-button-group {
         margin: 20px 10px;
         display: flex;
@@ -440,7 +382,7 @@
 
     .choice-div {
         display: inline-block;
-        position: relative;
+        /*position: relative;*/
         margin-right: 10px;
         float: left;
     }
@@ -563,6 +505,31 @@
         z-index: 999999;
     }
 
+    @media (min-width: 992px) {
+        .choice-card {
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 0;
+        }
+
+        .choice-div {
+            position: relative;
+        }
+    }
+
+    @media (max-width: 992px) {
+        .choice-card {
+            position: absolute;
+            top: 130px;
+            left: 2.5vw;
+            width: 95vw !important;
+        }
+
+        .choice-div {
+            position: unset;
+        }
+    }
+
     .choice-card-bottom .confirm {
         float: right;
         color: #008489;
@@ -652,26 +619,23 @@
     }
 </style>
 <style>
-    .check-block .el-form-item {
-        margin-bottom: 0;
-    }
-
-    .check-block .el-form-item__content, .check-block .el-form-item__label {
-        line-height: 15px !important;
-    }
-
-    .check-block .el-form-item__content {
-        text-align: left;
-    }
-
     .choice-card .el-checkbox__inner {
         width: 19px;
         height: 19px;
     }
 
-    .choice-card .el-checkbox__label {
-        font-size: 19px;
-        line-height: 30px;
+    @media (min-width: 992px) {
+        .choice-district .el-checkbox__label {
+            font-size: 19px;
+            line-height: 30px;
+        }
+    }
+
+    @media (max-width: 992px) {
+        .choice-district .el-checkbox__label {
+            font-size: 12px;
+            line-height: 12px;
+        }
     }
 
     .choice-card .el-checkbox {

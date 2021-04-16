@@ -7,7 +7,7 @@
                 <el-input
                         placeholder="Please input the house name, location, house type and other characteristics"
                         suffix-icon=""
-                        v-model="searchValue"
+                        v-model="searchString"
                         class="input_search"
                 >
                     <el-button slot="append" icon="el-icon-search" size="small" @click="handleSearch"></el-button>
@@ -37,7 +37,7 @@
         },
         data() {
             return {
-                searchValue: "",
+                searchString: "",
                 activeIndex: 0,
                 navContent: [{name: 'Login', router: '/login'}, {name: 'Register', router: '/register'}]
             }
@@ -47,7 +47,7 @@
         },
         methods: {
             handleSearch() {
-                this.$router.push({name: 'houseList', params: {searchValue: this.searchValue}})
+                this.$router.push({name: 'houseList', params: {searchString: this.searchString}})
             },
         }
     }

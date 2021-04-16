@@ -47,19 +47,29 @@ def test():
 #变量解释: argDict： 请求用的参数字典
 @list.route("/getHouseList",methods=['GET','POST'])
 def getHouse():
-    district = None
-    houseStructrue =None
-    decoration = None
-    heating =None
-    elevator = None
-    pageNum = None
-    pageSize = None
-    searchString =None
     global argdict #get the parameter from the front
     if request.method == 'POST':
+        print("Go")
+        print(request.json)
+        timeRange=[0,999999]
+        totalPriceRange=[0,99999]
+        unitPriceRange=[0,9999999]
+        are=[0,999999]
+        district = None
+        houseStructrue = None
+        decoration = None
+        heating = None
+        elevator = None
+        pageNum = None
+        pageSize = None
+        searchString = None
+
         timeRange = request.json.get('timeRange')
         if timeRange == [0,0]:
             timeRange=[0,999999]
+
+
+
         totalPriceRange = request.json.get('totalPriceRange')
         if totalPriceRange == [0,0]:
             totalPriceRange=[0,9999999]
@@ -113,71 +123,78 @@ def getHouse():
         "pageSize":pageSize,
         "searchString":searchString
         }
-    direction={}
-    # #process the drection
-    # direction=argdict[direction]
 
-    direction={
-        "west": "west" if "west" in direction_list else "no",
-        "east": "east" if "east" in direction_list else "no",
-        "south": "south" if "south" in direction_list else "no",
-        "north": "north" if "north" in direction_list else "no",
-        "southwest": "southwest" if "southwest" in direction_list else "no",
-        "southeast": "southeast" if "southeast" in direction_list else "no",
-        "northeast":"northeast" if "northeast" in direction_list else "no",
-        "northwest":"northwest" if "northwest" in direction_list else "no"
-    }
+        #返回房子模型的数组
 
-    print(direction)
-    print(request.json)
+        houseList=[]
+        direction={}
+        # #process the drection
+        # direction=argdict[direction]
 
-    #从数据库查找数据 在价格区间内的数据
-    Houses=House.query.filter(House.price >argdict['totalPriceRange'][0],House.price<argdict['totalPriceRange'][1],
-                                House.floor_area >argdict['area'][0],House.floor_area<argdict['area'][1],
-                              House._unit_price>argdict['unitPriceRange'][0],House._unit_price<argdict['unitPriceRange'][1],
-                             House.District.in_(argdict["district"]),
-                             House.House_structure.in_(argdict['houseStructrue']),
-                             #
-                             House.east==direction["east"],House.west==direction["west"],House.east_north==direction["northeast"],House.east_south==direction["southeast"]
-                             ,House.north==direction["north"],House.south==direction["south"],House.west_south==direction["southwest"],House.east_south==direction["southwest"]
-                             ,
-                            House.Interior_design.in_(argdict["decoration"]),
-                            House.heating.in_(argdict["heating"])
-                              ,House.elevator.in_(argdict["elevator"])
-                             ).all()
-
-    total=House.query.filter(House.price >argdict['totalPriceRange'][0],House.price<argdict['totalPriceRange'][1],
-                                House.floor_area >argdict['area'][0],House.floor_area<argdict['area'][1],
-                              House._unit_price>argdict['unitPriceRange'][0],House._unit_price<argdict['unitPriceRange'][1],
-                             House.District.in_(argdict["district"]),
-                             House.House_structure.in_(argdict['houseStructrue']),
-
-                             House.east==direction["east"],House.west==direction["west"],House.east_north==direction["northeast"],House.east_south==direction["southeast"]
-                             ,House.north==direction["north"],House.south==direction["south"],House.west_south==direction["southwest"],House.east_south==direction["southwest"]
-                             ,
-                            House.Interior_design.in_(argdict["decoration"]),
-                            House.heating.in_(argdict["heating"])
-                              ,House.elevator.in_(argdict["elevator"])
-                             ).count()
-    #返回房子模型的数组
-    print(direction)
-    print(request.json)
-    print(Houses)
-    print(total)
-    houseList=[]
-
-    for item in Houses:
-        houseList.append(item.generateDetail())
-    return {
-            "success": 1,
-            "data": {
-                "total": total,
-                "houseList":houseList
-
-            },
-            "error":None
+        direction={
+            "west": "west" if "west" in direction_list else "no",
+            "east": "east" if "east" in direction_list else "no",
+            "south": "south" if "south" in direction_list else "no",
+            "north": "north" if "north" in direction_list else "no",
+            "southwest": "southwest" if "southwest" in direction_list else "no",
+            "southeast": "southeast" if "southeast" in direction_list else "no",
+            "northeast":"northeast" if "northeast" in direction_list else "no",
+            "northwest":"northwest" if "northwest" in direction_list else "no"
         }
 
+        print(direction)
+        print(request.json)
+
+        #从数据库查找数据 在价格区间内的数据
+        Houses=House.query.filter(House.price >argdict['totalPriceRange'][0],House.price<argdict['totalPriceRange'][1],
+                                    House.floor_area >argdict['area'][0],House.floor_area<argdict['area'][1],
+                                  House._unit_price>argdict['unitPriceRange'][0],House._unit_price<argdict['unitPriceRange'][1],
+                                 House.District.in_(argdict["district"]),
+                                 House.House_structure.in_(argdict['houseStructrue']),
+                                 #
+                                 House.east==direction["east"],House.west==direction["west"],House.east_north==direction["northeast"],House.east_south==direction["southeast"]
+                                 ,House.north==direction["north"],House.south==direction["south"],House.west_south==direction["southwest"],House.east_south==direction["southwest"]
+                                 ,
+                                House.Interior_design.in_(argdict["decoration"]),
+                                House.heating.in_(argdict["heating"])
+                                  ,House.elevator.in_(argdict["elevator"])
+                                 ).all()
+
+        total=House.query.filter(House.price >argdict['totalPriceRange'][0],House.price<argdict['totalPriceRange'][1],
+                                    House.floor_area >argdict['area'][0],House.floor_area<argdict['area'][1],
+                                  House._unit_price>argdict['unitPriceRange'][0],House._unit_price<argdict['unitPriceRange'][1],
+                                 House.District.in_(argdict["district"]),
+                                 House.House_structure.in_(argdict['houseStructrue']),
+
+                                 House.east==direction["east"],House.west==direction["west"],House.east_north==direction["northeast"],House.east_south==direction["southeast"]
+                                 ,House.north==direction["north"],House.south==direction["south"],House.west_south==direction["southwest"],House.east_south==direction["southwest"]
+                                 ,
+                                House.Interior_design.in_(argdict["decoration"]),
+                                House.heating.in_(argdict["heating"])
+                                  ,House.elevator.in_(argdict["elevator"])
+                                 ).count()
+
+        for item in Houses:
+            houseList.append(item.generateDetail())
+        return {
+                "success": 1,
+                "data": {
+                    "total": total,
+                    "houseList":houseList
+
+                },
+                "error":None
+            }
+    else:
+        return {
+                "success": 1,
+                "data": {
+                    "total": 'total',
+                    "houseList":'houseList'
+
+                },
+                "error":None
+        }
 
 
 ####################################

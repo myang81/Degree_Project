@@ -14,7 +14,7 @@
                               style="border: 0"/>
               <div class="choice-card-bottom">
                 <span class="cancel" @click="handleHideChoice">Cancel</span>
-                <span class="confirm" @click="handleHideChoice">Confirm</span>
+                <span class="confirm" @click="handleConfirmChoice">Confirm</span>
               </div>
             </el-card>
           </div>
@@ -23,7 +23,7 @@
             <el-button class="choice-button" @click="handleChoiceButton('type')">
               district
             </el-button>
-            <el-card class="choice-card" :class="{'choice-card-show':choiceCardVisible.type}" style="width: 500px
+            <el-card class="choice-card choice-district" :class="{'choice-card-show':choiceCardVisible.type}" style="width: 500px
 ">
               <div>
                 <el-row :gutter=20>
@@ -36,7 +36,7 @@
               </div>
               <div class="choice-card-bottom">
                 <span class="cancel" @click="handleHideChoice">Cancel</span>
-                <span class="confirm" @click="handleHideChoice">Confirm</span>
+                <span class="confirm" @click="handleConfirmChoice">Confirm</span>
               </div>
             </el-card>
           </div>
@@ -110,7 +110,7 @@
               </div>
               <div class="choice-card-bottom">
                 <span class="cancel" @click="handleHideChoice">Cancel</span>
-                <span class="confirm" @click="handleHideChoice">Confirm</span>
+                <span class="confirm" @click="handleConfirmChoice">Confirm</span>
               </div>
             </el-card>
           </div>
@@ -133,50 +133,8 @@
 
           <div style="clear: both"></div>
         </div>
-        <el-card class="check-block"
-                 :class="{'check-block_show':choiceCardVisible.more&&!choiceCardVisible.init,'check-block_hide':(!choiceCardVisible.more&&!choiceCardVisible.init)}">
-          <el-form ref="form" :model="form" label-width="120px">
-            <el-form-item label="house structure" prop="houseStructure">
-              <el-checkbox-group v-model="form.houseStructure">
-                <el-col :span=6 v-for="(value,key) in global.house_structure" :key="value">
-                  <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
-                </el-col>
-              </el-checkbox-group>
-            </el-form-item>
-            <el-form-item label="direction" prop="direction">
-              <el-checkbox-group v-model="form.direction">
-                <el-col :span=6 v-for="(value,key) in global.direction" :key="value">
-                  <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
-                </el-col>
-              </el-checkbox-group>
-            </el-form-item>
-            <el-form-item label="decoration" prop="decoration">
-              <el-checkbox-group v-model="form.decoration">
-                <el-col :span=6 v-for="(value,key) in global.decoration" :key="value">
-                  <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
-                </el-col>
-              </el-checkbox-group>
-            </el-form-item>
-            <el-form-item label="heating" prop="heating">
-              <el-checkbox-group v-model="form.heating">
-                <el-col :span=6 v-for="(value,key) in global.heating" :key="value">
-                  <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
-                </el-col>
-              </el-checkbox-group>
-            </el-form-item>
-            <el-form-item label="elevator" prop="elevator">
-              <el-checkbox-group v-model="form.elevator">
-                <el-col :span=6 v-for="(value,key) in global.elevator" :key="value">
-                  <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
-                </el-col>
-              </el-checkbox-group>
-            </el-form-item>
-            <div class="choice-card-bottom">
-              <span class="cancel" @click="handleHideChoice">Cancel</span>
-              <span class="confirm" @click="handleHideChoice">Confirm</span>
-            </div>
-          </el-form>
-        </el-card>
+
+        <moreFilter :form="form" @handleCancel="handleHideChoice" @handleConfirm="handleConfirmChoice" :choiceCardVisible="choiceCardVisible"></moreFilter>
 
       </div>
 
@@ -220,6 +178,7 @@
 
 <script>
 import HeaderNav from '@/components/headerNav/index.vue'
+import moreFilter from '@/components/moreFilter/index.vue'
 import * as L from 'leaflet'
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
@@ -231,6 +190,7 @@ export default {
   name: "index",
   components: {
     HeaderNav,
+    moreFilter
   },
   data() {
     return {
@@ -344,6 +304,10 @@ export default {
       }
       this.choiceCardVisible.init=init
     },
+    handleConfirmChoice(){
+      this.getList()
+      this.handleHideChoice()
+    },
     handleMapSwitch(){
       // this.mapShow=!this.mapShow;
       // this.map.invalidateSize(true);
@@ -385,27 +349,6 @@ export default {
   padding: 10px 10px 10px 2%;
 }
 
-.check-block {
-  /*margin: 20px 10px;*/
-  height: 0;
-  box-shadow: 0 0;
-  border: 0;
-  /*width: 100%;*/
-  width: calc(100% - 20px);
-  position: absolute;
-  z-index: 99;
-  border-bottom: solid 1px rgba(0,0,0,0.1);
-}
-
-.check-block_show {
-  animation: forwards showMore .4s;
-}
-
-.check-block_hide {
-  animation: forwards hideMore .4s;
-}
-
-
 .choice-button-group {
   margin: 20px 10px;
   display: flex;
@@ -415,7 +358,7 @@ export default {
 
 .choice-div {
   display: inline-block;
-  position: relative;
+  /*position: relative;*/
   margin-right: 10px;
   float: left;
 }
@@ -525,8 +468,28 @@ export default {
   left: 0;
   z-index: 999999;
 }
-
-.choice-card-bottom .confirm {
+@media (min-width: 992px){
+  .choice-card {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+  }
+  .choice-div{
+    position: relative;
+  }
+}
+@media (max-width: 992px){
+  .choice-card {
+    position: absolute;
+    top: 130px;
+    left: 2.5vw;
+    width: 95vw!important;
+  }
+  .choice-div{
+    position: unset;
+  }
+}
+  .choice-card-bottom .confirm {
   float: right;
   color: #008489;
   font-weight: bold;
@@ -611,28 +574,22 @@ export default {
   }
 </style>
 <style>
-.check-block .el-form-item {
-  margin-bottom: 0;
-}
-
-.check-block .el-form-item__content, .check-block .el-form-item__label {
-  line-height: 15px !important;
-}
-
-.check-block .el-form-item__content {
-  text-align: left;
-}
-
 .choice-card .el-checkbox__inner {
   width: 19px;
   height: 19px;
 }
-
-.choice-card .el-checkbox__label {
-  font-size: 19px;
-  line-height: 30px;
+@media (min-width: 992px){
+  .choice-district .el-checkbox__label {
+    font-size: 19px;
+    line-height: 30px;
+  }
 }
-
+@media (max-width: 992px){
+  .choice-district .el-checkbox__label {
+    font-size: 12px;
+    line-height: 12px;
+  }
+}
 .choice-card .el-checkbox {
   display: flex;
   align-items: center;

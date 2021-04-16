@@ -240,6 +240,9 @@ def getHouse():
 
         for item in houses:
             houseList.append(item.generateDetail())
+
+        print(houses)
+        print(total)
         return {
                 "success": 1,
                 "data": {

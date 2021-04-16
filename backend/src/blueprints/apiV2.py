@@ -7,18 +7,5 @@ def hello():
     return "hello"
 
 
-#login in
-@apiv2.route("/login", methods=['GET', 'POST'])
-def login():
-    username="username" #add database then
-    password="password" #add database then
-    return {
-        "success":1,
-        "data":{
-            "userId":username,
-            "token":password
-        },
-        "error":None
-    }
 
 

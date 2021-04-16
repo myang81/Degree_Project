@@ -16,5 +16,5 @@ migrate=Migrate()
 dropzone=Dropzone()
 avatars=Avatars()
 socketio = SocketIO()
-loginmanager=LoginManager()
+loginManager=LoginManager()
 

@@ -77,6 +77,7 @@ class House(db.Model):
 
         return     {'title': self.title,
      'position': self.Specific_area,
+     'district': self.District,
      'houseId': self.id,
      'describe': str(self.room) +' room'+ str(self.hall) +' halls' + ' |'+ str(self.floor_area)+' square meters '+'| '+str(direction_str) +'| '
                  +str(self.Building_Type)+  ' | '+

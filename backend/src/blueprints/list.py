@@ -215,14 +215,12 @@ def getHouse():
             b = 0.75  # b for BM25
             t1 = time()
             for docs in document.values():
-                docs['collected'] = ''
-                docs['imgUrl'] = ''
-                docs['houseId'] = ''
                 temp_l = []
                 for v in docs.values():
-                    temp_l.append(str(v))
+                    if get_keys(docs, v)[0] != 'collected' and get_keys(docs, v)[0] != 'imgUrl' and  get_keys(docs, v)[0] != 'houseId':
+                        temp_l.append(str(v))
                 N += 1
-                line = ''.join(temp_l)
+                line = ' '.join(temp_l)
                 # line = comp.sub(' ', line.lower())
                 line = line.lower()
                 line = line.replace("-", ",")
@@ -279,7 +277,7 @@ def getHouse():
         t5 = time()
         print("done")
         print(t5 - t4)
-        query = '马家堡'
+        query = searchString
         print("Enter query: ", query)
         query = query.lower()
         similarity = {}  # A dict store the similarity, the  key is the document id, the value is the score
@@ -297,12 +295,19 @@ def getHouse():
         result = sorted(similarity.items(), key=lambda x: x[1], reverse=True)  # Sort by similarity
         rank = 1
         for r in result:  # Print top 15 results
-            # print("rank: ", rank, "document: ", r[0], "score: ", r[1])
-            houseList.append(document[int(r[0])])
+            # print("rank: ", rank, "document: ", document[int(r[0])], "score: ", r[1])
+            if r[1] > 0 :
+                houseList.append(document[int(r[0])])
             rank += 1
-            if rank == 16:
-                break
-
+            # if rank == 16:
+            #     break
+        p_max = len(houseList)
+        print(p_max)
+        p_start = (int(pageNum)-1) * int(pageSize)
+        p_end = p_start + 10
+        if p_end > p_max:
+            p_end = p_max
+        houseList = houseList[p_start:p_end]
         # if direction_listEnum == enumMachine.Direction.values:
         #     houses = House.query.filter(House.price > argdict['totalPriceRange'][0],
         #                                 House.price < argdict['totalPriceRange'][1],

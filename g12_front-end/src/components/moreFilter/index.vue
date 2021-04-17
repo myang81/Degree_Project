@@ -46,12 +46,19 @@
 </template>
 
 <script>
-export default {
+  import global from '@/assets/global'
+
+  export default {
 name: "index",
   props: {
     form: {type: Object},
     choiceCardVisible: {type: Object}
   },
+    data(){
+  return {
+    global: global,
+  }
+    },
   methods:{
     handleCancel(){
       this.$emit('handleCancel');

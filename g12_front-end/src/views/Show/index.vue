@@ -259,8 +259,11 @@
             }
         },
         created() {
+            console.log(this.$route.params)
+            if (this.$route.params.searchString) {this.form.searchString = this.$route.params.searchString}
+            console.log(this.form)
+
             this.getList()
-            if (this.$route.params.searchString) this.form.searchString = this.$route.params.searchString
         },
         mounted() {
             this.initMap()

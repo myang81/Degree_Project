@@ -43,7 +43,6 @@
             }
         },
         created() {
-            this.getTestData()
         },
         methods: {
             handleSearch() {

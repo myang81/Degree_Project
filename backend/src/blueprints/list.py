@@ -308,6 +308,7 @@ def getHouse():
         if p_end > p_max:
             p_end = p_max
         houseList = houseList[p_start:p_end]
+
         # if direction_listEnum == enumMachine.Direction.values:
         #     houses = House.query.filter(House.price > argdict['totalPriceRange'][0],
         #                                 House.price < argdict['totalPriceRange'][1],
@@ -378,6 +379,7 @@ def getHouse():
         #
         # print(houses)
         # print(total)
+
         return {
                 "success": 1,
                 "data": {

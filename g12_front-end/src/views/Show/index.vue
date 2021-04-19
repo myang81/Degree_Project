@@ -237,7 +237,7 @@
                 form: {
                     totalPriceRange: [0, 0],
                     unitPriceRange: [0, 0],
-                    area: [0, 50],
+                    area: [0, 0],
                     district: [],
                     houseStructure: [],
                     direction: [],

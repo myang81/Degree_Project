@@ -101,7 +101,7 @@
         height: calc(100% - 50px);
     }
 
-    @media (min-width: 992px) {
+    @media (min-width: 768px) {
         .home-header-content .input_search {
             width: 60%;
             margin: 12vh auto 0 auto;
@@ -115,7 +115,7 @@
         }
     }
 
-    @media (max-width: 992px) {
+    @media (max-width: 768px) {
         .home-header-content .input_search {
             width: 90%;
             margin: 12vh auto 0 auto;

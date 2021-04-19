@@ -76,9 +76,10 @@ export default {
   justify-content: space-between;
   align-items: center;
   display: flex;
-  width: 50vw;
+  width: 60vw;
   position: absolute;
-  top: 23%;
+  top: 0;
+  padding-top: 12px;
   left: 50px;
 }
 </style>

@@ -1,6 +1,19 @@
 # coding: utf-8
 from src.extension import db
 
+
+
+collections=db.Table('user_houses_collection',
+            db.Column('user_id',db.Integer,db.ForeignKey('user.id')),
+            db.Column('house_id',db.Integer,db.ForeignKey('houses.id'))
+                     )
+
+publishments=db.Table('user_houses_publish',
+                  db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
+                  db.Column('house_id', db.Integer, db.ForeignKey('houses.id'))
+                  )
+
+
 class House(db.Model):
     __tablename__ = 'houses'
 
@@ -38,7 +51,9 @@ class House(db.Model):
     imgUrl = db.Column(db.String(120), index=True, unique=False)
     None2 = db.Column(db.String(120), index=True, unique=False)
     _None = db.Column(db.String(120), index=True, unique=False)
-
+    collection_users=db.relationship('User',secondary=collections,backref=db.backref('collections',lazy='dynamic'),lazy='dynamic')
+    publishments_users = db.relationship('User', secondary=publishments, backref=db.backref('publishments', lazy='dynamic'),
+                                       lazy='dynamic')
 
     def generateDetail(self):
         direction_str=""

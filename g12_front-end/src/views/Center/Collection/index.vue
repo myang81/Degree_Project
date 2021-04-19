@@ -132,12 +132,12 @@
 
     .divcss4 {
         padding: 2px;
-        width: 280px;
+        width: 100%;
         margin-top: 10px
     }
 
     .divcss4 li {
-        width: 280px;
+        width: 100%;
         height: 24px;
         line-height: 24px;
         font-size: 14px;
@@ -265,6 +265,7 @@
 
     .div2 {
         display: inline-block;
+      width: 100%;
     }
 
     .divcss5 {

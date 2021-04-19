@@ -1,6 +1,7 @@
 # coding: utf-8
 from src.extension import db
 
+
 class House(db.Model):
     __tablename__ = 'houses'
 
@@ -25,7 +26,7 @@ class House(db.Model):
     Floor_type = db.Column(db.String(120), index=True, unique=False)
     total_floors = db.Column('total floors', db.Integer)
     east = db.Column(db.String(120), index=True, unique=False)
-    south =db.Column(db.String(120), index=True, unique=False)
+    south = db.Column(db.String(120), index=True, unique=False)
     west = db.Column(db.String(120), index=True, unique=False)
     north = db.Column(db.String(120), index=True, unique=False)
     east_south = db.Column(db.String(120), index=True, unique=False)
@@ -39,51 +40,52 @@ class House(db.Model):
     None2 = db.Column(db.String(120), index=True, unique=False)
     _None = db.Column(db.String(120), index=True, unique=False)
 
-
     def generateDetail(self):
-        direction_str=""
-        if self.east=='no':
-            direction_str+=""
+        direction_str = ""
+        if self.east == 'no':
+            direction_str += ""
         else:
-            direction_str+=self.east
+            direction_str += self.east
         if self.west == 'no':
             direction_str += ""
         else:
-            direction_str += self.west+" "
+            direction_str += self.west + " "
         if self.south == 'no':
             direction_str += ""
         else:
-            direction_str += self.south+" "
+            direction_str += self.south + " "
         if self.north == 'no':
             direction_str += ""
         else:
-            direction_str += self.north+" "
+            direction_str += self.north + " "
         if self.east_south == 'no':
             direction_str += ""
         else:
-            direction_str += self.east_south+" "
+            direction_str += self.east_south + " "
         if self.west_south == 'no':
             direction_str += ""
         else:
-            direction_str += self.west_south+" "
+            direction_str += self.west_south + " "
         if self.east_north == 'no':
             direction_str += ""
         else:
-            direction_str += self.east_north+" "
+            direction_str += self.east_north + " "
         if self.west_north == 'no':
             direction_str += ""
         else:
-            direction_str += self.west_north+" "
+            direction_str += self.west_north + " "
 
-        return     {'title': self.title,
-     'position': self.Specific_area,
-     'district': self.District,
-     'houseId': self.id,
-     'describe': str(self.room) +' room'+ str(self.hall) +' halls' + ' |'+ str(self.floor_area)+' square meters '+'| '+str(direction_str) +'| '
-                 +str(self.Building_Type)+  ' | '+
-                 str(self.House_structure)+' ( total: '+
-                 str(self.total_floors)+' )',
-     'unitPrice':str(self._unit_price),
-     'collected': 'true',
-     'totalPrice': self.price,
-     'imgUrl': 'https://img1.baidu.com/it/u=1947907598,3262319172&fm=26&fmt=auto&gp=0.jpg'}
+        return {'title': self.title,
+                'position': self.Specific_area,
+                'district': self.District,
+                'houseId': self.id,
+                'describe': str(self.room) + ' room' + str(self.hall) + ' halls' + ' |' + str(
+                    self.floor_area) + ' square meters ' + '| ' + str(direction_str) + '| '
+                            + str(self.Building_Type) + ' | ' +
+                            str(self.House_structure) + ' ( total: ' +
+                            str(self.total_floors) + ' )',
+                'unitPrice': str(self._unit_price),
+                'collected': 'true',
+                'totalPrice': self.price,
+                'otherInfo': str(self.Interior_design + '|' + self.heating + '|' + self.elevator),
+                'imgUrl': 'https://img1.baidu.com/it/u=1947907598,3262319172&fm=26&fmt=auto&gp=0.jpg'}

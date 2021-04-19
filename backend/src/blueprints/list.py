@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, session, flash, redirect,request,url_for
+from flask import Blueprint, render_template, session, flash, redirect, request, url_for
 from src.extension import db
 from src.Models.Houses import House
 from src.Utility import enumMachine
@@ -8,15 +8,16 @@ from time import time
 import os
 import json
 
-list=Blueprint('list',__name__)
+list = Blueprint('list', __name__)
 
 
 ###################################################
-#3. 列表接口
+# 3. 列表接口
 ############################################
-@list.route("/test",methods=['GET','POST'])
+@list.route("/test", methods=['GET', 'POST'])
 def test():
     return 0
+
 
 def calculateLength(dict):  # calculate the length of a document
     length = 0
@@ -33,153 +34,147 @@ def get_keys(d, value):
 #	3.1. 获取列表数据接口：        ###
 ####################################
 
-        # 输入： timeRange	Array	发布时间区间	内部为字符串日历时间："yyyy-mm-dd"
-        # priceRange	Array	价格区间	内部为字符串格式价格："1000000"
-        # otherFeatures	Object	其他特征包装变量	对象内部特征根据配置静态文件中字典解析
-        # pageNum	String	当前页数	分页用数据
-        # pageSize	String	每页个数	分页用数据
-        # searchString	String	搜索字符串	bm25搜索
+# 输入： timeRange	Array	发布时间区间	内部为字符串日历时间："yyyy-mm-dd"
+# priceRange	Array	价格区间	内部为字符串格式价格："1000000"
+# otherFeatures	Object	其他特征包装变量	对象内部特征根据配置静态文件中字典解析
+# pageNum	String	当前页数	分页用数据
+# pageSize	String	每页个数	分页用数据
+# searchString	String	搜索字符串	bm25搜索
 
-        #输出： "success": 1,
-        # "data": {
-        #     "total": ""//数据总数，分页用       *****新增*****
-        #     "houseList":[//房源数据列表，注意数量与参数中每页信息数相同
-        #         {
-        #         "imgUrl":"",//房源图片url
-        #         "title":""//房源标题
-        #         "describe":""//房源描述
-        #         "position":""//房源地址（包含region和district，后端连接）
-        #         "coordinate":[]//房源经纬坐标（用于地图展示）
-        #         "houseId":""//房源Id
-        #         "totalPrice":""//房源总计 *****新增*****
-        #         "unitPrice":""//房源单价 *****新增*****
-        #         "collected": true//布尔值，是否已被收藏，仅是对这个用户自身       *****新增*****
-        #         }，
-        #     ]
-        # },
-        #
+# 输出： "success": 1,
+# "data": {
+#     "total": ""//数据总数，分页用       *****新增*****
+#     "houseList":[//房源数据列表，注意数量与参数中每页信息数相同
+#         {
+#         "imgUrl":"",//房源图片url
+#         "title":""//房源标题
+#         "describe":""//房源描述
+#         "position":""//房源地址（包含region和district，后端连接）
+#         "coordinate":[]//房源经纬坐标（用于地图展示）
+#         "houseId":""//房源Id
+#         "totalPrice":""//房源总计 *****新增*****
+#         "unitPrice":""//房源单价 *****新增*****
+#         "collected": true//布尔值，是否已被收藏，仅是对这个用户自身       *****新增*****
+#         }，
+#     ]
+# },
+#
 
-#变量解释: argDict： 请求用的参数字典
-@list.route("/getHouseList",methods=['GET','POST'])
+# 变量解释: argDict： 请求用的参数字典
+@list.route("/getHouseList", methods=['GET', 'POST'])
 def getHouse():
-    global argdict #get the parameter from the front
+    global argdict  # get the parameter from the front
     if request.method == 'POST':
-        timeRange=None
-        totalPriceRange=None
-        unitPriceRange=None
-        area=None
+        timeRange = None
+        totalPriceRange = None
+        unitPriceRange = None
+        area = None
         district = None
         houseStructrue = None
         decoration = None
-        direction=None
+        direction = None
         heating = None
         elevator = None
         pageNum = None
         pageSize = None
         searchString = None
 
-
-
         timeRange = request.json.get('timeRange')
-        if timeRange ==[0,0]:
-            timeRange=[0,9999990]
-
-
+        if timeRange == [0, 0]:
+            timeRange = [0, 9999990]
 
         totalPriceRange = request.json.get('totalPriceRange')
-        if totalPriceRange == [0,0]:
-            totalPriceRange=[0,9999999]
+        if totalPriceRange == [0, 0]:
+            totalPriceRange = [0, 9999999]
 
-        unitPriceRange=request.json.get('unitPriceRange')
-        if unitPriceRange == [0,0]:
-            unitPriceRange=[0,99999999]
+        unitPriceRange = request.json.get('unitPriceRange')
+        if unitPriceRange == [0, 0]:
+            unitPriceRange = [0, 99999999]
 
-        area=request.json.get('area')
-        if area == [0,0]:
-            area=[0,99999999]
+        area = request.json.get('area')
+        if area == [0, 0]:
+            area = [0, 99999999]
 
-        districtEnum=request.json.get('district')
-        if districtEnum==[]:
-            districtEnum=enumMachine.District.values
+        districtEnum = request.json.get('district')
+        if districtEnum == []:
+            districtEnum = enumMachine.District.values
 
-        district=[]
+        district = []
         for item in districtEnum:
             district.append(enumMachine.District.enum2field(item))
 
-        houseStructrueEnum=request.json.get('houseStructure')
-        if houseStructrueEnum==[]:
-            houseStructrueEnum=enumMachine.House_structrue.values
+        houseStructrueEnum = request.json.get('houseStructure')
+        if houseStructrueEnum == []:
+            houseStructrueEnum = enumMachine.House_structrue.values
 
-        houseStructrue=[]
+        houseStructrue = []
         for item in houseStructrueEnum:
             houseStructrue.append(enumMachine.House_structrue.enum2field(item))
 
-        direction_listEnum=request.json.get('direction')
-        if direction_listEnum==[]:
-            direction_listEnum=enumMachine.Direction.values
+        direction_listEnum = request.json.get('direction')
+        if direction_listEnum == []:
+            direction_listEnum = enumMachine.Direction.values
         direction_list = []
         for item in direction_listEnum:
             direction_list.append(enumMachine.Direction.enum2field(item))
 
-
-        decorationEnum=request.json.get('decoration')
-        if decorationEnum==[]:
-            decorationEnum=enumMachine.Ddecoration.values
+        decorationEnum = request.json.get('decoration')
+        if decorationEnum == []:
+            decorationEnum = enumMachine.Ddecoration.values
         decoration = []
         for item in decorationEnum:
             decoration.append(enumMachine.Ddecoration.enum2field(item))
 
-        heatingEnum=request.json.get('heating')
-        if heatingEnum==[]:
-            heatingEnum=enumMachine.Heating.values
-        heating=[]
+        heatingEnum = request.json.get('heating')
+        if heatingEnum == []:
+            heatingEnum = enumMachine.Heating.values
+        heating = []
         for item in heatingEnum:
             heating.append(enumMachine.Heating.enum2field(item))
 
-        elevatorEnum=request.json.get('elevator')
-        if elevatorEnum==[]:
-            elevatorEnum=enumMachine.Elevator.values
-        elevator=[]
+        elevatorEnum = request.json.get('elevator')
+        if elevatorEnum == []:
+            elevatorEnum = enumMachine.Elevator.values
+        elevator = []
         for item in elevatorEnum:
             elevator.append(enumMachine.Elevator.enum2field(item))
-
 
         pageNum = request.json.get('pageNum')
         pageSize = request.json.get('pageSize')
         searchString = request.json.get('searchString')
 
-        argdict={
-        "timeRange": timeRange,
-        "totalPriceRange":totalPriceRange,
-        "unitPriceRange":unitPriceRange,
-        "area":area,
-        "district":district,
-        "houseStructrue":houseStructrue,
-        "direction":direction_list,
-        "decoration":decoration,
-        "heating":heating,
-        "elevator":elevator,
-        "pageNum":pageNum,
-        "pageSize":pageSize,
-        "searchString":searchString
+        argdict = {
+            "timeRange": timeRange,
+            "totalPriceRange": totalPriceRange,
+            "unitPriceRange": unitPriceRange,
+            "area": area,
+            "district": district,
+            "houseStructrue": houseStructrue,
+            "direction": direction_list,
+            "decoration": decoration,
+            "heating": heating,
+            "elevator": elevator,
+            "pageNum": pageNum,
+            "pageSize": pageSize,
+            "searchString": searchString
         }
 
-        #返回房子模型的数组
+        # 返回房子模型的数组
 
-        houseList=[]
-        direction={}
+        houseList = []
+        direction = {}
         # #process the drection
         # direction=argdict[direction]
 
-        direction={
+        direction = {
             "west": "west" if "west" in direction_list else "no",
             "east": "east" if "east" in direction_list else "no",
             "south": "south" if "south" in direction_list else "no",
             "north": "north" if "north" in direction_list else "no",
             "southwest": "southwest" if "southwest" in direction_list else "no",
             "southeast": "southeast" if "southeast" in direction_list else "no",
-            "northeast":"northeast" if "northeast" in direction_list else "no",
-            "northwest":"northwest" if "northwest" in direction_list else "no"
+            "northeast": "northeast" if "northeast" in direction_list else "no",
+            "northwest": "northwest" if "northwest" in direction_list else "no"
         }
 
         # print(direction)
@@ -187,8 +182,8 @@ def getHouse():
         print("The filter requirement is:")
         print(argdict)
         print('searchString: ', searchString)
-        houses=[]
-        total=0
+        houses = []
+        total = 0
 
         document = {}
         document_id = 0
@@ -204,7 +199,8 @@ def getHouse():
                 line = line[:-1]  # Remove the /n in the back of the line
                 stopwords.add(line)
 
-        if not os.path.exists("home_search.txt"):  # The following code are for indexing, will only run on the first run.
+        if not os.path.exists(
+                "home_search.txt"):  # The following code are for indexing, will only run on the first run.
             print("This is the first time to run. The program needs document processing. Please wait a moment")
             N = 0  # Calculate the number of documents in the collection
             avg_doclen = 0  # The average length of a document in the collection, will be used later
@@ -217,7 +213,8 @@ def getHouse():
             for docs in document.values():
                 temp_l = []
                 for v in docs.values():
-                    if get_keys(docs, v)[0] != 'collected' and get_keys(docs, v)[0] != 'imgUrl' and  get_keys(docs, v)[0] != 'houseId':
+                    if get_keys(docs, v)[0] != 'collected' and get_keys(docs, v)[0] != 'imgUrl' and get_keys(docs, v)[
+                        0] != 'houseId':
                         temp_l.append(str(v))
                 N += 1
                 line = ' '.join(temp_l)
@@ -296,39 +293,43 @@ def getHouse():
         rank = 1
         for r in result:  # Print top 15 results
             # print("rank: ", rank, "document: ", document[int(r[0])], "score: ", r[1])
-            if r[1] > 0 :
+            if r[1] > 0:
                 houseList.append(document[int(r[0])])
             rank += 1
             # if rank == 16:
             #     break
         p_max = len(houseList)
+        total = p_max
         print(p_max)
-        p_start = (int(pageNum)-1) * int(pageSize)
+        p_start = (int(pageNum) - 1) * int(pageSize)
         p_end = p_start + 10
         if p_end > p_max:
             p_end = p_max
         houseList = houseList[p_start:p_end]
-
-        # if direction_listEnum == enumMachine.Direction.values:
-        #     houses = House.query.filter(House.price > argdict['totalPriceRange'][0],
-        #                                 House.price < argdict['totalPriceRange'][1],
-        #                                 House.floor_area > argdict['area'][0], House.floor_area < argdict['area'][1],
-        #                                 House._unit_price > argdict['unitPriceRange'][0],
-        #                                 House._unit_price < argdict['unitPriceRange'][1],
-        #                                 House.District.in_(argdict["district"]),
-        #                                 House.House_structure.in_(argdict['houseStructrue']),
-        #                                 #
-        #                                 # House.east == direction["east"], House.west == direction["west"],
-        #                                 # House.east_north == direction["northeast"],
-        #                                 # House.east_south == direction["southeast"]
-        #                                 # , House.north == direction["north"], House.south == direction["south"],
-        #                                 # House.west_south == direction["southwest"],
-        #                                 # House.east_south == direction["southwest"]
-        #                                 #,
-        #                                 House.Interior_design.in_(argdict["decoration"]),
-        #                                 House.heating.in_(argdict["heating"])
-        #                                 , House.elevator.in_(argdict["elevator"])
-        #                                 ).all()
+        print(houseList[0])
+        filter_List = []
+        if direction_listEnum == enumMachine.Direction.values:
+            for h in houseList:
+                if (argdict['totalPriceRange'][0] <= h['totalPrice'] <= argdict['totalPriceRange'][1] and
+                        argdict['area'][0] <= float((h['describe'].split('|')[1]).split(' ')[0]) <= argdict['area'][
+                            1] and
+                        argdict['unitPriceRange'][0] <= h['unitPrice'] <= argdict['unitPriceRange'][1] and
+                        h['district'] in (argdict["district"]) and
+                        (h['describe'].split('|')[4]).split(' ')[1] in (argdict['houseStructrue']) and
+                        #
+                        # House.east == direction["east"], House.west == direction["west"],
+                        # House.east_north == direction["northeast"],
+                        # House.east_south == direction["southeast"]
+                        # , House.north == direction["north"], House.south == direction["south"],
+                        # House.west_south == direction["southwest"],
+                        # House.east_south == direction["southwest"]
+                        # ,
+                        h['otherInfo'].split('|')[0] in (argdict["decoration"]) and
+                        h['otherInfo'].split('|')[0] in (argdict["heating"]) and
+                        h['otherInfo'].split('|')[0] in (argdict["elevator"])
+                ):
+                    filter_List.append(h)
+            total = len(filter_List)
         #
         #
         #     total=House.query.filter(House.price >argdict['totalPriceRange'][0],House.price<argdict['totalPriceRange'][1],
@@ -346,19 +347,19 @@ def getHouse():
         #                          ).count()
         # #从数据库查找数据 在价格区间内的数据
         # else:
-        #     houses=House.query.filter(House.price >argdict['totalPriceRange'][0],House.price<argdict['totalPriceRange'][1],
-        #                                 House.floor_area >argdict['area'][0],House.floor_area<argdict['area'][1],
-        #                               House._unit_price>argdict['unitPriceRange'][0],House._unit_price<argdict['unitPriceRange'][1],
-        #                              House.District.in_(argdict["district"]),
-        #                              House.House_structure.in_(argdict['houseStructrue']),
-        #                              #
-        #                              House.east==direction["east"],House.west==direction["west"],House.east_north==direction["northeast"],House.east_south==direction["southeast"]
-        #                              ,House.north==direction["north"],House.south==direction["south"],House.west_south==direction["southwest"],House.east_south==direction["southwest"]
-        #                              ,
-        #                             House.Interior_design.in_(argdict["decoration"]),
-        #                             House.heating.in_(argdict["heating"])
-        #                               ,House.elevator.in_(argdict["elevator"])
-        #                              ).all()
+        #         #     houses=House.query.filter(House.price >argdict['totalPriceRange'][0],House.price<argdict['totalPriceRange'][1],
+        #         #         #                                 House.floor_area >argdict['area'][0],House.floor_area<argdict['area'][1],
+        #         #         #                               House._unit_price>argdict['unitPriceRange'][0],House._unit_price<argdict['unitPriceRange'][1],
+        #         #         #                              House.District.in_(argdict["district"]),
+        #         #         #                              House.House_structure.in_(argdict['houseStructrue']),
+        #         #         #                              #
+        #         #         #                              House.east==direction["east"],House.west==direction["west"],House.east_north==direction["northeast"],House.east_south==direction["southeast"]
+        #         #         #                              ,House.north==direction["north"],House.south==direction["south"],House.west_south==direction["southwest"],House.east_south==direction["southwest"]
+        #         #         #                              ,
+        #         #         #                             House.Interior_design.in_(argdict["decoration"]),
+        #         #         #                             House.heating.in_(argdict["heating"])
+        #         #         #                               ,House.elevator.in_(argdict["elevator"])
+        #         #         #                              ).all()
         #
         #     total=House.query.filter(House.price >argdict['totalPriceRange'][0],House.price<argdict['totalPriceRange'][1],
         #                             House.floor_area >argdict['area'][0],House.floor_area<argdict['area'][1],
@@ -381,36 +382,35 @@ def getHouse():
         # print(total)
 
         return {
-                "success": 1,
-                "data": {
-                    "total": total,
-                    "houseList":houseList
+            "success": 1,
+            "data": {
+                "total": total,
+                "houseList": houseList
 
-                },
-                "error":None
-            }
+            },
+            "error": None
+        }
     else:
         return {
-                "success": 1,
-                "data": {
-                    "total": 'total',
-                    "houseList":'houseList'
+            "success": 1,
+            "data": {
+                "total": 'total',
+                "houseList": 'houseList'
 
-                },
-                "error":None
+            },
+            "error": None
         }
-
 
 ####################################
 #	3.2. 添加收藏接口：        ###
 ####################################
-#输入
+# 输入
 
 # @list.route("/addCollection",methods=['GET','POST'])
 # def addCollection():
 #
 
-#注释区域
+# 注释区域
 # @list.route("/getHouseList", methods=['GET', 'POST'])
 # def houses():
 #     #connect to the database

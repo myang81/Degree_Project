@@ -328,7 +328,7 @@ const direction = {
     'northeast':5,
     'southwest':6,
     'northwest':7,
-}
+};
 
 export default {
     region,

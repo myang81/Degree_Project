@@ -46,12 +46,19 @@
 </template>
 
 <script>
-export default {
+  import global from '@/assets/global'
+
+  export default {
 name: "index",
   props: {
     form: {type: Object},
     choiceCardVisible: {type: Object}
   },
+    data(){
+  return {
+    global: global,
+  }
+    },
   methods:{
     handleCancel(){
       this.$emit('handleCancel');
@@ -83,5 +90,46 @@ name: "index",
 
 .check-block_hide {
   animation: forwards hideMore .4s;
+}
+@keyframes showMore {
+  0% {
+    height: 0;
+    box-shadow: 0 0;
+    border: 0;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+  }
+  100% {
+    height: 220px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    border: 1px solid #EBEEF5;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+  }
+}
+
+@keyframes hideMore {
+  0% {
+    height: 220px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    border: 1px solid #EBEEF5;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+  }
+  100% {
+    height: 0;
+    box-shadow: 0 0;
+    border: 0;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+  }
+}
+.choice-card-bottom .confirm {
+  float: right;
+  color: #008489;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.choice-card-bottom .cancel {
+  float: left;
+  font-weight: bold;
+  cursor: pointer;
 }
 </style>

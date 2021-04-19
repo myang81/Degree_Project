@@ -1,19 +1,18 @@
 <template>
   <div class="home-header-nav">
     <div class="block_nav">
-      <b-navbar toggleable="lg" type="dark">
-        <b-navbar-brand to="/" style="position: relative">IDM
+      <b-navbar toggleable="lg" type="dark" style="position: relative">
+        <b-navbar-brand to="/" >IDM</b-navbar-brand>
           <div class="search-block" v-if="showSearch">
-            <el-input
-                placeholder="Please input the house name, location, house type and other characteristics"
-                v-model="searchValue"
-                class="input_search"
-                size="small"
-            >
-              <el-button slot="append" icon="el-icon-search" size="small" @click="handleSearch"></el-button>
-            </el-input>
-          </div></b-navbar-brand>
-
+              <el-input
+                      placeholder="Please input the house name, location, house type and other characteristics"
+                      v-model="searchString"
+                      class="input_search"
+                      size="small"
+              >
+                  <el-button slot="append" icon="el-icon-search" size="small" @click="handleSearch"></el-button>
+              </el-input>
+          </div>
         <b-navbar-toggle target="nav-collapse">
 
         </b-navbar-toggle>
@@ -21,7 +20,7 @@
 <!--          <div class="search-block" v-if="showSearch">-->
 <!--            <el-input-->
 <!--                placeholder="Please input the house name, location, house type and other characteristics"-->
-<!--                v-model="searchValue"-->
+<!--                v-model="searchString"-->
 <!--                class="input_search"-->
 <!--                size="small"-->
 <!--            >-->
@@ -46,7 +45,7 @@ export default {
   props: {
     navContent: Array,
     showSearch: {type: Boolean, default: false},
-    searchValue: {type: String, default: ''}
+    searchString: {type: String, default: ''}
   },
   data() {
     return {
@@ -55,8 +54,8 @@ export default {
   },
   methods: {
     handleSearch() {
-      console.log(this.$route)
-      this.$route.name!=='houseList'?this.$router.push({name: 'houseList', params: {searchValue: this.searchValue}}):this.$emit('getSearch', this.searchValue)
+      console.log(this.$route);
+      this.$route.path==='/houseList'?this.$emit('getSearch', this.searchString):this.$router.push({name: 'houseList', params: {searchString: this.searchString}})
     },
   }
 }
@@ -79,7 +78,7 @@ export default {
   display: flex;
   width: 50vw;
   position: absolute;
-  top: 10%;
+  top: 23%;
   left: 50px;
 }
 </style>

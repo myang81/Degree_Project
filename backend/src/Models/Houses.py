@@ -45,7 +45,7 @@ class House(db.Model):
         if self.east == 'no':
             direction_str += ""
         else:
-            direction_str += self.east
+            direction_str += self.east + " "
         if self.west == 'no':
             direction_str += ""
         else:

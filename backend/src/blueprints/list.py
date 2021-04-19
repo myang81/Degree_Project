@@ -177,6 +177,13 @@ def getHouse():
             "northwest": "northwest" if "northwest" in direction_list else "no"
         }
 
+        def filterDirection(l1, l2):
+            l1.append('no')
+            for element in l2:
+                if element not in l1:
+                    return False
+            return True
+
         # print(direction)
         # print(request.json)
         print("The filter requirement is:")
@@ -226,13 +233,6 @@ def getHouse():
                 line = line.replace("|", ",")
                 line_split = line.split(",")
                 print(line_split)
-                # for i in range(len(line_split)):
-                #     if i != 1:
-                #         tempL = (comp.sub(' ',line_split[i])).split(' ')
-                #         line_split.remove(line_split[i])
-                #         for e in tempL:
-                #             line_split.append(e)
-                # print (line_split)
                 newDict = {}  # Store the frequency of terms in this document, key is the term, value is the frequency
                 for elements in line_split:
                     avg_doclen += 1  # Calculate the number of terms in the document collection
@@ -306,32 +306,22 @@ def getHouse():
         if p_end > p_max:
             p_end = p_max
         houseList = houseList[p_start:p_end]
-        print(houseList[0])
         filter_List = []
         if direction_listEnum == enumMachine.Direction.values:
             for h in houseList:
-                if (argdict['totalPriceRange'][0] <= h['totalPrice'] <= argdict['totalPriceRange'][1] and
+                if (argdict['totalPriceRange'][0] <= int(h['totalPrice']) <= argdict['totalPriceRange'][1] and
                         argdict['area'][0] <= float((h['describe'].split('|')[1]).split(' ')[0]) <= argdict['area'][
                             1] and
-                        argdict['unitPriceRange'][0] <= h['unitPrice'] <= argdict['unitPriceRange'][1] and
+                        argdict['unitPriceRange'][0] <= int(h['unitPrice']) <= argdict['unitPriceRange'][1] and
                         h['district'] in (argdict["district"]) and
                         (h['describe'].split('|')[4]).split(' ')[1] in (argdict['houseStructrue']) and
-                        #
-                        # House.east == direction["east"], House.west == direction["west"],
-                        # House.east_north == direction["northeast"],
-                        # House.east_south == direction["southeast"]
-                        # , House.north == direction["north"], House.south == direction["south"],
-                        # House.west_south == direction["southwest"],
-                        # House.east_south == direction["southwest"]
-                        # ,
+                        filterDirection((h['describe'].split('|')[2]).split(' '), argdict['direction']) and
                         h['otherInfo'].split('|')[0] in (argdict["decoration"]) and
                         h['otherInfo'].split('|')[0] in (argdict["heating"]) and
                         h['otherInfo'].split('|')[0] in (argdict["elevator"])
                 ):
                     filter_List.append(h)
             total = len(filter_List)
-        #
-        #
         #     total=House.query.filter(House.price >argdict['totalPriceRange'][0],House.price<argdict['totalPriceRange'][1],
         #                             House.floor_area >argdict['area'][0],House.floor_area<argdict['area'][1],
         #                           House._unit_price>argdict['unitPriceRange'][0],House._unit_price<argdict['unitPriceRange'][1],
@@ -345,35 +335,53 @@ def getHouse():
         #                         House.heating.in_(argdict["heating"])
         #                           ,House.elevator.in_(argdict["elevator"])
         #                          ).count()
-        # #从数据库查找数据 在价格区间内的数据
-        # else:
-        #         #     houses=House.query.filter(House.price >argdict['totalPriceRange'][0],House.price<argdict['totalPriceRange'][1],
-        #         #         #                                 House.floor_area >argdict['area'][0],House.floor_area<argdict['area'][1],
-        #         #         #                               House._unit_price>argdict['unitPriceRange'][0],House._unit_price<argdict['unitPriceRange'][1],
-        #         #         #                              House.District.in_(argdict["district"]),
-        #         #         #                              House.House_structure.in_(argdict['houseStructrue']),
-        #         #         #                              #
-        #         #         #                              House.east==direction["east"],House.west==direction["west"],House.east_north==direction["northeast"],House.east_south==direction["southeast"]
-        #         #         #                              ,House.north==direction["north"],House.south==direction["south"],House.west_south==direction["southwest"],House.east_south==direction["southwest"]
-        #         #         #                              ,
-        #         #         #                             House.Interior_design.in_(argdict["decoration"]),
-        #         #         #                             House.heating.in_(argdict["heating"])
-        #         #         #                               ,House.elevator.in_(argdict["elevator"])
-        #         #         #                              ).all()
-        #
-        #     total=House.query.filter(House.price >argdict['totalPriceRange'][0],House.price<argdict['totalPriceRange'][1],
-        #                             House.floor_area >argdict['area'][0],House.floor_area<argdict['area'][1],
-        #                           House._unit_price>argdict['unitPriceRange'][0],House._unit_price<argdict['unitPriceRange'][1],
-        #                          House.District.in_(argdict["district"]),
-        #                          House.House_structure.in_(argdict['houseStructrue']),
-        #
-        #                          House.east==direction["east"],House.west==direction["west"],House.east_north==direction["northeast"],House.east_south==direction["southeast"]
-        #                          ,House.north==direction["north"],House.south==direction["south"],House.west_south==direction["southwest"],House.east_south==direction["southwest"]
-        #                          ,
-        #                         House.Interior_design.in_(argdict["decoration"]),
-        #                         House.heating.in_(argdict["heating"])
-        #                           ,House.elevator.in_(argdict["elevator"])
-        #                          ).count()
+        # 从数据库查找数据 在价格区间内的数据
+        else:
+            for h in houseList:
+                if (argdict['totalPriceRange'][0] <= h['totalPrice'] <= argdict['totalPriceRange'][1] and
+                        argdict['area'][0] <= float((h['describe'].split('|')[1]).split(' ')[0]) <= argdict['area'][
+                            1] and
+                        argdict['unitPriceRange'][0] <= h['unitPrice'] <= argdict['unitPriceRange'][1] and
+                        h['district'] in (argdict["district"]) and
+                        (h['describe'].split('|')[4]).split(' ')[1] in (argdict['houseStructrue']) and
+                        h['otherInfo'].split('|')[0] in (argdict["decoration"]) and
+                        h['otherInfo'].split('|')[0] in (argdict["heating"]) and
+                        h['otherInfo'].split('|')[0] in (argdict["elevator"])
+                ):
+                    filter_List.append(h)
+            total = len(filter_List)
+        print(total)
+        p_start = (int(pageNum) - 1) * int(pageSize)
+        p_end = p_start + 10
+        if p_end > total:
+            p_end = total
+        filter_List = filter_List[p_start:p_end]
+            # houses=House.query.filter(House.price >argdict['totalPriceRange'][0],House.price<argdict['totalPriceRange'][1],
+            #                                 House.floor_area >argdict['area'][0],House.floor_area<argdict['area'][1],
+            #                               House._unit_price>argdict['unitPriceRange'][0],House._unit_price<argdict['unitPriceRange'][1],
+            #                              House.District.in_(argdict["district"]),
+            #                              House.House_structure.in_(argdict['houseStructrue']),
+            #                              #
+            #                              House.east==direction["east"],House.west==direction["west"],House.east_north==direction["northeast"],House.east_south==direction["southeast"]
+            #                              ,House.north==direction["north"],House.south==direction["south"],House.west_south==direction["southwest"],House.east_south==direction["southwest"]
+            #                              ,
+            #                             House.Interior_design.in_(argdict["decoration"]),
+            #                             House.heating.in_(argdict["heating"])
+            #                               ,House.elevator.in_(argdict["elevator"])
+            #                              ).all()
+            # total=House.query.filter(House.price >argdict['totalPriceRange'][0],House.price<argdict['totalPriceRange'][1],
+            #                         House.floor_area >argdict['area'][0],House.floor_area<argdict['area'][1],
+            #                       House._unit_price>argdict['unitPriceRange'][0],House._unit_price<argdict['unitPriceRange'][1],
+            #                      House.District.in_(argdict["district"]),
+            #                      House.House_structure.in_(argdict['houseStructrue']),
+            #
+            #                      House.east==direction["east"],House.west==direction["west"],House.east_north==direction["northeast"],House.east_south==direction["southeast"]
+            #                      ,House.north==direction["north"],House.south==direction["south"],House.west_south==direction["southwest"],House.east_south==direction["southwest"]
+            #                      ,
+            #                     House.Interior_design.in_(argdict["decoration"]),
+            #                     House.heating.in_(argdict["heating"])
+            #                       ,House.elevator.in_(argdict["elevator"])
+            #                      ).count()
         #
         # for item in houses:
         #     houseList.append(item.generateDetail())
@@ -385,7 +393,7 @@ def getHouse():
             "success": 1,
             "data": {
                 "total": total,
-                "houseList": houseList
+                "houseList": filter_List
 
             },
             "error": None

@@ -6,6 +6,7 @@ from src.blueprints.apiV2 import apiv2
 from src.blueprints.login import login
 from src.blueprints.register import register
 from src.blueprints.list import list
+from src.blueprints.center import center
 from src.setting import config
 from flask import Flask,render_template,Blueprint
 from src.Models.Users import User
@@ -40,6 +41,7 @@ def create_app(config_name=None):
 # 绑定蓝图
 def register_blueprint(app):
     app.register_blueprint(blueprint=register)
+    app.register_blueprint(blueprint=center)
     app.register_blueprint(blueprint=collection)
     app.register_blueprint(blueprint=list)
     app.register_blueprint(blueprint=login)

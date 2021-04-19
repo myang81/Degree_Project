@@ -1,16 +1,8 @@
 
 from flask import Blueprint
-from flask import redirect
-from flask import render_template
 from flask import request
-from flask import url_for
-from flask_login import current_user
-from flask_login import login_required
-from flask_login import login_user
-from flask_login import logout_user
-from werkzeug.urls import url_parse
 
-from src.extension import db
+
 from src.Models.Users import User
 
 login=Blueprint('login',__name__)

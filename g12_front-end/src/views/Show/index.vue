@@ -571,7 +571,7 @@
         }
 
         .list-header_title {
-            font-size: 0.5em;
+            font-size: 1em;
         }
 
         .choice-button-group {

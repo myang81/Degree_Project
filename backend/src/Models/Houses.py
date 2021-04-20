@@ -57,6 +57,41 @@ class House(db.Model):
     publishments_users = db.relationship('User', secondary=publishments, backref=db.backref('publishments', lazy='dynamic'),
                                        lazy='dynamic')
 
+    def generateDirection(self):
+        direction_str = ""
+        if self.east == 'no':
+            direction_str += ""
+        else:
+            direction_str += self.east + " "
+        if self.west == 'no':
+            direction_str += ""
+        else:
+            direction_str += self.west + " "
+        if self.south == 'no':
+            direction_str += ""
+        else:
+            direction_str += self.south + " "
+        if self.north == 'no':
+            direction_str += ""
+        else:
+            direction_str += self.north + " "
+        if self.east_south == 'no':
+            direction_str += ""
+        else:
+            direction_str += self.east_south + " "
+        if self.west_south == 'no':
+            direction_str += ""
+        else:
+            direction_str += self.west_south + " "
+        if self.east_north == 'no':
+            direction_str += ""
+        else:
+            direction_str += self.east_north + " "
+        if self.west_north == 'no':
+            direction_str += ""
+        else:
+            direction_str += self.west_north + " "
+        return direction_str
 
     def generateDetail(self):
         direction_str = ""

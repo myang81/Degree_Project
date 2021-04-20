@@ -30,9 +30,9 @@
 ">
                             <div>
                                 <el-row :gutter=20>
-                                    <el-checkbox-group v-model="choice.houseType">
+                                    <el-checkbox-group v-model="form.district">
                                         <el-col :span=8 v-for="(value,key) in global.district" :key="value">
-                                            <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
+                                            <el-checkbox :label="value" name="type" :value="value">{{key}}</el-checkbox>
                                         </el-col>
                                     </el-checkbox-group>
                                 </el-row>

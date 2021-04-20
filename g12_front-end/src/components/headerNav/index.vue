@@ -32,6 +32,9 @@
             <b-navbar-nav style="text-align: left" v-for="(item,index) in navContent" :key="index">
               <b-nav-item :to="item.router">{{item.name}}</b-nav-item>
             </b-navbar-nav>
+              <b-navbar-nav style="text-align: left" v-if="this.$store.state.token!==null">
+                  <b-nav-item @click="logout">Logout</b-nav-item>
+              </b-navbar-nav>
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>
@@ -57,6 +60,10 @@ export default {
       console.log(this.$route);
       this.$route.path==='/houseList'?this.$emit('getSearch', this.searchString):this.$router.push({name: 'houseList', params: {searchString: this.searchString}})
     },
+      logout(){
+          this.$store.commit('del_token')
+          this.$router.push({name: 'index'})
+      },
   }
 }
 </script>

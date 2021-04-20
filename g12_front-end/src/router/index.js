@@ -123,7 +123,10 @@ const routes = [
   {
     path: '/houseList',
     name: 'houseList',
-    component: Show
+    component: Show,
+    meta: {
+      required: true,
+    }
   },
   {
     path: '/detail',

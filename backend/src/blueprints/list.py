@@ -104,7 +104,7 @@ def getHouse():
             district.append(enumMachine.District.enum2field(item))
 
 
-        houseStructrueEnum=request.json.get('houseStructrue')
+        houseStructrueEnum=request.json.get('houseStructure')
         if houseStructrueEnum==[]:
             houseStructrueEnum=enumMachine.House_structrue.values
 

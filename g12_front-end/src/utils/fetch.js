@@ -2,6 +2,7 @@ import axios from 'axios'
 import { MessageBox,Message } from 'element-ui'
 import store from '../store'
 import Vue from "vue/types/vue";
+import router from '../router'
 
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8';
 // 创建axios实例
@@ -12,19 +13,20 @@ const service = axios.create({
     timeout: 10000,
 });
 // request拦截器
-service.interceptors.request.use(config => {
-    // 是否需要设置 token
-/*    const isToken = (config.headers || {}).isToken === false
-    if (getToken() && !isToken) {
-        config.headers['Authorization'] = 'Bearer ' + getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
-    }*/
-    return config
-}, error => {
-    console.log(error)
-    Promise.reject(error)
-});
+// service.interceptors.request.use(config => {
+//     // 是否需要设置 token
+// /*    const isToken = (config.headers || {}).isToken === false
+//     if (getToken() && !isToken) {
+//         config.headers['Authorization'] = 'Bearer ' + getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
+//     }*/
+//     return config
+// }, error => {
+//     console.log(error)
+//     Promise.reject(error)
+// });
 // 响应拦截器
 service.interceptors.response.use(res => {
+    console.log("service.interceptors.response",res)
     // 未设置状态码则默认成功状态
     const code = res.success || 0;
     // 获取错误信息
@@ -97,6 +99,36 @@ service.interceptors.response.use(res => {
         return Promise.reject(error)
     }
 )
+
+// 路由跳转
+router.beforeEach((to, from, next) => {
+    if (to.meta.required) {
+        // 检查localStorage
+        if (localStorage.token) {
+            store.commit('set_token', localStorage.token)
+            // 添加axios头部Authorized
+            axios.defaults.auth = {
+                username: store.state.token,
+                password: store.state.token,
+            };
+            // iview的页面加载条
+            // iView.LoadingBar.start();
+            next()
+        } else {
+            next({
+                path: '/login',
+            })
+        }
+    } else {
+        // iView.LoadingBar.start();
+        next()
+    }
+})
+
+// router.afterEach((to, from, next) => {
+//     // iView.LoadingBar.finish();
+// })
+
 axios.defaults.baseURL = '/api'
 
 export default service

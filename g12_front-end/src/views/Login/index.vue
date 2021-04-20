@@ -8,7 +8,7 @@
                 <h1>Invincible Dragon Mars</h1><br><br>
                 <el-form ref="form" :model="form" :rules="rules">
                     <el-form-item prop="name" label-width="80px">
-                        <input placeholder="Username" v-model="form.name"/>
+                        <input placeholder="Username" v-model="form.userName"/>
                     </el-form-item>
                     <el-form-item prop="password" label-width="80px">
                         <input placeholder="Password" v-model="form.password"/>
@@ -48,18 +48,18 @@
             return {
                 // imgUrl('../assets/pp.png'),
                 form: {
-                    name: undefined,
+                    userName: undefined,
                     password: undefined,
                     remember: undefined
                 },
                 rules: {
-                    name: [
+                    userName: [
                         {required: true, message: 'please enter username', trigger: 'blur'},
-                        {min: 5, max: 12, message: '5-12', trigger: 'blur'}
+                        // {min: 5, max: 12, message: '5-12', trigger: 'blur'}
                     ],
                     password: [
                         {required: true, message: 'please enter password', trigger: 'blur'},
-                        {min: 8, max: 15, message: '8-15', trigger: 'blur'}
+                        // {min: 8, max: 15, message: '8-15', trigger: 'blur'}
                     ],
 
                 },

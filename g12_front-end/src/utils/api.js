@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "./fetch";
 axios.defaults.baseURL = '/api'
 
 export function getExample(params){

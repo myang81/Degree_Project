@@ -101,7 +101,7 @@
                 this.$refs['form'].validate((valid) => {
                     if (valid) {
                         register(this.form).then(res=>{
-                            console.log(res)
+                            this.$store.commit('set_token', res.data.token)
                         })
                         // this.$router.push({name: 'Login'})
                     } else {
@@ -154,7 +154,7 @@
     .main-agileits {
         width: 42%;
         margin: 0 auto;
-        margin-top: 200px;
+        /*margin-top: 200px;*/
     }
 
 

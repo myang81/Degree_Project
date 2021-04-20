@@ -18,6 +18,39 @@ Vue.use(VCalendar, {
   componentPrefix: 'vc',  // Use <vc-calendar /> instead of <v-calendar />
 });
 
+
+// 路由跳转
+router.beforeEach((to, from, next) => {
+  console.log("localStorage.token",localStorage.token)
+  if (to.meta.required) {
+    // 检查localStorage
+    if (localStorage.token) {
+      // store.commit('set_token', localStorage.token)
+      // // 添加axios头部Authorized
+      // axios.defaults.auth = {
+      //   username: store.state.token,
+      //   password: store.state.token,
+      // };
+      // console.log("localStorage.token","put token into auth")
+      // console.log("service.defaults.auth",axios)
+      // iview的页面加载条
+      // iView.LoadingBar.start();
+      next()
+    } else {
+      next({
+        path: '/login',
+      })
+    }
+  } else {
+    // iView.LoadingBar.start();
+    next()
+  }
+})
+
+// router.afterEach((to, from, next) => {
+//     // iView.LoadingBar.finish();
+// })
+
 new Vue({
   router,
   store,

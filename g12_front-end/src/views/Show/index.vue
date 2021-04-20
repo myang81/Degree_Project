@@ -369,9 +369,9 @@
             getList() {
                 getHouseList(this.form).then(res => {
                     console.log(res);
-                    if (res.data.success) {
-                        this.houseList = res.data.data.houseList;
-                        this.total = res.data.data.total
+                    if (res.success) {
+                        this.houseList = res.data.houseList;
+                        this.total = res.data.total
                     }
                 })
             },

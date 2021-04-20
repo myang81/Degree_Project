@@ -22,24 +22,37 @@ def generate_token(key, expire=3600):
 @register.route("/register", methods=['GET', 'POST'])
 def registerPage():
     if request.method=='POST':
-        username = request.json.get('username')
+        username = request.json.get('name')
         password = request.json.get('password')
         email=request.json.get('email')
-        if User.query.filter(username==username).first() == None:
-            save = User(username=username)
-            save.set_password(password)
-            save.email=email
-            token=generate_token(username)
-            db.session.add(save)
-            db.session.commit()
-            return {
-                "success": 1,
-                "data":{
-                    "userId":save.id,
-                    "token":token
-                },
-                "error":None
-            }
+        prp=request.json.get('prp')
+        print(username+" "+password+" "+prp+" "+email)
+        if User.query.filter(User.username==username).first() == None:
+            if prp==password:
+                save = User(username=username)
+                save.set_password(password)
+                save.email=email
+                token=generate_token(username)
+                db.session.add(save)
+                db.session.commit()
+                return {
+                    "success": 1,
+                    "data":{
+                        "userId":save.id,
+                        "token":token
+                    },
+                    "error":None
+                }
+            else:
+                return
+                {
+                    "success": 0,
+                    "data": {
+                        "userId": None,
+                        "token": None
+                    },
+                    "error": "The two passwords entered are inconsistent"
+                }
         else:
             return {
                 "success": 0,

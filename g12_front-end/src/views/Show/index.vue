@@ -54,18 +54,21 @@
                                 <p>totalPrice</p>
                                 <el-row :gutter=20>
                                     <el-col :span=6 class="ds-flex ds-ver_center">
-                                        <el-input v-model="form.totalPriceRange[0]" style="flex: 2" type="text"></el-input>
+                                        <el-input v-model="form.totalPriceRange[0]" style="flex: 2"
+                                                  type="text"></el-input>
                                         <span>￥</span>
                                     </el-col>
                                     <el-col :span=12>
                                         <el-slider
                                                 v-model="form.totalPriceRange"
                                                 range
-                                                :max="100000000">
+                                                :step="1000"
+                                                :max="200000">
                                         </el-slider>
                                     </el-col>
                                     <el-col :span=6 class="ds-flex ds-ver_center">
-                                        <el-input v-model="form.totalPriceRange[1]" style="flex: 2" type="text"></el-input>
+                                        <el-input v-model="form.totalPriceRange[1]" style="flex: 2"
+                                                  type="text"></el-input>
                                         <span>￥</span>
                                     </el-col>
                                 </el-row>
@@ -75,7 +78,8 @@
                                 <p>unitPrice</p>
                                 <el-row :gutter=20>
                                     <el-col :span=6 class="ds-flex ds-ver_center">
-                                        <el-input v-model="form.unitPriceRange[0]" style="flex: 2" type="text"></el-input>
+                                        <el-input v-model="form.unitPriceRange[0]" style="flex: 2"
+                                                  type="text"></el-input>
                                         <span>￥/m2</span>
                                     </el-col>
                                     <el-col :span=12>
@@ -86,7 +90,8 @@
                                         </el-slider>
                                     </el-col>
                                     <el-col :span=6 class="ds-flex ds-ver_center">
-                                        <el-input v-model="form.unitPriceRange[1]" style="flex: 2" type="text"></el-input>
+                                        <el-input v-model="form.unitPriceRange[1]" style="flex: 2"
+                                                  type="text"></el-input>
                                         <span>￥/m2</span>
                                     </el-col>
                                 </el-row>
@@ -154,8 +159,7 @@
                           </el-tabs>
                         </div>-->
                 <div class="list-container">
-                    <p style="font-size: 2em;padding: 20px 0 10px 20px;font-weight: bold;text-align: left">We find more
-                        than 100 houses for you:</p>
+                    <p style="" class="list-header_title">We find {{total}} houses for you:</p>
                     <el-card class="list-block" v-for="(item,index) in houseList" :key="index" shadow="hover">
                         <el-row class="house-item">
                             <el-col :span=8 style="height: 100%;">
@@ -165,17 +169,19 @@
                                 <div class="item-text">
                                     <div class="item-name" @click="handleClickTitle(item.houseId)">{{ item.title }}
                                     </div>
-                                    <div class="item-pos item-little"><i class="el-icon-position"> </i>{{ item.position
+                                    <div class="item-pos item-little"><i class="el-icon-position"> </i>{{
+                                        item.position
                                         }}
                                     </div>
                                     <div class="item-details item-little"><i class="el-icon-s-home"> </i>{{
-                                        item.describe }}
+                                        item.describe
+                                        }}
                                     </div>
                                     <!--                  <div class="item-collection item-little"><i class="el-icon-star-off"> </i>{{ item.collection }}</div>-->
                                 </div>
                             </el-col>
                             <el-col :span=4 style="height: 100%">
-                                <div class="item-price">{{item.totalPrice}}<span style="color: red;padding-left: 5px">million</span>
+                                <div class="item-price">{{ item.totalPrice }}<span style="color: red;padding-left: 5px">million</span>
                                 </div>
                             </el-col>
                         </el-row>
@@ -183,8 +189,12 @@
                     <el-pagination
                             :page-size="form.pageSize"
                             layout="prev, pager, next"
-                            :total="total">
+                            :total="total"
+                            v-if="total">
                     </el-pagination>
+                    <div class="w-100" v-if="!total">
+                        <el-image :src="require('@/assets/emptyData.png')" fit="contain"/>
+                    </div>
                 </div>
                 <div id="map" :class="[ mapShow ? 'map_show' : 'map_hide' ]"></div>
             </div>
@@ -255,18 +265,29 @@
                     router: '/center/collection'
                 }, {name: 'Start to Sale', router: '/center/sale'}],
                 global: global,
-
+                screenWidth: document.body.clientWidth
             }
         },
         created() {
             console.log(this.$route.params)
-            if (this.$route.params.searchString) {this.form.searchString = this.$route.params.searchString}
+            if (this.$route.params.searchString) {
+                this.form.searchString = this.$route.params.searchString
+            }
             console.log(this.form)
 
             this.getList()
+
         },
         mounted() {
-            this.initMap()
+            if (this.screenWidth >= 768) {
+                this.initMap()
+            }
+            window.onresize = () => {
+                return (() => {
+                    window.screenWidth = document.body.clientWidth
+                    this.screenWidth = window.screenWidth
+                })()
+            };
         },
         methods: {
             initMap() {
@@ -381,6 +402,7 @@
         display: flex;
         align-items: center;
         height: 40px;
+        overflow-x: auto;
     }
 
     .choice-div {
@@ -508,7 +530,7 @@
         z-index: 999999;
     }
 
-    @media (min-width: 992px) {
+    @media (min-width: 768px) {
         .choice-card {
             position: absolute;
             top: calc(100% + 10px);
@@ -518,9 +540,21 @@
         .choice-div {
             position: relative;
         }
+
+        .map_show {
+            display: block;
+        }
+
+        .list-header_title {
+            font-size: 2em;
+        }
+
+        .choice-button-group {
+            overflow-x: unset;
+        }
     }
 
-    @media (max-width: 992px) {
+    @media (max-width: 768px) {
         .choice-card {
             position: absolute;
             top: 130px;
@@ -530,6 +564,18 @@
 
         .choice-div {
             position: unset;
+        }
+
+        .map_show {
+            display: none;
+        }
+
+        .list-header_title {
+            font-size: 0.5em;
+        }
+
+        .choice-button-group {
+            overflow-x: auto;
         }
     }
 
@@ -617,6 +663,12 @@
         margin: 10px;
     }
 
+    .list-header_title {
+        padding: 20px 0 10px 20px;
+        font-weight: bold;
+        text-align: left
+    }
+
     #map {
         z-index: 1;
     }
@@ -627,14 +679,14 @@
         height: 19px;
     }
 
-    @media (min-width: 992px) {
+    @media (min-width: 768px) {
         .choice-district .el-checkbox__label {
             font-size: 19px;
             line-height: 30px;
         }
     }
 
-    @media (max-width: 992px) {
+    @media (max-width: 768px) {
         .choice-district .el-checkbox__label {
             font-size: 12px;
             line-height: 12px;

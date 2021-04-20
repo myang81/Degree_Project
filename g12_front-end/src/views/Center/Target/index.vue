@@ -1,108 +1,142 @@
 <template>
   <div>
     <P class="center-title">Expected house type</P>
-    <el-form ref="form" :model="form" label-width="140px">
+    <el-form ref="form" :model="form" label-width="140px" class="center-form">
       <el-form-item label="totalPrice" prop="totalPrice">
-        <el-row :gutter=20>
-          <el-col :span=3 class="ds-flex">
+        <b-row>
+          <b-col cols=2 class="ds-flex" :class="{'ds-none':this.screenWidth < 768}">
             <el-input v-model="form.totalPrice[0]" style="flex: 2" type="text"></el-input>
             <span style="margin-left: 10px">￥</span>
-          </el-col>
-          <el-col :span=17>
+          </b-col>
+          <b-col v-if="this.screenWidth >= 768" cols=8>
             <el-slider
                 v-model="form.totalPrice"
                 range
+                :step="100000"
                 :max="100000000">
             </el-slider>
-          </el-col>
-          <el-col :span=3 class="ds-flex">
+          </b-col>
+          <b-col v-if="this.screenWidth < 768" cols=12>
+            <el-slider
+                v-model="form.totalPrice"
+                range
+                :step="100000"
+                :max="100000000">
+            </el-slider>
+          </b-col>
+          <b-col cols=2 class="ds-flex" :class="{'ds-none':this.screenWidth < 768}">
             <el-input v-model="form.totalPrice[1]" style="flex: 2" type="text"></el-input>
             <span style="margin-left: 10px">￥</span>
-          </el-col>
-        </el-row>
+          </b-col>
+        </b-row>
       </el-form-item>
       <el-divider></el-divider>
       <el-form-item label="unitPrice" prop="unitPrice">
-        <el-row :gutter=20>
-          <el-col :span=3 class="ds-flex">
+        <b-row>
+          <b-col cols=2 class="ds-flex" :class="{'ds-none':this.screenWidth < 768}">
             <el-input v-model="form.unitPrice[0]" style="flex: 2" type="text"></el-input>
             <span style="margin-left: 10px">￥/m2</span>
-          </el-col>
-          <el-col :span=17>
+          </b-col>
+          <b-col v-if="this.screenWidth >= 768" cols=8>
             <el-slider
                 v-model="form.unitPrice"
                 range
-                :max="1000000">
+                :step="1000"
+                :max="200000">
             </el-slider>
-          </el-col>
-          <el-col :span=3 class="ds-flex">
+          </b-col>
+          <b-col v-if="this.screenWidth < 768" cols=12>
+            <el-slider
+                v-model="form.unitPrice"
+                range
+                :step="1000"
+                :max="200000">
+            </el-slider>
+          </b-col>
+          <b-col cols=2 class="ds-flex" :class="{'ds-none':this.screenWidth < 768}">
             <el-input v-model="form.unitPrice[1]" style="flex: 2" type="text"></el-input>
             <span style="margin-left: 10px">￥/m2</span>
-          </el-col>
-        </el-row>
+          </b-col>
+        </b-row>
       </el-form-item>
       <el-divider></el-divider>
       <el-form-item label="area" prop="area">
-        <el-row :gutter=20>
-          <el-col :span=3 class="ds-flex">
+        <b-row>
+          <b-col cols=2 class="ds-flex" :class="{'ds-none':this.screenWidth < 768}">
             <el-input v-model="form.area[0]" style="flex: 2" type="text"></el-input>
             <span style="margin-left: 10px">m2</span>
-          </el-col>
-          <el-col :span=17>
+          </b-col>
+          <b-col v-if="this.screenWidth >= 768" cols=8>
+            <el-slider
+                v-model="form.area"
+                range
+                :step="1000"
+                :max="1000">
+            </el-slider>
+          </b-col>
+          <b-col v-if="this.screenWidth < 768" cols=12>
             <el-slider
                 v-model="form.area"
                 range
                 :max="1000">
             </el-slider>
-          </el-col>
-          <el-col :span=3 class="ds-flex">
+          </b-col>
+          <b-col cols=2 class="ds-flex" :class="{'ds-none':this.screenWidth < 768}">
             <el-input v-model="form.area[1]" style="flex: 2" type="text"></el-input>
             <span style="margin-left: 10px">m2</span>
-          </el-col>
-        </el-row>
+          </b-col>
+        </b-row>
       </el-form-item>
       <el-divider></el-divider>
       <el-form-item label="district" prop="district">
         <el-checkbox-group v-model="form.district">
-          <el-col :span=6 v-for="(value,key) in global.district" :key="value">
+          <b-row>
+          <b-col cols=6 md=3 v-for="(value,key) in global.district" :key="value">
             <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
-          </el-col>
+          </b-col>
+          </b-row>
         </el-checkbox-group>
       </el-form-item>
       <el-form-item label="house structure" prop="houseStructure">
         <el-checkbox-group v-model="form.houseStructure">
-          <el-col :span=6 v-for="(value,key) in global.house_structure" :key="value">
+          <b-row>
+          <b-col cols=6 md=3 v-for="(value,key) in global.house_structure" :key="value">
             <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
-          </el-col>
+          </b-col>
+          </b-row>
         </el-checkbox-group>
       </el-form-item>
       <el-divider></el-divider>
       <el-form-item label="direction" prop="direction">
         <el-checkbox-group v-model="form.direction">
-          <el-col :span=6 v-for="(value,key) in global.direction" :key="value">
+          <b-row>
+          <b-col cols=6 md=3 v-for="(value,key) in global.direction" :key="value">
             <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
-          </el-col>
+          </b-col>
+          </b-row>
         </el-checkbox-group>
       </el-form-item>
       <el-form-item label="decoration" prop="decoration">
         <el-checkbox-group v-model="form.decoration">
-          <el-col :span=6 v-for="(value,key) in global.decoration" :key="value">
+          <b-row>
+          <b-col cols=6 md=3 v-for="(value,key) in global.decoration" :key="value">
             <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
-          </el-col>
+          </b-col>
+          </b-row>
         </el-checkbox-group>
       </el-form-item>
       <el-form-item label="heating" prop="heating">
         <el-checkbox-group v-model="form.heating">
-          <el-col :span=6 v-for="(value,key) in global.heating" :key="value">
+          <b-col cols=6 md=3 v-for="(value,key) in global.heating" :key="value">
             <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
-          </el-col>
+          </b-col>
         </el-checkbox-group>
       </el-form-item>
       <el-form-item label="elevator" prop="elevator">
         <el-checkbox-group v-model="form.elevator">
-          <el-col :span=6 v-for="(value,key) in global.elevator" :key="value">
+          <b-col cols=6 md=3 v-for="(value,key) in global.elevator" :key="value">
             <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
-          </el-col>
+          </b-col>
         </el-checkbox-group>
       </el-form-item>
       <el-form-item  style="text-align: right">
@@ -153,12 +187,24 @@ export default {
       // },
       navContent:[{name:'Renting',router:''},{name:'Purchase',router:'/'},{name:'Purchase',router:'/'},{name:'Publishing',router:'/'}],
       global:global,
+      screenWidth: document.body.clientWidth
     }
-  }
+  },
+  mounted() {
+    window.onresize = () => {
+      return (() => {
+        window.screenWidth = document.body.clientWidth
+        this.screenWidth = window.screenWidth
+      })()
+    };
+  },
 }
 </script>
 
 <style scoped>
+.ds-none{
+  display: none;
+}
 .center-title{
   font-size: 2rem;
   padding: 30px;
@@ -182,5 +228,25 @@ export default {
 {
   from {left:-100%;}
   to {left: 0}
+}
+</style>
+<style>
+@media (min-width: 768px) {
+
+}
+
+@media (max-width: 768px) {
+  .center-form .el-form-item label{
+    width: 100%;
+    text-align: left;
+    font-weight: bold;
+  }
+  .center-form .el-form-item .el-form-item__content{
+    margin-left: 0!important;
+  }
+  .center-form .el-form-item .row{
+    width: 100%;
+    margin-left: 0px;
+  }
 }
 </style>

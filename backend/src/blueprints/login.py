@@ -58,7 +58,7 @@ def res_json(successCode,data,error):
 def loginFunction():
     username = request.json.get('userName')
     password = request.json.get('password')
-    obj = User.query.filter_by(User.username==username).first()
+    obj = User.query.filter_by(username=username).first()
     if not obj:
         return res_json(201, '', '未找到该用户')
     if obj.check_password(password):

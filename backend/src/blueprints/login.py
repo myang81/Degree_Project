@@ -56,7 +56,7 @@ def res_json(successCode,data,error):
 #login in
 @login.route("/login", methods=['GET', 'POST'])
 def loginFunction():
-    username = request.json.get('name')
+    username = request.json.get('userName')
     password = request.json.get('password')
     obj = User.query.filter_by(username=username).first()
     if not obj:

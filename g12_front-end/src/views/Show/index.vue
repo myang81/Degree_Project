@@ -30,9 +30,9 @@
 ">
                             <div>
                                 <el-row :gutter=20>
-                                    <el-checkbox-group v-model="choice.houseType">
+                                    <el-checkbox-group v-model="form.district">
                                         <el-col :span=8 v-for="(value,key) in global.district" :key="value">
-                                            <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
+                                            <el-checkbox :label="value" name="type" :value="value">{{key}}</el-checkbox>
                                         </el-col>
                                     </el-checkbox-group>
                                 </el-row>
@@ -369,9 +369,9 @@
             getList() {
                 getHouseList(this.form).then(res => {
                     console.log(res);
-                    if (res.data.success) {
-                        this.houseList = res.data.data.houseList;
-                        this.total = res.data.data.total
+                    if (res.success) {
+                        this.houseList = res.data.houseList;
+                        this.total = res.data.total
                     }
                 })
             },
@@ -571,7 +571,7 @@
         }
 
         .list-header_title {
-            font-size: 0.5em;
+            font-size: 1em;
         }
 
         .choice-button-group {

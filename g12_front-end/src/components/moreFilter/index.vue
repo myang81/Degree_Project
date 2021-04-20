@@ -6,7 +6,7 @@
         <el-checkbox-group v-model="form.houseStructure">
           <b-row>
           <b-col cols=12 md=3 v-for="(value,key) in global.house_structure" :key="value">
-            <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
+            <el-checkbox :label="value" name="type" :value="value">{{key}}</el-checkbox>
           </b-col>
           </b-row>
         </el-checkbox-group>
@@ -15,7 +15,7 @@
         <el-checkbox-group v-model="form.direction">
           <b-row>
           <b-col cols=12 md=3 v-for="(value,key) in global.direction" :key="value">
-            <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
+            <el-checkbox :label="value" name="type" :value="value">{{key}}</el-checkbox>
           </b-col>
           </b-row>
         </el-checkbox-group>
@@ -24,7 +24,7 @@
         <el-checkbox-group v-model="form.decoration">
           <b-row>
           <b-col cols=12 md=3 v-for="(value,key) in global.decoration" :key="value">
-            <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
+            <el-checkbox :label="value" name="type" :value="value">{{key}}</el-checkbox>
           </b-col>
           </b-row>
         </el-checkbox-group>
@@ -33,7 +33,7 @@
         <el-checkbox-group v-model="form.heating">
           <b-row>
           <b-col cols=12 md=3 v-for="(value,key) in global.heating" :key="value">
-            <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
+            <el-checkbox :label="value" name="type" :value="value">{{key}}</el-checkbox>
           </b-col>
           </b-row>
         </el-checkbox-group>
@@ -42,7 +42,7 @@
         <el-checkbox-group v-model="form.elevator">
           <b-row>
           <b-col cols=12 md=3 v-for="(value,key) in global.elevator" :key="value">
-            <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
+            <el-checkbox :label="value" name="type" :value="value">{{key}}</el-checkbox>
           </b-col>
           </b-row>
         </el-checkbox-group>

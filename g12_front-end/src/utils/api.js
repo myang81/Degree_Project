@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "./fetch";
 axios.defaults.baseURL = '/api'
 
 export function getExample(params){
@@ -23,13 +23,22 @@ export function apiV1(params){
     })
 }
 
-export function login(params){
+export function login(data){
     return axios({
-        url:'/apiV1/home',
+        url:'/login',
         method:'post',
-        params
+        data
     })
 }
+
+export function register(data){
+    return axios({
+        url:'/register',
+        method:'post',
+        data
+    })
+}
+
 export function getHouseList(data){
     return axios({
         url:'/getHouseList',
@@ -44,5 +53,6 @@ export default {
     postExample,
     apiV1,
     login,
-    getHouseList
+    getHouseList,
+    register
 }

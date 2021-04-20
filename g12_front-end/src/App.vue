@@ -41,4 +41,22 @@
 a:hover {
   text-decoration: blink!important;
 }
+.ds-flex{
+  display: flex;
+}
+.ds-ver_center{
+  align-items: center;
+}
+p{
+  margin-bottom: 0!important;
+}
+.full-width{
+  width: 100%;
+}
+.mg-b-20{
+  margin-bottom: 20px;
+}
+.mg-b-8{
+  margin-bottom: 8px;
+}
 </style>

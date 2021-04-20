@@ -14,11 +14,11 @@
                       </el-form-item>
                   </el-col>
                 <el-col  :span=24 >
-                  <el-form-item label="direction">
+                  <el-form-item label="property">
                     <el-radio-group v-model="form.property" style="line-height: 50px;width: 100%">
 <!--                      <el-row style="display: flex;align-items: center">-->
                         <el-col :span=11  v-for="(value,key) in global.propertyInfo"  :key="value">
-                          <el-radio :label="key" :value="value"></el-radio>
+                          <el-radio :label="value">{{key}}</el-radio>
                         </el-col>
 <!--                      </el-row>-->
                     </el-radio-group>
@@ -88,8 +88,12 @@ name: "baseInfo",
   data(){
     return{
       form:{
-        property:"0",
-        houseStructure:"0",
+        property:undefined,
+        houseStructure:undefined,
+          buildingType:undefined,
+          buildingStructure:undefined,
+          floorType:undefined,
+          floors:undefined
 
       },
       global:global,
@@ -134,7 +138,10 @@ name: "baseInfo",
   from {left:-100%;}
   to {left: 0}
 }
+
+</style>
+<style>
     .sale-form_numberInput{
-        max-width: 150px;display: inline-block;text-align: center;
+        max-width: 150px;display: inline-block!important;text-align: center;
     }
 </style>

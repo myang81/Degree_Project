@@ -1,123 +1,142 @@
 <template>
   <div>
     <P class="center-title">Expected house type</P>
-    <el-form ref="form" :model="form" label-width="80px">
-      <el-form-item label="price" prop="price">
-        <el-checkbox-group v-model="form.type">
-          <el-col :span="8">
-            <el-checkbox label="Less than 2 million" name="type"></el-checkbox>
-          </el-col>
-          <el-col :span="8">
-            <el-checkbox label="2-2.5 million" name="type"></el-checkbox>
-          </el-col>
-          <el-col :span="8">
-            <el-checkbox label="2.5-3 million" name="type"></el-checkbox>
-          </el-col>
-          <el-col :span="8">
-            <el-checkbox label="3-3.5 million" name="type"></el-checkbox>
-          </el-col>
-          <el-col :span="8">
-            <el-checkbox label="4-4.5 million" name="type"></el-checkbox>
-          </el-col>
-          <el-col :span="8">
-            <el-checkbox label="more than 4.5 million" name="type"></el-checkbox>
-          </el-col>
+    <el-form ref="form" :model="form" label-width="140px" class="center-form">
+      <el-form-item label="totalPrice" prop="totalPrice">
+        <b-row>
+          <b-col cols=2 class="ds-flex" :class="{'ds-none':this.screenWidth < 768}">
+            <el-input v-model="form.totalPrice[0]" style="flex: 2" type="text"></el-input>
+            <span style="margin-left: 10px">￥</span>
+          </b-col>
+          <b-col v-if="this.screenWidth >= 768" cols=8>
+            <el-slider
+                v-model="form.totalPrice"
+                range
+                :step="100000"
+                :max="100000000">
+            </el-slider>
+          </b-col>
+          <b-col v-if="this.screenWidth < 768" cols=12>
+            <el-slider
+                v-model="form.totalPrice"
+                range
+                :step="100000"
+                :max="100000000">
+            </el-slider>
+          </b-col>
+          <b-col cols=2 class="ds-flex" :class="{'ds-none':this.screenWidth < 768}">
+            <el-input v-model="form.totalPrice[1]" style="flex: 2" type="text"></el-input>
+            <span style="margin-left: 10px">￥</span>
+          </b-col>
+        </b-row>
+      </el-form-item>
+      <el-divider></el-divider>
+      <el-form-item label="unitPrice" prop="unitPrice">
+        <b-row>
+          <b-col cols=2 class="ds-flex" :class="{'ds-none':this.screenWidth < 768}">
+            <el-input v-model="form.unitPrice[0]" style="flex: 2" type="text"></el-input>
+            <span style="margin-left: 10px">￥/m2</span>
+          </b-col>
+          <b-col v-if="this.screenWidth >= 768" cols=8>
+            <el-slider
+                v-model="form.unitPrice"
+                range
+                :step="1000"
+                :max="200000">
+            </el-slider>
+          </b-col>
+          <b-col v-if="this.screenWidth < 768" cols=12>
+            <el-slider
+                v-model="form.unitPrice"
+                range
+                :step="1000"
+                :max="200000">
+            </el-slider>
+          </b-col>
+          <b-col cols=2 class="ds-flex" :class="{'ds-none':this.screenWidth < 768}">
+            <el-input v-model="form.unitPrice[1]" style="flex: 2" type="text"></el-input>
+            <span style="margin-left: 10px">￥/m2</span>
+          </b-col>
+        </b-row>
+      </el-form-item>
+      <el-divider></el-divider>
+      <el-form-item label="area" prop="area">
+        <b-row>
+          <b-col cols=2 class="ds-flex" :class="{'ds-none':this.screenWidth < 768}">
+            <el-input v-model="form.area[0]" style="flex: 2" type="text"></el-input>
+            <span style="margin-left: 10px">m2</span>
+          </b-col>
+          <b-col v-if="this.screenWidth >= 768" cols=8>
+            <el-slider
+                v-model="form.area"
+                range
+                :step="1000"
+                :max="1000">
+            </el-slider>
+          </b-col>
+          <b-col v-if="this.screenWidth < 768" cols=12>
+            <el-slider
+                v-model="form.area"
+                range
+                :max="1000">
+            </el-slider>
+          </b-col>
+          <b-col cols=2 class="ds-flex" :class="{'ds-none':this.screenWidth < 768}">
+            <el-input v-model="form.area[1]" style="flex: 2" type="text"></el-input>
+            <span style="margin-left: 10px">m2</span>
+          </b-col>
+        </b-row>
+      </el-form-item>
+      <el-divider></el-divider>
+      <el-form-item label="district" prop="district">
+        <el-checkbox-group v-model="form.district">
+          <b-row>
+          <b-col cols=6 md=3 v-for="(value,key) in global.district" :key="value">
+            <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
+          </b-col>
+          </b-row>
+        </el-checkbox-group>
+      </el-form-item>
+      <el-form-item label="house structure" prop="houseStructure">
+        <el-checkbox-group v-model="form.houseStructure">
+          <b-row>
+          <b-col cols=6 md=3 v-for="(value,key) in global.house_structure" :key="value">
+            <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
+          </b-col>
+          </b-row>
         </el-checkbox-group>
       </el-form-item>
       <el-divider></el-divider>
-      <el-form-item label="layout" prop="layout">
-        <el-checkbox-group v-model="form.type">
-          <el-col :span="8">
-            <el-checkbox label="One room" name="type"></el-checkbox>
-          </el-col>
-          <el-col :span="8">
-            <el-checkbox label="Two room" name="type"></el-checkbox>
-          </el-col>
-          <el-col :span="8">
-            <el-checkbox label="Three room" name="type"></el-checkbox>
-          </el-col>
-          <el-col :span="8">
-            <el-checkbox label="Four room" name="type"></el-checkbox>
-          </el-col>
-          <el-col :span="8">
-            <el-checkbox label="Five rooms and above" name="type"></el-checkbox>
-          </el-col>
+      <el-form-item label="direction" prop="direction">
+        <el-checkbox-group v-model="form.direction">
+          <b-row>
+          <b-col cols=6 md=3 v-for="(value,key) in global.direction" :key="value">
+            <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
+          </b-col>
+          </b-row>
         </el-checkbox-group>
       </el-form-item>
-      <el-divider></el-divider>
-      <el-form-item label="measure" prop="measure">
-        <el-checkbox-group v-model="form.type">
-          <el-col :span="8">
-            <el-checkbox label="Less than 50 square meters" name="type"></el-checkbox>
-          </el-col>
-          <el-col :span="8">
-            <el-checkbox label="50-70 square meters" name="type"></el-checkbox>
-          </el-col>
-          <el-col :span="8">
-            <el-checkbox label="70-90 square meters" name="type"></el-checkbox>
-          </el-col>
-          <el-col :span="8">
-            <el-checkbox label="90-120 square meters" name="type"></el-checkbox>
-          </el-col>
-          <el-col :span="8">
-            <el-checkbox label="120-150 square meters" name="type"></el-checkbox>
-          </el-col>
-          <el-col :span="8">
-            <el-checkbox label="more than 150 square meters" name="type"></el-checkbox>
-          </el-col>
-        </el-checkbox-group>
-      </el-form-item>
-      <el-divider></el-divider>
-      <el-form-item label="orientation" prop="orientation">
-        <el-checkbox-group v-model="form.type">
-          <el-col :span="8">
-            <el-checkbox label="North South orientation" name="type"></el-checkbox>
-          </el-col>
-          <el-col :span="8">
-            <el-checkbox label="East west orientation" name="type"></el-checkbox>
-          </el-col>
-        </el-checkbox-group>
-      </el-form-item>
-      <el-form-item label="floor" prop="floor">
-        <el-checkbox-group v-model="form.type">
-          <el-col :span="8">
-            <el-checkbox label="bottom" name="type"></el-checkbox>
-          </el-col>
-          <el-col :span="8">
-            <el-checkbox label="low" name="type"></el-checkbox>
-          </el-col>
-          <el-col :span="8">
-            <el-checkbox label="middle" name="type"></el-checkbox>
-          </el-col>
-          <el-col :span="8">
-            <el-checkbox label="high" name="type"></el-checkbox>
-          </el-col>
-          <el-col :span="8">
-            <el-checkbox label="top" name="type"></el-checkbox>
-          </el-col>
-        </el-checkbox-group>
-      </el-form-item>
-      <el-divider></el-divider>
       <el-form-item label="decoration" prop="decoration">
-        <el-checkbox-group v-model="form.type">
-          <el-col :span="8">
-            <el-checkbox label="None" name="type"></el-checkbox>
-          </el-col>
-          <el-col :span="8">
-            <el-checkbox label="Simple" name="type"></el-checkbox>
-          </el-col>
-          <el-col :span="8">
-            <el-checkbox label="Normal" name="type"></el-checkbox>
-          </el-col>
-          <el-col :span="8">
-            <el-checkbox label="high" name="type"></el-checkbox>
-          </el-col>
-          <el-col :span="8">
-            <el-checkbox label="slap-up" name="type"></el-checkbox>
-          </el-col>
-          <el-col :span="8">
-            <el-checkbox label="luxury" name="type"></el-checkbox>
-          </el-col>
+        <el-checkbox-group v-model="form.decoration">
+          <b-row>
+          <b-col cols=6 md=3 v-for="(value,key) in global.decoration" :key="value">
+            <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
+          </b-col>
+          </b-row>
+        </el-checkbox-group>
+      </el-form-item>
+      <el-form-item label="heating" prop="heating">
+        <el-checkbox-group v-model="form.heating">
+          <b-col cols=6 md=3 v-for="(value,key) in global.heating" :key="value">
+            <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
+          </b-col>
+        </el-checkbox-group>
+      </el-form-item>
+      <el-form-item label="elevator" prop="elevator">
+        <el-checkbox-group v-model="form.elevator">
+          <b-col cols=6 md=3 v-for="(value,key) in global.elevator" :key="value">
+            <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
+          </b-col>
         </el-checkbox-group>
       </el-form-item>
       <el-form-item  style="text-align: right">
@@ -129,54 +148,63 @@
 </template>
 
 <script>
+import global from '@/assets/global'
+
 export default {
   name: "Profit",
   data(){
     return{
       form: {
-        name: '',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: '',
-        price: undefined,
-        layout: undefined,
-        measure: undefined,
-        orientation: undefined,
-        floor: undefined,
-        decoration: undefined,
-
+        totalPrice:[0,0],
+        unitPrice:[0,0],
+        area: [0,0],
+        district:[],
+        houseStructure:[],
+        direction:[],
+        decoration:[],
+        heating:[],
+        elevator:[],
       },
-      rules:{
-        price: [
-            { type: 'array', required: true, message: 'at least choose one', trigger: 'blur' }
-          ],
-         layout: [
-            { type: 'array', required: true, message: 'at least choose one', trigger: 'change' }
-          ],
-         measure: [
-            { type: 'array', required: true, message: 'at least choose one', trigger: 'change' }
-          ],
-         orientation: [
-            { type: 'array', required: true, message: 'at least choose one', trigger: 'change' }
-          ],
-         floor: [
-            { type: 'array', required: true, message: 'at least choose one', trigger: 'change' }
-          ],
-         decoration: [
-            { type: 'array', required: true, message: 'at least choose one', trigger: 'change' }
-          ],
-      },
-      navContent:[{name:'Renting',router:''},{name:'Purchase',router:'/'},{name:'Purchase',router:'/'},{name:'Publishing',router:'/'}]
+      // rules:{
+      //   price: [
+      //       { type: 'array', required: true, message: 'at least choose one', trigger: 'blur' }
+      //     ],
+      //    layout: [
+      //       { type: 'array', required: true, message: 'at least choose one', trigger: 'change' }
+      //     ],
+      //    measure: [
+      //       { type: 'array', required: true, message: 'at least choose one', trigger: 'change' }
+      //     ],
+      //    orientation: [
+      //       { type: 'array', required: true, message: 'at least choose one', trigger: 'change' }
+      //     ],
+      //    floor: [
+      //       { type: 'array', required: true, message: 'at least choose one', trigger: 'change' }
+      //     ],
+      //    decoration: [
+      //       { type: 'array', required: true, message: 'at least choose one', trigger: 'change' }
+      //     ],
+      // },
+      navContent:[{name:'Renting',router:''},{name:'Purchase',router:'/'},{name:'Purchase',router:'/'},{name:'Publishing',router:'/'}],
+      global:global,
+      screenWidth: document.body.clientWidth
     }
-  }
+  },
+  mounted() {
+    window.onresize = () => {
+      return (() => {
+        window.screenWidth = document.body.clientWidth
+        this.screenWidth = window.screenWidth
+      })()
+    };
+  },
 }
 </script>
 
 <style scoped>
+.ds-none{
+  display: none;
+}
 .center-title{
   font-size: 2rem;
   padding: 30px;
@@ -200,5 +228,25 @@ export default {
 {
   from {left:-100%;}
   to {left: 0}
+}
+</style>
+<style>
+@media (min-width: 768px) {
+
+}
+
+@media (max-width: 768px) {
+  .center-form .el-form-item label{
+    width: 100%;
+    text-align: left;
+    font-weight: bold;
+  }
+  .center-form .el-form-item .el-form-item__content{
+    margin-left: 0!important;
+  }
+  .center-form .el-form-item .row{
+    width: 100%;
+    margin-left: 0px;
+  }
 }
 </style>

@@ -1,30 +1,109 @@
 # coding: utf-8
-from sqlalchemy import Column, Integer, Text
-from sqlalchemy.ext.declarative import declarative_base
-
-Base = declarative_base()
-metadata = Base.metadata
+from src.extension import db
 
 
-class Home(Base):
-    __tablename__ = 'home'
 
-    名称 = Column(Text)
-    总价 = Column(Integer)
-    单价 = Column(Integer)
-    产权信息 = Column(Text)
-    户型 = Column(Text)
-    楼层 = Column(Text)
-    建筑面积 = Column(Text)
-    户型结构 = Column(Text)
-    套内面积 = Column(Text)
-    建筑类型 = Column(Text)
-    朝向 = Column(Text)
-    建筑结构 = Column(Text)
-    装修 = Column(Text)
-    梯户比 = Column(Text)
-    供暖 = Column(Text)
-    电梯 = Column(Text)
-    区域 = Column(Text)
-    具体区域 = Column(Text)
-    id = Column(Integer, primary_key=True)
+
+collections=db.Table('user_houses_collection',
+            db.Column('user_id',db.Integer,db.ForeignKey('user.id')),
+            db.Column('house_id',db.Integer,db.ForeignKey('houses.id'))
+                     )
+
+publishments=db.Table('user_houses_publish',
+                  db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
+                  db.Column('house_id', db.Integer, db.ForeignKey('houses.id'))
+                  )
+
+
+class House(db.Model):
+    __tablename__ = 'houses'
+
+    id = db.Column(db.String, primary_key=True)
+    title = db.Column(db.String(120), index=True, unique=False)
+    price = db.Column(db.Integer)
+    _unit_price = db.Column(' unit price', db.Integer)
+    Property_information = db.Column(db.String(120), index=True, unique=False)
+    floor_area = db.Column('floor area', db.Float)
+    House_structure = db.Column(db.String(120), index=True, unique=False)
+    Building_Type = db.Column(db.String(120), index=True, unique=False)
+    Architectural_structure = db.Column(db.String(120), index=True, unique=False)
+    Interior_design = db.Column(db.String(120), index=True, unique=False)
+    ladder_ratio = db.Column('ladder ratio', db.Float)
+    heating = db.Column(db.String(120), index=True, unique=False)
+    elevator = db.Column(db.String(120), index=True, unique=False)
+    District = db.Column(db.String(120), index=True, unique=False)
+    Specific_area = db.Column(db.String(120), index=True, unique=False)
+    hall = db.Column(db.Integer)
+    kitchen = db.Column(db.Integer)
+    toilet = db.Column(db.Integer)
+    Floor_type = db.Column(db.String(120), index=True, unique=False)
+    total_floors = db.Column('total floors', db.Integer)
+    east = db.Column(db.String(120), index=True, unique=False)
+    south = db.Column(db.String(120), index=True, unique=False)
+    west = db.Column(db.String(120), index=True, unique=False)
+    north = db.Column(db.String(120), index=True, unique=False)
+    east_south = db.Column(db.String(120), index=True, unique=False)
+    east_north = db.Column(db.String(120), index=True, unique=False)
+    west_south = db.Column(db.String(120), index=True, unique=False)
+    west_north = db.Column(db.String(120), index=True, unique=False)
+    room = db.Column(db.Integer)
+    Latitude_and_longitude = db.Column(db.String(120), index=True, unique=False)
+    PublishTime = db.Column(db.String(120), index=True, unique=False)
+    imgUrl = db.Column(db.String(120), index=True, unique=False)
+    None2 = db.Column(db.String(120), index=True, unique=False)
+    _None = db.Column(db.String(120), index=True, unique=False)
+
+    collection_users=db.relationship('User',secondary=collections,backref=db.backref('collections',lazy='dynamic'),lazy='dynamic')
+    publishments_users = db.relationship('User', secondary=publishments, backref=db.backref('publishments', lazy='dynamic'),
+                                       lazy='dynamic')
+
+
+    def generateDetail(self):
+        direction_str = ""
+        if self.east == 'no':
+            direction_str += ""
+        else:
+            direction_str += self.east + " "
+        if self.west == 'no':
+            direction_str += ""
+        else:
+            direction_str += self.west + " "
+        if self.south == 'no':
+            direction_str += ""
+        else:
+            direction_str += self.south + " "
+        if self.north == 'no':
+            direction_str += ""
+        else:
+            direction_str += self.north + " "
+        if self.east_south == 'no':
+            direction_str += ""
+        else:
+            direction_str += self.east_south + " "
+        if self.west_south == 'no':
+            direction_str += ""
+        else:
+            direction_str += self.west_south + " "
+        if self.east_north == 'no':
+            direction_str += ""
+        else:
+            direction_str += self.east_north + " "
+        if self.west_north == 'no':
+            direction_str += ""
+        else:
+            direction_str += self.west_north + " "
+
+        return {'title': self.title,
+                'position': self.Specific_area,
+                'district': self.District,
+                'houseId': self.id,
+                'describe': str(self.room) + ' room' + str(self.hall) + ' halls' + ' |' + str(
+                    self.floor_area) + ' square meters ' + '| ' + str(direction_str) + '| '
+                            + str(self.Building_Type) + ' | ' +
+                            str(self.House_structure) + ' ( total: ' +
+                            str(self.total_floors) + ' )',
+                'unitPrice': str(self._unit_price),
+                'collected': 'true',
+                'totalPrice': self.price,
+                'otherInfo': str(self.Interior_design + '|' + self.heating + '|' + self.elevator),
+                'imgUrl': 'https://img1.baidu.com/it/u=1947907598,3262319172&fm=26&fmt=auto&gp=0.jpg'}

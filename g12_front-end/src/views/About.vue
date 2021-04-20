@@ -22,7 +22,7 @@
     },
     methods:{
       handleSearch(){
-        this.$router.push({name:'houseList', params: { q: this.searchValue }})
+        this.$router.push({name:'houseList', params: { q: this.searchString }})
       },
       getTestData(){
         getExample(this.queryData).then(res=>{

@@ -6,11 +6,13 @@ from src.blueprints.apiV2 import apiv2
 from src.blueprints.login import login
 from src.blueprints.register import register
 from src.blueprints.list import list
+from src.blueprints.center import center
 from src.setting import config
 from flask import Flask,render_template,Blueprint
 from src.Models.Users import User
-from src.Models.Messages import Message
+from src.Models.Houses import House
 from src.extension import avatars
+from src.extension import loginManager
 from src.extension import mail,db,moment,bootstrap,migrate,dropzone
 from src.extension import socketio
 import click
@@ -39,6 +41,7 @@ def create_app(config_name=None):
 # 绑定蓝图
 def register_blueprint(app):
     app.register_blueprint(blueprint=register)
+    app.register_blueprint(blueprint=center)
     app.register_blueprint(blueprint=collection)
     app.register_blueprint(blueprint=list)
     app.register_blueprint(blueprint=login)
@@ -64,13 +67,14 @@ def register_externsion(app):
     dropzone.init_app(app)
     avatars.init_app(app)
     socketio.init_app(app)
+    loginManager.init_app(app)
 
 
 
 def register_shell_context(app):
     @app.shell_context_processor
     def make_shell_context():
-        return dict(db=db,User=User,Pet=Pet,Message=Message)
+        return dict(db=db,User=User,House=House)
 
 #Customized Commands
 def register_commands(app):

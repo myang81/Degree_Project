@@ -187,6 +187,11 @@ def getHouse():
                     return False
             return True
 
+        def convertListToEnum(li):
+            for e in li:
+                e['position'] = enumMachine.Region.field2enum(e['position'])
+                e['district'] = enumMachine.District.field2enum(e['district'])
+            return li
         # print(direction)
         # print(request.json)
         print("The filter requirement is:")
@@ -340,12 +345,12 @@ def getHouse():
         # 从数据库查找数据 在价格区间内的数据
         else:
             for h in houseList:
-                print(float((h['describe'].split('|')[1]).split(' ')[0]))
-                if (argdict['totalPriceRange'][0] <= h['totalPrice'] <= argdict['totalPriceRange'][1] and
+                if (argdict['totalPriceRange'][0] <= int(h['totalPrice']) <= argdict['totalPriceRange'][1] and
                         argdict['area'][0] <= float((h['describe'].split('|')[1]).split(' ')[0]) <= argdict['area'][
                             1] and
-                        argdict['unitPriceRange'][0] <= h['unitPrice'] <= argdict['unitPriceRange'][1] and
+                        argdict['unitPriceRange'][0] <= int(h['unitPrice']) <= argdict['unitPriceRange'][1] and
                         h['district'] in (argdict["district"]) and
+                        filterDirection((h['describe'].split('|')[2]).split(' '), argdict['direction']) and
                         (h['describe'].split('|')[4]).split(' ')[1] in (argdict['houseStructrue']) and
                         h['otherInfo'].split('|')[0] in (argdict["decoration"]) and
                         h['otherInfo'].split('|')[1] in (argdict["heating"]) and
@@ -359,6 +364,8 @@ def getHouse():
         if p_end > total:
             p_end = total
         filter_List = filter_List[p_start:p_end]
+        convertListToEnum(filter_List)
+        print(filter_List)
             # houses=House.query.filter(House.price >argdict['totalPriceRange'][0],House.price<argdict['totalPriceRange'][1],
             #                                 House.floor_area >argdict['area'][0],House.floor_area<argdict['area'][1],
             #                               House._unit_price>argdict['unitPriceRange'][0],House._unit_price<argdict['unitPriceRange'][1],

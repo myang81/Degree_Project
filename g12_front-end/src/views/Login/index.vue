@@ -55,11 +55,11 @@
                 rules: {
                     userName: [
                         {required: true, message: 'please enter username', trigger: 'blur'},
-                        {min: 5, max: 12, message: '5-12', trigger: 'blur'}
+                        // {min: 5, max: 12, message: '5-12', trigger: 'blur'}
                     ],
                     password: [
                         {required: true, message: 'please enter password', trigger: 'blur'},
-                        {min: 8, max: 15, message: '8-15', trigger: 'blur'}
+                        // {min: 8, max: 15, message: '8-15', trigger: 'blur'}
                     ],
 
                 },

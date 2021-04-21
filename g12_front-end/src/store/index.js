@@ -6,16 +6,20 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     token: null,
-      userId: '',
+    userId: '',
   },
   mutations: {
-    set_token(state, token) {
-      state.token = token;
-      localStorage.token = token
+    set_token(state, datas) {
+      state.token = datas[0];
+      state.userId = datas[1]
+      localStorage.token = datas[0]
+      localStorage.userId = datas[1]
     },
     del_token(state) {
       state.token = null;
       localStorage.removeItem('token')
+      state.userId = null;
+      localStorage.removeItem('userId')
     }
   },
   actions: {

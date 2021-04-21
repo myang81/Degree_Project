@@ -269,8 +269,9 @@
             }
         },
         created() {
-            console.log(this.$route.params)
-            if (this.$route.params.searchString) {
+          console.log(this.$route.params)
+          console.log("--------userId--------",this.$store.state)
+          if (this.$route.params.searchString) {
                 this.form.searchString = this.$route.params.searchString
             }
             console.log(this.form)

@@ -101,9 +101,9 @@
                 this.$refs['form'].validate((valid) => {
                     if (valid) {
                         register(this.form).then(res=>{
-                            this.$store.commit('set_token', res.data.token)
+                          this.$store.commit('set_token', res.data.token,res.data.userId)
+                          this.$router.push({name: 'index'})
                         })
-                        // this.$router.push({name: 'Login'})
                     } else {
                         console.log('error submit!!');
                         return false;

@@ -60,9 +60,9 @@ def loginFunction():
     password = request.json.get('password')
     obj = User.query.filter_by(username=username).first()
     if not obj:
-        return res_json(201, '', '未找到该用户')
+        return res_json(0, '', '未找到该用户')
     if obj.check_password(password):
         token = generate_token(username)
-        return res_json(200, {'userId':obj.id,'token': token}, '登录成功')
+        return res_json(1, {'userId':obj.id,'token': token}, '登录成功')
     else:
-        return res_json(201, '', '密码错误')
+        return res_json(0, '', '密码错误')

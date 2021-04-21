@@ -158,7 +158,7 @@
                             <el-tab-pane label="cheapest" name="fourth"></el-tab-pane>
                           </el-tabs>
                         </div>-->
-                <div class="list-container">
+                <div class="list-container" v-loading="loading">
                     <p style="" class="list-header_title">We find {{total}} houses for you:</p>
                     <el-card class="list-block" v-for="(item,index) in houseList" :key="index" shadow="hover">
                         <el-row class="house-item">
@@ -221,6 +221,7 @@
         },
         data() {
             return {
+              loading:false,
                 map: undefined,
                 mapShow: true,
                 total: 0,
@@ -275,9 +276,7 @@
                 this.form.searchString = this.$route.params.searchString
             }
             console.log(this.form)
-
             this.getList()
-
         },
         mounted() {
             if (this.screenWidth >= 768) {
@@ -368,12 +367,16 @@
                 this.$router.push({name: 'detail', params: {houseId: houseId}})
             },
             getList() {
+              this.loading=true
                 getHouseList(this.form).then(res => {
                     console.log(res);
                     if (res.success) {
                         this.houseList = res.data.houseList;
                         this.total = res.data.total
                     }
+                  this.loading=false
+                }).catch(()=>{
+                  this.loading=false
                 })
             },
             getSearch(sv) {

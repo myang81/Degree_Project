@@ -81,8 +81,8 @@
                     if (valid) {
                         login(this.form).then(res=>{
                           // console.log(res.data.userId)
-                          this.$store.commit('set_token', [res.data.token,res.data.userId])
-                          this.$router.push({name: 'index'})
+                          this.form.remember?this.$store.commit('set_token', [res.data.token,res.data.userId]):this.$store.commit('set_temporary_token', [res.data.token,res.data.userId])
+                              this.$router.push({name: 'index'})
                         })
                     } else {
                         console.log('error submit!!');

@@ -143,6 +143,7 @@
         -moz-box-shadow: 0px 35px 44px -22px rgba(0, 0, 0, 0.72);
         box-shadow: 0px 35px 44px -22px #1f181b;
         padding: 60px 40px;
+        /*text-align:center;*/
     }
 
 
@@ -157,6 +158,7 @@
         border-bottom: 1px solid #889ba0;
         -webkit-appearance: none;
         margin-bottom: 30px;
+        margin-left: -80px;
         background: transparent;
 
         letter-spacing: 1px;
@@ -168,7 +170,65 @@
     }
 
 
-    .submit-w3l input[type="submit"] {
+    /*.submit-w3l input[type="submit"] {*/
+    /*    background: #fff;*/
+    /*    color: #000;*/
+    /*    outline: none;*/
+    /*    display: block;*/
+    /*    margin: 0 auto;*/
+    /*    border: none;*/
+    /*    cursor: pointer;*/
+    /*    padding: 13px 38px;*/
+    /*    font-size: 14px;*/
+    /*    width: 100%;*/
+    /*    margin-top: 1em;*/
+    /*    text-align: center;*/
+    /*    font-weight: bold;*/
+    /*    text-transform: uppercase;*/
+
+    /*    transition: 0.3s all;*/
+    /*    -webkit-transition: 0.3s all;*/
+    /*    -moz-transition: 0.3s all;*/
+    /*    -o-transition: 0.3s all;*/
+    /*    -ms-transition: 0.3s all;*/
+    /*}*/
+
+    /*.submit-w3l input[type="submit"]:hover {*/
+    /*    background: #3A5FCD;*/
+    /*    color: #ffffff;*/
+    /*    transition: 0.3s all;*/
+    /*    -webkit-transition: 0.3s all;*/
+    /*    -moz-transition: 0.3s all;*/
+    /*    -o-transition: 0.3s all;*/
+    /*    -ms-transition: 0.3s all;*/
+    /*}*/
+
+    input::-webkit-input-placeholder {
+        color: #EBEEF5;
+    }
+
+
+    @media only screen and (max-width: 500px) {
+
+    }
+
+
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+.submit-w3l .el-button {
         background: #fff;
         color: #000;
         outline: none;
@@ -178,7 +238,7 @@
         cursor: pointer;
         padding: 13px 38px;
         font-size: 14px;
-        width: 100%;
+        width: 87%;
         margin-top: 1em;
         text-align: center;
         font-weight: bold;
@@ -191,7 +251,7 @@
         -ms-transition: 0.3s all;
     }
 
-    .submit-w3l input[type="submit"]:hover {
+    .submit-w3l .el-button:hover {
         background: #3A5FCD;
         color: #ffffff;
         transition: 0.3s all;
@@ -201,14 +261,13 @@
         -ms-transition: 0.3s all;
     }
 
-    input::-webkit-input-placeholder {
-        color: #EBEEF5;
-    }
 
 
-    @media only screen and (max-width: 500px) {
 
-    }
+
+
+
+
 
 
 </style>

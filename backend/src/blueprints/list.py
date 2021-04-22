@@ -186,10 +186,12 @@ def getHouse():
             return True
 
         def convertListToEnum(li):
+            print("strart to convert ")
             for e in li:
                 e['position'] = enumMachine.Region.field2enum(e['position'])
                 e['district'] = enumMachine.District.field2enum(e['district'])
             return li
+
 
         # print(direction)
         # print(request.json)
@@ -230,6 +232,7 @@ def getHouse():
                     if get_keys(docs, v)[0] != 'collected' and get_keys(docs, v)[0] != 'imgUrl' and get_keys(docs, v)[
                         0] != 'houseId':
                         temp_l.append(str(v))
+
                 N += 1
                 line = ' '.join(temp_l)
                 # line = comp.sub(' ', line.lower())
@@ -329,6 +332,8 @@ def getHouse():
                     ):
                         filter_List.append(h)
             total = len(filter_List)
+            print("filter List\n")
+            print(filter_List)
             print(total, '111')
         #     total=House.query.filter(House.price >argdict['totalPriceRange'][0],House.price<argdict['totalPriceRange'][1],
         #                             House.floor_area >argdict['area'][0],House.floor_area<argdict['area'][1],
@@ -366,7 +371,7 @@ def getHouse():
         if p_end > total:
             p_end = total
         filter_List = filter_List[p_start:p_end]
-        convertListToEnum(filter_List)
+        # convertListToEnum(filter_List)
         print(filter_List)
         # houses=House.query.filter(House.price >argdict['totalPriceRange'][0],House.price<argdict['totalPriceRange'][1],
         #                                 House.floor_area >argdict['area'][0],House.floor_area<argdict['area'][1],
@@ -400,7 +405,7 @@ def getHouse():
         #
         # print(houses)
         # print(total)
-
+        print(filter_List)
         return {
             "success": 1,
             "data": {
@@ -410,6 +415,7 @@ def getHouse():
             },
             "error": None
         }
+
     else:
         return {
             "success": 1,

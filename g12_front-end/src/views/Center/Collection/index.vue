@@ -78,38 +78,38 @@
         name: "collection",
         data() {
             return {
-                collectionList: [{
-                    'seller': 'liangbj0405',
-                    'date': '2020.1.1',
-                    'price': '200W',
-                    'title': '[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture',
-                    'collectDate': '2021.3.14'
-                }, {
-                    'seller': 'liangbj0405',
-                    'date': '2020.1.1',
-                    'price': '200W',
-                    'title': '[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture',
-                    'collectDate': '2021.3.14'
-                }, {
-                    'seller': 'liangbj0405',
-                    'date': '2020.1.1',
-                    'price': '200W',
-                    'title': '[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture',
-                    'collectDate': '2021.3.14'
-                }, {
-                    'seller': 'liangbj0405',
-                    'date': '2020.1.1',
-                    'price': '200W',
-                    'title': '[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture',
-                    'collectDate': '2021.3.14'
-                }, {
-                    'seller': 'liangbj0405',
-                    'date': '2020.1.1',
-                    'price': '200W',
-                    'title': '[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture',
-                    'collectDate': '2021.3.14'
-                }],
-                userId: 'liangbj0405'
+                // collectionList: [{
+                //     'seller': 'liangbj0405',
+                //     'date': '2020.1.1',
+                //     'price': '200W',
+                //     'title': '[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture',
+                //     'collectDate': '2021.3.14'
+                // }, {
+                //     'seller': 'liangbj0405',
+                //     'date': '2020.1.1',
+                //     'price': '200W',
+                //     'title': '[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture',
+                //     'collectDate': '2021.3.14'
+                // }, {
+                //     'seller': 'liangbj0405',
+                //     'date': '2020.1.1',
+                //     'price': '200W',
+                //     'title': '[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture',
+                //     'collectDate': '2021.3.14'
+                // }, {
+                //     'seller': 'liangbj0405',
+                //     'date': '2020.1.1',
+                //     'price': '200W',
+                //     'title': '[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture',
+                //     'collectDate': '2021.3.14'
+                // }, {
+                //     'seller': 'liangbj0405',
+                //     'date': '2020.1.1',
+                //     'price': '200W',
+                //     'title': '[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture',
+                //     'collectDate': '2021.3.14'
+                // }],
+                collectionList:[]
             };
         },
         created() {

@@ -10,6 +10,7 @@ export default new Vuex.Store({
   },
   mutations: {
     set_token(state, datas) {
+        console.log(datas);
         if(datas[0]&&datas[1]){
             state.token = datas[0];
             state.userId = datas[1];
@@ -18,6 +19,7 @@ export default new Vuex.Store({
         }
     },
     set_temporary_token(state, datas) {
+        console.log(datas)
         if(datas[0]&&datas[1]) {
             state.token = datas[0];
             state.userId = datas[1]

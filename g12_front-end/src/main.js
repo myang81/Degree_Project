@@ -21,7 +21,7 @@ Vue.use(VCalendar, {
 
 // 路由跳转
 router.beforeEach((to, from, next) => {
-  console.log("localStorage.token",localStorage.token)
+  console.log("localStorage.token",localStorage)
   if (to.meta.required) {
     // 检查localStorage
     if (localStorage.token) {

@@ -28,14 +28,19 @@
 <!--            </el-input>-->
 <!--          </div>-->
           <!-- Right aligned nav items -->
-          <b-navbar-nav class="ml-auto">
-            <b-navbar-nav style="text-align: left" v-for="(item,index) in navContent" :key="index">
+          <b-navbar-nav class="ml-auto"  v-if="this.$store.state.token!==null">
+            <b-navbar-nav style="text-align: left" v-for="(item,index) in navContent_user" :key="index">
               <b-nav-item :to="item.router">{{item.name}}</b-nav-item>
             </b-navbar-nav>
-              <b-navbar-nav style="text-align: left" v-if="this.$store.state.token!==null">
+              <b-navbar-nav style="text-align: left">
                   <b-nav-item @click="logout">Logout</b-nav-item>
               </b-navbar-nav>
           </b-navbar-nav>
+            <b-navbar-nav class="ml-auto"  v-else>
+                <b-navbar-nav style="text-align: left" v-for="(item,index) in navContent_visitor" :key="index">
+                    <b-nav-item :to="item.router">{{item.name}}</b-nav-item>
+                </b-navbar-nav>
+            </b-navbar-nav>
         </b-collapse>
       </b-navbar>
     </div>
@@ -46,13 +51,14 @@
 export default {
   name: "index",
   props: {
-    navContent: Array,
+    // navContent: Array,
     showSearch: {type: Boolean, default: false},
     searchString: {type: String, default: ''}
   },
   data() {
     return {
-
+        navContent_visitor: [{name: 'Login', router: '/login'}, {name: 'Register', router: '/register'}],
+        navContent_user: [{name: 'Center', router: '/center'}, {name: 'Collection', router: '/center/collection'}, {name: 'Start to Sale', router: '/center/sale'}]
     }
   },
   methods: {

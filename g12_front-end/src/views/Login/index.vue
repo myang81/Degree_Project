@@ -71,23 +71,20 @@
                 ],
 
                 navContent: [{name: 'Login', router: '/login'}, {name: 'Register', router: '/register'}]
-
             }
-
         },
         methods: {
             onSubmit() {
                 this.$refs['form'].validate((valid) => {
                     if (valid) {
-                        login(this.form).then((res)=>{
-                          // console.log(res.data)
-                          // console.log(this.form.remember)
+                        login(this.form).then(res=>{
+                          console.log('set_token',[res.data.token,res.data.userId])
                           this.form.remember?this.$store.commit('set_token', [res.data.token,res.data.userId]):this.$store.commit('set_temporary_token', [res.data.token,res.data.userId])
                               this.$router.push({name: 'index'})
                         })
                     } else {
                         console.log('error submit!!');
-                        return false;
+                        // return false;
                     }
                 });
             },

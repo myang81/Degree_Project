@@ -32,7 +32,6 @@ service.interceptors.response.use(res => {
         console.log("service.interceptors.response", res)
         // 未设置状态码则默认成功状态
         const code = res.status || 0;
-        const success = res.data.success;
         // 获取错误信息
         const message = res.data.error || 'network error';
         /*    if (code === 401) {
@@ -90,14 +89,7 @@ service.interceptors.response.use(res => {
             });
             return Promise.reject(new Error(message))
         } else {
-            if(success){
-                return res.data
-            }else {
-                Message({
-                    message: message,
-                    type: 'error'
-                });
-            }
+            return res.data
         }
     },
     error => {

@@ -79,8 +79,9 @@
             onSubmit() {
                 this.$refs['form'].validate((valid) => {
                     if (valid) {
-                        login(this.form).then(res=>{
-                          // console.log(res.data.userId)
+                        login(this.form).then((res)=>{
+                          // console.log(res.data)
+                          // console.log(this.form.remember)
                           this.form.remember?this.$store.commit('set_token', [res.data.token,res.data.userId]):this.$store.commit('set_temporary_token', [res.data.token,res.data.userId])
                               this.$router.push({name: 'index'})
                         })

@@ -16,8 +16,9 @@ export default new Vuex.Store({
       localStorage.userId = datas[1]
     },
     set_temporary_token(state, datas) {
-      state.token = datas[0];
-      state.userId = datas[1]
+      console.log(datas)
+      // state.token = datas[0];
+      // state.userId = datas[1]
     },
     del_token(state) {
       state.token = null;

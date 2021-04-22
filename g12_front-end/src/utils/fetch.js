@@ -17,7 +17,7 @@ service.interceptors.request.use(config => {
         console.log("localStorage:",localStorage);
         if (store.state.token||localStorage) {  // 判断是否存在token，如果存在的话，则每个http header都加上token
             if(store.state.token==null) {
-                store.commit('set_token', localStorage.token,localStorage.userId)
+                store.commit('set_token', [localStorage.token,localStorage.userId])
             }
             console.log("service.interceptors.request",store.state.token)
             config.headers.Authorization = `token ${store.state.token}`;

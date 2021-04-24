@@ -107,14 +107,11 @@ name: "index",
   0% {
     height: 220px;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-    border: 1px solid #EBEEF5;
-    border-bottom: solid 1px rgba(0, 0, 0, 0.1);
   }
   100% {
     height: 0;
     box-shadow: 0 0;
     border: 0;
-    border-bottom: solid 1px rgba(0, 0, 0, 0.1);
   }
 }
 .choice-card-bottom{
@@ -138,13 +135,10 @@ name: "index",
       height: 0;
       box-shadow: 0 0;
       border: 0;
-      border-bottom: solid 1px rgba(0, 0, 0, 0.1);
     }
     100% {
       height: 230px;
       box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-      border: 1px solid #EBEEF5;
-      border-bottom: solid 1px rgba(0, 0, 0, 0.1);
     }
   }
 }
@@ -155,13 +149,11 @@ name: "index",
       height: 0;
       box-shadow: 0 0;
       border: 0;
-      border-bottom: solid 1px rgba(0, 0, 0, 0.1);
     }
     100% {
       height: 70vh;
       box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
       border: 1px solid #EBEEF5;
-      border-bottom: solid 1px rgba(0, 0, 0, 0.1);
     }
   }
 }

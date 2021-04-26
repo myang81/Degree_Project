@@ -47,11 +47,12 @@ class House(db.Model):
     west_south = db.Column(db.String(120), index=True, unique=False)
     west_north = db.Column(db.String(120), index=True, unique=False)
     room = db.Column(db.Integer)
-    Latitude_and_longitude = db.Column(db.String(120), index=True, unique=False)
+    Longitude = db.Column(db.String(120), index=True, unique=False)
+    Latitude = db.Column(db.String(120), index=True, unique=False)
     PublishTime = db.Column(db.String(120), index=True, unique=False)
     imgUrl = db.Column(db.String(120), index=True, unique=False)
-    None2 = db.Column(db.String(120), index=True, unique=False)
-    _None = db.Column(db.String(120), index=True, unique=False)
+    collected = db.Column(db.String(120), index=True, unique=False)
+
 
     collection_users=db.relationship('User',secondary=collections,backref=db.backref('collections',lazy='dynamic'),lazy='dynamic')
     publishments_users = db.relationship('User', secondary=publishments, backref=db.backref('publishments', lazy='dynamic'),
@@ -92,6 +93,18 @@ class House(db.Model):
         else:
             direction_str += self.west_north + " "
         return direction_str
+
+    def getCollected(self):
+        if self.collected=="FALSE":
+            return "false"
+
+    def setCollected(self,value):
+        if value=="false":
+            self.collected="FALSE"
+        if value=="true":
+            self.collected="TRUE"
+        db.session.add(self)
+        db.session.commit()
 
     def generateDetail(self):
         direction_str = ""
@@ -138,7 +151,10 @@ class House(db.Model):
                             str(self.House_structure) + ' ( total: ' +
                             str(self.total_floors) + ' )',
                 'unitPrice': str(self._unit_price),
-                'collected': 'true',
+                'collected': self.getCollected(),
                 'totalPrice': self.price,
                 'otherInfo': str(self.Interior_design + '|' + self.heating + '|' + self.elevator),
-                'imgUrl': 'https://img1.baidu.com/it/u=1947907598,3262319172&fm=26&fmt=auto&gp=0.jpg'}
+                'imgUrl': 'https://img1.baidu.com/it/u=1947907598,3262319172&fm=26&fmt=auto&gp=0.jpg',
+                "latitude": self.Latitude,
+                "longitude": self.Longitude
+                }

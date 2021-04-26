@@ -15,7 +15,7 @@ for i in range(0,5107):
     x=random.uniform(115,117)
     y=random.uniform(39,41)
     a.append(str(
-        ( str(x)+'e',str(y)+'w')))
+        ( str(y))))
 
 print(a[0])
 j=0

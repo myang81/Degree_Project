@@ -15,7 +15,9 @@ def addCollection():
     user=User.query.filter(User.id==userId).first()
     house=House.query.filter(House.id==houseId).first()
     user.collections.append(house)
+    house.setCollected("true")
     db.session.add(user)
+    db.session.add(house)
     db.session.commit()
     return {
     "success": 1,
@@ -67,7 +69,9 @@ def del_collection():
         user = User.query.filter(User.id == userId).first()
         house = House.query.filter(House.id == houseId).first()
         user.collections.remove(house)
+        house.setCollected("false")
         db.session.add(user)
+        db.session.add(house)
         db.session.commit()
         return {
             "success": 1,
@@ -94,7 +98,7 @@ def detail():
         houseDetial={}
         housePictrue=[]
         if(house is not None):
-            data["collected"]=True
+            data["collected"]=house.getCollected()
             data["sold"]=False
             data["title"]=house.title
             data["totalPrice"]=house.price

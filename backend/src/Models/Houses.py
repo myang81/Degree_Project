@@ -97,6 +97,8 @@ class House(db.Model):
     def getCollected(self):
         if self.collected=="FALSE":
             return "false"
+        else:
+            return "true"
 
     def setCollected(self,value):
         if value=="false":

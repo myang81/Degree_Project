@@ -10,14 +10,20 @@ export default new Vuex.Store({
   },
   mutations: {
     set_token(state, datas) {
-      state.token = datas[0];
-      state.userId = datas[1]
-      localStorage.token = datas[0]
-      localStorage.userId = datas[1]
+        console.log(datas);
+        if(datas[0]&&datas[1]){
+            state.token = datas[0];
+            state.userId = datas[1];
+            localStorage.token = datas[0];
+            localStorage.userId = datas[1];
+        }
     },
     set_temporary_token(state, datas) {
-      state.token = datas[0];
-      state.userId = datas[1]
+        console.log(datas)
+        if(datas[0]&&datas[1]) {
+            state.token = datas[0];
+            state.userId = datas[1]
+        }
     },
     del_token(state) {
       state.token = null;

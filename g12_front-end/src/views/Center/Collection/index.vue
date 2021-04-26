@@ -1,117 +1,129 @@
 <template>
     <div>
         <P class="center-title" type="danger" icon="el-icon-delete">Your collection</P>
-        <el-form ref="form" :model="form" label-width="80px">
-            <div class="divcss5" :span="8">
-                <el-row :gutter="30">
-                    <el-col :span="6" v-for="(item,index) in collectionList" :key="index">
-                        <div>
-                            <div class="div2">
-                                <el-card :body-style="{ padding: '10px' }">
-                                    <div>
-                                        <article
-                                                class="post-152 post type-post status-publish format-standard hentry category-people category-photos">
-                                            <div class="post-format-content">
-                                                <div class="post-thumbnail">
-                                                    <img
-                                                         src="https://cdn.homedit.com/wp-content/uploads/2014/05/minimalist-interior-design.jpg"
-                                                         class="attachment-thumbnail wp-post-image" alt="105694702">
-                                                </div>
-                                                <div class="content-wrap">
-                                                    <h1 class="entry-title"><a href="" class="featured-image"
-                                                                               title="amp; Fashion" rel="bookmark">
-                                                        <div>Seller: {{item.seller}}</div>
-                                                        <br>
-                                                        <div>Date: {{item.date}}</div>
-                                                        <br>
-                                                        <div>Current price: {{item.price}}</div>
-                                                    </a></h1>
-
-                                                </div>
-
-
+        <div class="divcss5" :span="8">
+            <el-row :gutter="30">
+                <el-col :span="6" v-for="(item,index) in collectionList" :key="index">
+                        <div class="div2">
+                            <el-card :body-style="{ padding: '10px' }">
+                                <div>
+                                    <article
+                                            class="post-152 post type-post status-publish format-standard hentry category-people category-photos">
+                                        <div class="post-format-content">
+                                            <div class="post-thumbnail">
+                                                <img
+                                                        src="https://cdn.homedit.com/wp-content/uploads/2014/05/minimalist-interior-design.jpg"
+                                                        class="attachment-thumbnail wp-post-image" alt="105694702">
                                             </div>
-                                        </article>
-                                    </div>
-
-                                    <div style="padding: 0 10px;">
-                                        <ul class="divcss4" style="white-space: nowrap;text-overflow: ellipsis;">
-                                            <li><a href="#"> {{item.title}} </a></li>
-                                        </ul>
-                                        <div class="bottom clearfix">
-
-                                            <el-row>
-                                                <el-col :span="16">
-                                                    <div class="time" style="text-align: left">{{ item.collectDate }}
-                                                    </div>
-                                                </el-col>
-                                                <el-col :span="8" style="text-align: right">
-                                                    <el-dropdown>
-                                                        <i class="el-icon-more el-icon--right" style="transform:rotate(90deg)"></i>
-                                                        <el-dropdown-menu slot="dropdown">
-                                                            <!--                        <el-button type="primary" icon="el-icon-search">搜索</el-button>-->
-                                                            <el-dropdown-item>Detail</el-dropdown-item>
-                                                            <el-dropdown-item v-on:click="deldiv">Delete
-                                                            </el-dropdown-item>
-                                                        </el-dropdown-menu>
-                                                    </el-dropdown>
-                                                </el-col>
-                                            </el-row>
+                                            <div class="content-wrap">
+                                                <h1 class="entry-title"><a href="" class="featured-image"
+                                                                           title="amp; Fashion" rel="bookmark">
+                                                    <div>Seller: {{item.seller}}</div>
+                                                    <br>
+                                                    <div>Date: {{item.date}}</div>
+                                                    <br>
+                                                    <div>Current price: {{item.price}}</div>
+                                                </a></h1>
+                                            </div>
                                         </div>
+                                    </article>
+                                </div>
+                                <div style="padding: 0 10px;">
+                                    <ul class="divcss4" style="white-space: nowrap;text-overflow: ellipsis;">
+                                        <li><a href="#"> {{item.title}} </a></li>
+                                    </ul>
+                                    <div class="bottom clearfix">
+                                        <el-row>
+                                            <el-col :span="16">
+                                                <div class="time" style="text-align: left">{{ item.collectDate }}
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="8" style="text-align: right">
+                                                <el-dropdown>
+                                                    <i class="el-icon-more el-icon--right"
+                                                       style="transform:rotate(90deg)"></i>
+                                                    <el-dropdown-menu slot="dropdown">
+                                                        <!--                        <el-button type="primary" icon="el-icon-search">搜索</el-button>-->
+                                                        <el-dropdown-item>Detail</el-dropdown-item>
+                                                        <el-dropdown-item v-on:click="deldiv">Delete
+                                                        </el-dropdown-item>
+                                                    </el-dropdown-menu>
+                                                </el-dropdown>
+                                            </el-col>
+                                        </el-row>
                                     </div>
-                                </el-card>
-                            </div>
+                                </div>
+                            </el-card>
                         </div>
-                    </el-col>
-                </el-row>
-            </div>
-        </el-form>
+                </el-col>
+            </el-row>
+        </div>
     </div>
 </template>
 
 <script>
+    import {getCollectionList} from '@/utils/api'
+
+
     export default {
         name: "collection",
         data() {
             return {
-                collectionList: [{
-                    'seller': 'liangbj0405',
-                    'date': '2020.1.1',
-                    'price': '200W',
-                    'title': '[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture',
-                    'collectDate': '2021.3.14'
-                }, {
-                    'seller': 'liangbj0405',
-                    'date': '2020.1.1',
-                    'price': '200W',
-                    'title': '[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture',
-                    'collectDate': '2021.3.14'
-                }, {
-                    'seller': 'liangbj0405',
-                    'date': '2020.1.1',
-                    'price': '200W',
-                    'title': '[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture',
-                    'collectDate': '2021.3.14'
-                }, {
-                    'seller': 'liangbj0405',
-                    'date': '2020.1.1',
-                    'price': '200W',
-                    'title': '[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture',
-                    'collectDate': '2021.3.14'
-                }, {
-                    'seller': 'liangbj0405',
-                    'date': '2020.1.1',
-                    'price': '200W',
-                    'title': '[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture',
-                    'collectDate': '2021.3.14'
-                }]
+                // collectionList: [{
+                //     'seller': 'liangbj0405',
+                //     'date': '2020.1.1',
+                //     'price': '200W',
+                //     'title': '[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture',
+                //     'collectDate': '2021.3.14'
+                // }, {
+                //     'seller': 'liangbj0405',
+                //     'date': '2020.1.1',
+                //     'price': '200W',
+                //     'title': '[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture',
+                //     'collectDate': '2021.3.14'
+                // }, {
+                //     'seller': 'liangbj0405',
+                //     'date': '2020.1.1',
+                //     'price': '200W',
+                //     'title': '[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture',
+                //     'collectDate': '2021.3.14'
+                // }, {
+                //     'seller': 'liangbj0405',
+                //     'date': '2020.1.1',
+                //     'price': '200W',
+                //     'title': '[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture',
+                //     'collectDate': '2021.3.14'
+                // }, {
+                //     'seller': 'liangbj0405',
+                //     'date': '2020.1.1',
+                //     'price': '200W',
+                //     'title': '[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture',
+                //     'collectDate': '2021.3.14'
+                // }],
+                collectionList: []
             };
         },
+        created() {
+            // console.log(this.$route.params)
+            console.log("--------userId--------", this.$store.state.userId)
+            this.getList()
+        },
+
+
         methods: {
             deldiv: function () {
                 var obj = document.getElementById('div2');
                 obj.parentNode.removeChild(obj);
-            }
+            },
+            getList() {
+                console.log("--------userId--------", this.$store.state)
+                getCollectionList({userId: this.$store.state.userId}).then(res => {
+                    if (res.success) {
+                        this.collectionList = res.data.collectionList;
+                    }
+
+                })
+            },
         },
         maijia: 'liangbj0405'
     }
@@ -265,7 +277,7 @@
 
     .div2 {
         display: inline-block;
-      width: 100%;
+        width: 100%;
     }
 
     .divcss5 {

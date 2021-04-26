@@ -1,0 +1,160 @@
+/* Basic Styling */
+.item-collection i {
+    position: relative;
+    display: block;
+    margin: auto;
+    /*padding-top: 50px;*/
+    text-decoration: none;
+    color: white;
+    width: 20px;
+    height: 20px;
+}
+
+.item-collection i:visited {
+    text-decoration: none;
+    color: inherit;
+}
+
+.item-collection i:active {
+    text-decoration: none;
+    color: inherit;
+}
+
+.icon-hook {
+    position: relative;
+}
+
+.icon-hook:after {
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.icon-hook > svg {
+    pointer-events: none;
+}
+
+.contain-card {
+    padding-top: 75px;
+    height: 350px;
+}
+
+.demo-1 {
+    background: #e3da74;
+}
+
+.demo-2 {
+    background: #b2c460;
+}
+
+.demo-3 {
+    background: #f69159;
+}
+
+.demo-4 {
+    background: #fcab54;
+}
+
+.demo-5 {
+    background: #e3da74;
+}
+
+svg {
+    position: absolute;
+    z-index: 5;
+    left: 0;
+}
+
+.text {
+    position: absolute;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.save-text {
+    top: 140px;
+}
+
+.gift-text {
+    top: 150px;
+    left: 2px;
+}
+
+.favorite-text {
+    top: 160px;
+    left: -15px;
+    width: 180px;
+}
+
+.truck-text {
+    top: 170px;
+    left: -20px;
+    width: 180px;
+}
+
+footer {
+    position: relative;
+    background: #e3da74;
+    height: 250px;
+    font-family: 'Nunito', sans-serif;
+    color: white;
+    font-size: 18px;
+}
+
+.by-heart {
+    position: absolute;
+    top: -2px;
+}
+
+.by {
+    margin-left: 55px;
+}
+
+.byline {
+    position: absolute;
+    top: 35px;
+    left: 120px;
+    padding: 0;
+    margin: 0;
+    height: 20px;
+}
+
+.byline:hover {
+    color: #fcab54;
+}
+
+.contain-footer-info {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    margin-left: -200px;
+    text-align: center;
+    width: 400px;
+    height: 50px;
+}
+/* Save Demo 2 */
+.star-dashes-2 {
+    opacity: 0;
+    -webkit-transform-origin: center;
+    -webkit-transform: scale(.5);
+}
+
+.active .star-dashes-2 {
+    -webkit-animation: dashes-2 2s forwards;
+}
+
+.active .main-star-2 {
+    fill: yellow;
+    -webkit-transform: rotate(360deg);
+}
+
+@-webkit-keyframes dashes-2 {
+    50% {
+        opacity: 1;
+        stroke: #f9f706;
+        -webkit-transform: rotate(360deg);
+    }
+}
+

@@ -47,6 +47,21 @@ export function getHouseList(data){
     })
 }
 
+export function getCollectionList(data){
+    return axios({
+        url:'/center/collection/getCollectionList',
+        method:'post',
+        data
+    })
+}
+
+export function addCollection(data){
+    return axios({
+        url:'/addCollection',
+        method:'post',
+        data
+    })
+}
 
 export default {
     getExample,

@@ -59,4 +59,10 @@ p{
 .mg-b-8{
   margin-bottom: 8px;
 }
+    .el-card{
+        border-radius: 25px!important;
+    }
+.el-loading-spinner{
+    display: inline;
+}
 </style>

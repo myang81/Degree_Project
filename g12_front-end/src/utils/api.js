@@ -63,6 +63,15 @@ export function addCollection(data){
     })
 }
 
+export function getPublishedList(data){
+    return axios({
+        url:'/center/published/getPublishedList',
+        method:'post',
+        data
+    })
+}
+
+
 export default {
     getExample,
     postExample,

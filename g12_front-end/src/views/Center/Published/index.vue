@@ -70,48 +70,68 @@
 </template>
 
 <script>
+
+    import {getPublishedList} from '@/utils/api'
+
     export default {
-        name: "collection",
+        name: "published",
         data() {
             return {
-                collectionList: [{
-                    'seller': 'liangbj0405',
-                    'date': '2020.1.1',
-                    'price': '200W',
-                    'title': '[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture',
-                    'collectDate': '2021.3.14'
-                }, {
-                    'seller': 'liangbj0405',
-                    'date': '2020.1.1',
-                    'price': '200W',
-                    'title': '[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture',
-                    'collectDate': '2021.3.14'
-                }, {
-                    'seller': 'liangbj0405',
-                    'date': '2020.1.1',
-                    'price': '200W',
-                    'title': '[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture',
-                    'collectDate': '2021.3.14'
-                }, {
-                    'seller': 'liangbj0405',
-                    'date': '2020.1.1',
-                    'price': '200W',
-                    'title': '[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture',
-                    'collectDate': '2021.3.14'
-                }, {
-                    'seller': 'liangbj0405',
-                    'date': '2020.1.1',
-                    'price': '200W',
-                    'title': '[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture',
-                    'collectDate': '2021.3.14'
-                }]
+                // collectionList: [{
+                //     'seller': 'liangbj0405',
+                //     'date': '2020.1.1',
+                //     'price': '200W',
+                //     'title': '[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture',
+                //     'collectDate': '2021.3.14'
+                // }, {
+                //     'seller': 'liangbj0405',
+                //     'date': '2020.1.1',
+                //     'price': '200W',
+                //     'title': '[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture',
+                //     'collectDate': '2021.3.14'
+                // }, {
+                //     'seller': 'liangbj0405',
+                //     'date': '2020.1.1',
+                //     'price': '200W',
+                //     'title': '[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture',
+                //     'collectDate': '2021.3.14'
+                // }, {
+                //     'seller': 'liangbj0405',
+                //     'date': '2020.1.1',
+                //     'price': '200W',
+                //     'title': '[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture',
+                //     'collectDate': '2021.3.14'
+                // }, {
+                //     'seller': 'liangbj0405',
+                //     'date': '2020.1.1',
+                //     'price': '200W',
+                //     'title': '[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture',
+                //     'collectDate': '2021.3.14'
+                // }]
+              collectionList: []
             };
         },
+      created() {
+            // console.log(this.$route.params)
+            console.log("--------userId--------", this.$store.state.userId)
+            this.getList()
+        },
+
+
         methods: {
             deldiv: function () {
                 var obj = document.getElementById('div2');
                 obj.parentNode.removeChild(obj);
-            }
+            },
+          getList() {
+                console.log("--------userId--------", this.$store.state)
+                getPublishedList({userId: this.$store.state.userId}).then(res => {
+                    if (res.success) {
+                        this.collectionList = res.data.collectionList;
+                    }
+
+                })
+            },
         },
         maijia: 'liangbj0405'
     }

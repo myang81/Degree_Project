@@ -24,7 +24,7 @@ router.beforeEach((to, from, next) => {
   console.log("localStorage.token",localStorage)
   if (to.meta.required) {
     // 检查localStorage
-    if (localStorage.token) {
+    if (store.state.token) {
       // store.commit('set_token', localStorage.token)
       // // 添加axios头部Authorized
       // axios.defaults.auth = {

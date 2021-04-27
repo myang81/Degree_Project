@@ -70,7 +70,7 @@
             <el-slider
                 v-model="form.area"
                 range
-                :step="1000"
+                :step="100"
                 :max="1000">
             </el-slider>
           </b-col>
@@ -149,6 +149,8 @@
 
 <script>
 import global from '@/assets/global'
+import {updateTargetInfo} from '@/utils/api'
+import {getTartgetInfo} from '@/utils/api'
 
 export default {
   name: "Profit",
@@ -187,9 +189,16 @@ export default {
       // },
       navContent:[{name:'Renting',router:''},{name:'Purchase',router:'/'},{name:'Purchase',router:'/'},{name:'Publishing',router:'/'}],
       global:global,
-      screenWidth: document.body.clientWidth
+      screenWidth: document.body.clientWidth,
+
     }
+
   },
+  created() {
+            // console.log(this.$route.params)
+            console.log("--------userId--------", this.$store.state.userId)
+            this.getList()
+        },
   mounted() {
     window.onresize = () => {
       return (() => {
@@ -198,6 +207,52 @@ export default {
       })()
     };
   },
+
+  methods: {
+            deldiv: function () {
+                var obj = document.getElementById('div2');
+                obj.parentNode.removeChild(obj);
+            },
+
+    getList() {
+                console.log("--------userId--------", this.$store.state)
+                getTartgetInfo({userId: this.$store.state.userId}).then(res => {
+                       if (res.success) {
+                        this.totalPriceRange = res.data.totalPriceRange;
+                        this.unitPriceRange = res.data.unitPriceRange;
+                        this.area = res.data.area;
+                        this.district = res.data.district;
+                        this.houseStructure = res.data.houseStructure;
+                        this.direction = res.data.direction;
+                        this.decoration = res.data.decoration;
+                        this.heating = res.data.heating;
+                        this.elevator = res.data.elevator;
+                    }
+                    })
+            },
+
+
+
+
+          postList() {
+              let f=this.form
+              f.userId=this.$store.state.userId
+                updateTargetInfo(this.form).then(res => {
+                       console.log(res);
+                       // updateTargetInfo(this.form)
+
+                    })
+            },
+          onSubmit(){
+              this.postList()
+          }
+        },
+  maijia: 'liangbj0405'
+
+
+
+
+
 }
 </script>
 

@@ -71,6 +71,22 @@ export function getPublishedList(data){
     })
 }
 
+export function updateTargetInfo(data){
+    return axios({
+        url:'/center/target/updateTargetInfo',
+        method:'post',
+        data
+    })
+}
+
+export function getTartgetInfo(data){
+    return axios({
+        url:'/center/target/getTargetInfo',
+        method:'post',
+        data
+    })
+}
+
 
 export default {
     getExample,

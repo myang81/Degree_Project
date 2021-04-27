@@ -5,7 +5,7 @@
                 <el-col :span=8 style="height: 100%;position: relative">
                     <el-image class="item-img" :src=item.imgUrl fit="cover"></el-image>
                     <div class="item-collection item-little" @click="handleCollect(index,item.collected)">
-                        <i href="#" class="contain-icon icon-hook" :class="{'active':item.collected}">
+                        <i href="#" class="contain-icon icon-hook" :class="{'active':item.collected==='true'}">
                             <!--Begin Second Star Icon-->
                             <svg class="star-icon star-icon-2" version="1.1"
                                  viewBox="0 0 105.602 102.931" style="width: 20px;height: 20px">
@@ -101,7 +101,20 @@
                 this.$router.push({name: 'detail', params: {houseId: houseId}})
             },
             handleCollect(index,collected){
+              let message;
+              if(collected==='true'){
+                collected='false'
+                message="cancel success"
+              }else{
+                collected='true'
+                message="collect success"
+              }
+              console.log(this.houseList)
                 addCollection({houseId:this.houseList[index].houseId,userId:this.$store.state.userId,collected:collected}).then(()=>{
+                  this.$message({
+                    message: message,
+                    type: 'success'
+                  });
                     this.houseList[index].collected=collected
                 })
             },

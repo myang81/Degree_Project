@@ -65,4 +65,8 @@ p{
 .el-loading-spinner{
     display: inline;
 }
+img{
+  border-radius: 15px!important;
+  background: transparent!important;
+}
 </style>

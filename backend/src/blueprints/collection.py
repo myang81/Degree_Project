@@ -12,19 +12,41 @@ def addCollection():
     #db
     userId=request.json.get('userId')
     houseId=request.json.get('houseId')
-    user=User.query.filter(User.id==userId).first()
-    house=House.query.filter(House.id==houseId).first()
-    user.collections.append(house)
-    house.setCollected("true")
-    db.session.add(user)
-    db.session.add(house)
-    db.session.commit()
+    collected=request.json.get('collected')
+    if collected == True:
+        user=User.query.filter(User.id==userId).first()
+        house=House.query.filter(House.id==houseId).first()
+        user.collections.append(house)
+        house.setCollected("true")
+        db.session.add(user)
+        db.session.add(house)
+        db.session.commit()
+        return {
+        "success": 1,
+        "data": {
+        },
+            "error":"None"
+        }
+    if collected == False:
+        user = User.query.filter(User.id == userId).first()
+        house = House.query.filter(House.id == houseId).first()
+        user.collections.remove(house)
+        house.setCollected("false")
+        db.session.add(user)
+        db.session.add(house)
+        db.session.commit()
+        return {
+            "success": 1,
+            "data": {
+            },
+            "error": "None"
+        }
     return {
-    "success": 1,
-    "data": {
-    },
-        "error":"None"
-    }
+            "success": 0,
+            "data": {
+            },
+            "error": "Error"
+        }
 
 #4.1 获取收藏列表
 @collection.route("/center/collection/getCollectionList",methods=["POST","GET"])

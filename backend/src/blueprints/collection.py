@@ -13,7 +13,7 @@ def addCollection():
     userId=request.json.get('userId')
     houseId=request.json.get('houseId')
     collected=request.json.get('collected')
-    if collected == True:
+    if collected == "true":
         user=User.query.filter(User.id==userId).first()
         house=House.query.filter(House.id==houseId).first()
         user.collections.append(house)
@@ -27,7 +27,7 @@ def addCollection():
         },
             "error":"None"
         }
-    if collected == False:
+    if collected == "false":
         user = User.query.filter(User.id == userId).first()
         house = House.query.filter(House.id == houseId).first()
         user.collections.remove(house)

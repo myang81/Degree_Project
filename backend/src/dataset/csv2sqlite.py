@@ -12,6 +12,7 @@ Options:
 """
 
 #csv2sqlite data.csv database.db tablename
+#csv2sqlite houses.csv sqlite3.db houses
 
 from __future__ import print_function
 import sqlite3

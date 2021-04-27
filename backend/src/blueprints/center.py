@@ -3,6 +3,7 @@ from src.extension import db
 from src.Models.Users import User
 from src.Models.Houses import House
 from src.Models.Target import Target
+from src.Models.Targets import Targets
 center=Blueprint('center',__name__)
 
 # #4.1 获取收藏列表
@@ -156,9 +157,14 @@ def getTartgetInfo():
 
             t_str=user.target
             target=Target.loadJson(d=t_str)
+
+            ts=user.targets.all()
+            list=[]
+            for i in ts:
+                list.append(i.toDict())
             return {
                 "success":1,
-                "data":target.toDict(),
+                "data":list,
                 "error":None
             }
     return "0"
@@ -184,6 +190,18 @@ def updateTartget():
             print(type(target))
             j=Target.convertJson(target=target)
             user.saveTarget(target=j)
+            tars=user.targets.all()
+            if len(tars) != 0:
+                tar = user.targets.all()[0]
+                print(tar)
+                t=Targets.saveTarget(tar,target=target.toDict())
+            else:
+                t = Targets.saveTarget(Targets(), target=target.toDict())
+                user.targets.append(t)
+            db.session.add(user)
+            db.session.commit()
+
+
             return {
                 "success": 1,
                 "data":{

@@ -22,6 +22,11 @@ Vue.use(VCalendar, {
 // 路由跳转
 router.beforeEach((to, from, next) => {
   console.log("localStorage.token",localStorage)
+  if (store.state.token||localStorage) {  // 判断是否存在token，如果存在的话，则每个http header都加上token
+    if(store.state.token==null) {
+      store.commit('set_token', [localStorage.token,localStorage.userId])
+    }
+  }
   if (to.meta.required) {
     // 检查localStorage
     if (store.state.token) {

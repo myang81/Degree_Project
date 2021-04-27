@@ -16,14 +16,14 @@
                                                         class="attachment-thumbnail wp-post-image" alt="105694702">
                                             </div>
                                             <div class="content-wrap">
-                                                <h1 class="entry-title"><a href="" class="featured-image"
+                                                <h1 class="entry-title"><div href="" class="featured-image"
                                                                            title="amp; Fashion" rel="bookmark">
                                                     <div>Seller: {{item.seller}}</div>
                                                     <br>
                                                     <div>Date: {{item.date}}</div>
                                                     <br>
                                                     <div>Current price: {{item.price}}</div>
-                                                </a></h1>
+                                                </div></h1>
                                             </div>
                                         </div>
                                     </article>
@@ -203,6 +203,7 @@
     .post-format-content {
         position: relative;
         background: #111;
+      border-radius: 15px;
     }
 
     .post-thumbnail {
@@ -224,12 +225,13 @@
     }
 
     .content-wrap h1.entry-title {
-        display: table;
+        /*display: table;*/
         font-size: 110%;
         height: 100%;
         text-transform: uppercase;
         width: 100%;
         margin: 0;
+      border-radius: 15px;
     }
 
     .content-wrap h2.entry-title {
@@ -246,7 +248,7 @@
     }
 
     .featured-image {
-        display: table-cell;
+        /*display: table-cell;*/
         position: relative;
         transition: opacity .25s ease-in-out, background .25s ease-in-out;
         -moz-transition: opacity .25s ease-in-out, background .25s ease-in-out;
@@ -257,12 +259,17 @@
         text-decoration: none;
         opacity: 0;
         padding: 10%;
+        height: 100%;
+      border-radius: 15px;
+
     }
 
     .featured-image:hover {
         opacity: 0.9;
         color: #fff;
         background: rgba(0, 0, 0, 0.8);
+      border-radius: 15px;
+      height: 100%;
     }
 
     .post-thumbnail img {

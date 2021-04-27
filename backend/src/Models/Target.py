@@ -50,7 +50,7 @@ class Target(object):
         dict["totalPriceRange"]=self.totalPriceRange
         dict["unitPriceRange"]=self.unitPriceRange
         dict["area"]=self.distrcit
-        dict["houseStureture"]=self.houseStructure
+        dict["houseStructure"]=self.houseStructure
         dict["decoration"]=self.decoration
         dict["heating"]=self.heating
         dict["elevator"]=self.elevator

@@ -66,7 +66,36 @@ p{
     display: inline;
 }
 img{
-  border-radius: 15px!important;
+  border-radius: 10px!important;
   background: transparent!important;
+}
+
+html {
+  font-size : 10px;
+}
+@media only screen and (min-width: 401px){
+  html {
+    font-size: 11px !important;
+  }
+}
+@media only screen and (min-width: 428px){
+  html {
+    font-size: 12px !important;
+  }
+}
+@media only screen and (min-width: 481px){
+  html {
+    font-size: 13px !important;
+  }
+}
+@media only screen and (min-width: 569px){
+  html {
+    font-size: 14px !important;
+  }
+}
+@media only screen and (min-width: 641px){
+  html {
+    font-size: 15px !important;
+  }
 }
 </style>

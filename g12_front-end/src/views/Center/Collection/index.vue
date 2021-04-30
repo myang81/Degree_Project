@@ -2,8 +2,8 @@
   <div>
     <P class="center-title" type="danger" icon="el-icon-delete">Your collection</P>
     <div class="divcss5" :span="8">
-      <el-row :gutter="30">
-        <el-col :span="6" v-for="(item,index) in collectionList" :key="index">
+      <b-row :gutter="30">
+        <b-col cols="12" sm="6" lg="3" v-for="(item,index) in collectionList" :key="index">
           <div class="div2">
             <el-card :body-style="{ padding: '10px' }">
               <div>
@@ -35,12 +35,12 @@
                   <li><a href="#"> {{ item.title }} </a></li>
                 </ul>
                 <div class="bottom clearfix">
-                  <el-row>
-                    <el-col :span="16">
+                  <b-row>
+                    <b-col :span="16">
                       <div class="time" style="text-align: left">{{ item.collectDate }}
                       </div>
-                    </el-col>
-                    <el-col :span="8" style="text-align: right">
+                    </b-col>
+                    <b-col :span="8" style="text-align: right">
                       <el-dropdown>
                         <i class="el-icon-more el-icon--right"
                            style="transform:rotate(90deg)"></i>
@@ -51,14 +51,14 @@
                           </el-dropdown-item>
                         </el-dropdown-menu>
                       </el-dropdown>
-                    </el-col>
-                  </el-row>
+                    </b-col>
+                  </b-row>
                 </div>
               </div>
             </el-card>
           </div>
-        </el-col>
-      </el-row>
+        </b-col>
+      </b-row>
     </div>
   </div>
 </template>
@@ -242,7 +242,7 @@ export default {
 
 .content-wrap h1.entry-title {
   /*display: table;*/
-  font-size: 110%;
+  font-size: 100%;
   height: 100%;
   text-transform: uppercase;
   width: 100%;

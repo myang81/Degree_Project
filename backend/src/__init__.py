@@ -22,7 +22,7 @@ from src.extension import socketio
 import click
 
 # 构建FLask APP 导入设置，允许跨域
-from backend.src.blueprints.list import preProcessing
+from src.blueprints.list import preProcessing
 
 
 def create_app(config_name=None):

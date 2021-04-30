@@ -48,7 +48,7 @@
             <el-row class="house-item">
                     <el-image class="item-img" :src=item.imgUrl fit="cover"></el-image>
                     <div class="item-collection item-little" @click="handleCollect(index,item.collected)">
-                        <i href="#" class="contain-icon icon-hook" :class="{'active':item.collected}">
+                        <i href="#" class="contain-icon icon-hook" :class="{'active':item.collected==='true'}">
                             <!--Begin Second Star Icon-->
                             <svg class="star-icon star-icon-2" version="1.1"
                                  viewBox="0 0 105.602 102.931" style="width: 20px;height: 20px">

@@ -124,7 +124,7 @@
         .home-header-content .p-header-content {
             text-align: center;
             color: white;
-            font-size: 2.0em;
+            font-size: 3.0rem;
             font-family: herculanum, fantasy;
         }
     }

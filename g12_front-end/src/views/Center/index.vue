@@ -31,7 +31,7 @@
 <style scoped>
     .center-main{
         height: calc(100vh - 60px);
-        width: calc(80% - 65px);
-        margin: 0 10% 0 calc(10% + 65px);
+        width: calc(90% - 65px);
+        margin: 0 10% 0 calc(5% + 65px);
     }
 </style>

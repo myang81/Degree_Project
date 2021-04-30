@@ -1,7 +1,7 @@
 <template>
   <div style="display: flex;height: 100%;flex-direction: column">
     <P class="center-title">Title and Price</P>
-    <el-row style="height: 100%" :gutter=20>
+    <b-row style="height: 100%;width: 100%">
       <el-col :span=24>
         <div class="form-block">
           <el-form label-position="right" label-width="80px" :model="form">
@@ -13,12 +13,12 @@
             <el-row>
               <el-col :span="24">
                 <el-form-item label="unit-price" style="text-align: left">
-                  <el-input v-model="form.unitPrice" style="max-width: 200px" v-b-tooltip.hover title="The house price is predicted by the system algorithm, and the error is about 8000￥/m2"></el-input><span style="padding-left: 10px">￥/m2</span>
+                  <el-input v-model="form.unitPrice" style="max-width: 200px;width: 60%" v-b-tooltip.hover title="The house price is predicted by the system algorithm, and the error is about 8000￥/m2"></el-input><span style="padding-left: 10px">￥/m2</span>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
                 <el-form-item label="total-price" style="text-align: left">
-                  <el-input v-model="form.totalPrice" style="max-width: 200px"></el-input><span style="padding-left: 10px">￥</span>
+                  <el-input v-model="form.totalPrice" style="max-width: 200px;width: 60%"></el-input><span style="padding-left: 10px">￥</span>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -33,15 +33,13 @@
                 </el-upload>
               </el-form-item>
             </el-row>
-            <el-row style="text-align: end;">
-              <el-form-item>
-                <el-button type="primary" @click="onSubmit" style="margin-right: 20px">SUBMIT</el-button>
-              </el-form-item>
-            </el-row>
+            <b-col style="text-align: end" cols="12">
+                <el-button type="primary" @click="onSubmit" style="width: 100%">SUBMIT</el-button>
+            </b-col>
           </el-form>
         </div>
       </el-col>
-    </el-row>
+    </b-row>
 
   </div>
 </template>

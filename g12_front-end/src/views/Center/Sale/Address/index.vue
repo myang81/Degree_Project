@@ -1,56 +1,53 @@
 <template>
-  <div style="display: flex;height: 100%;flex-direction: column">
+  <div style="height: 100%;flex-direction: column">
     <P class="center-title">Choose your home address</P>
-    <el-row style="height: 100%" :gutter=20>
-      <el-col :span=12>
+    <b-row style="height: 100%" :gutter=20>
+      <b-col cols="12" md="6"  class="map-container">
+        <div id="map" style="height: 100%;">
+        </div>
+      </b-col>
+      <b-col cols="12" md="6">
         <div class="form-block">
           <el-form label-position="right" label-width="100px" :model="form">
-          <el-row>
-            <el-col  :span=24>
-              <el-form-item label="region/district" style="text-align: left">
-<!--                <el-autocomplete v-model="form.region" :fetch-suggestions="querySearchRegion"></el-autocomplete>-->
-                <el-cascader
-                        v-model="form.regionAndDistrict"
-                        :options="options"
-
-                        ></el-cascader>
-              </el-form-item>
-            </el-col>
-<!--            <el-col :span=12>-->
-<!--              <el-form-item label="district">-->
-<!--&lt;!&ndash;                <el-autocomplete v-model="form.district" :fetch-suggestions="querySearchDistrict"></el-autocomplete>&ndash;&gt;-->
-<!--                <el-cascader-->
-<!--                        v-model="value"-->
-<!--                        :options="options"-->
-<!--                        ></el-cascader>-->
-<!--              </el-form-item>-->
-<!--            </el-col>-->
-          </el-row>
-            <el-row>
-              <el-col :span=12>
+            <b-row>
+              <b-col  :span=24>
+                <el-form-item label="region/district" style="text-align: left">
+                  <!--                <el-autocomplete v-model="form.region" :fetch-suggestions="querySearchRegion"></el-autocomplete>-->
+                  <el-cascader
+                      v-model="form.regionAndDistrict"
+                      :options="options"
+                  ></el-cascader>
+                </el-form-item>
+              </b-col>
+              <!--            <b-col cols="12" md="6">-->
+              <!--              <el-form-item label="district">-->
+              <!--&lt;!&ndash;                <el-autocomplete v-model="form.district" :fetch-suggestions="querySearchDistrict"></el-autocomplete>&ndash;&gt;-->
+              <!--                <el-cascader-->
+              <!--                        v-model="value"-->
+              <!--                        :options="options"-->
+              <!--                        ></el-cascader>-->
+              <!--              </el-form-item>-->
+              <!--            </b-col>-->
+            </b-row>
+            <b-row>
+              <b-col cols="12" md="6">
                 <el-form-item label="longitude">
                   <el-input v-model="form.lng"></el-input>
                 </el-form-item>
-              </el-col>
-              <el-col :span=12>
+              </b-col>
+              <b-col cols="12" md="6">
                 <el-form-item label="latitude">
                   <el-input v-model="form.lat"></el-input>
                 </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row style="text-align: end;">
-              <el-form-item>
-                <el-button type="primary" @click="onSubmit" style="margin-right: 20px">N E X T</el-button>
-              </el-form-item>
-            </el-row>
+              </b-col>
+            </b-row>
+            <b-col style="text-align: end" cols="12">
+              <el-button type="primary" @click="onSubmit" style="width: 100%">N E X T</el-button>
+            </b-col>
           </el-form>
         </div>
-      </el-col>
-      <el-col :span=12 style="height: 100%;">
-        <div id="map" style="height: 100%;">
-        </div>
-      </el-col>
-    </el-row>
+      </b-col>
+    </b-row>
 
   </div>
 </template>
@@ -1412,6 +1409,16 @@ name: "address",
 </script>
 
 <style scoped>
+@media (max-width: 768px) {
+  .map-container{
+    height:50%
+  }
+}
+@media (min-width: 768px) {
+  .map-container{
+    height:100%
+  }
+}
   .center-title{
     font-size: 2rem;
     padding: 30px;

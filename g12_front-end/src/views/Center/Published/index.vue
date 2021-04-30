@@ -233,7 +233,7 @@
 
     .content-wrap h1.entry-title {
         display: table;
-        font-size: 110%;
+        font-size: 100%;
         height: 100%;
         text-transform: uppercase;
         width: 100%;

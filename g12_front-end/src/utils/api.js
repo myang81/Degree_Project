@@ -87,6 +87,14 @@ export function getTartgetInfo(data){
     })
 }
 
+export function del_collection(data){
+    return axios({
+        url:'/center/collection/delCollection',
+        method:'post',
+        data
+    })
+}
+
 
 export default {
     getExample,
@@ -94,5 +102,6 @@ export default {
     apiV1,
     login,
     getHouseList,
-    register
+    register,
+    del_collection
 }

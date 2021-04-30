@@ -19,6 +19,66 @@ def test():
     return 0
 
 
+def preProcessing(document):
+    print("This is the first time to run. The program needs document processing. Please wait a moment")
+    N = 0  # Calculate the number of documents in the collection
+    avg_doclen = 0  # The average length of a document in the collection, will be used later
+    comp = re.compile('[^a-z^0-9^ ]')  # A compiler to remove the punctuation
+    Ni = {}  # Number of documents contains term i, key is the term, value is Ni
+    Fij = {}  # Frequency of term i in document j, key is the document number, value is a dict
+    k = 1  # k for BM25
+    b = 0.75  # b for BM25
+    t1 = time()
+    for docs in document.values():
+        temp_l = []
+        for v in docs.values():
+            if get_keys(docs, v)[0] != 'collected' and get_keys(docs, v)[0] != 'imgUrl' and get_keys(docs, v)[
+                0] != 'houseId':
+                temp_l.append(str(v))
+
+        N += 1
+        line = ' '.join(temp_l)
+        # line = comp.sub(' ', line.lower())
+        line = line.lower()
+        line = line.replace("-", ",")
+        line = line.replace("_", ",")
+        line = line.replace(" ", ",")
+        line = line.replace("|", ",")
+        line_split = line.split(",")
+        print(line_split)
+        newDict = {}  # Store the frequency of terms in this document, key is the term, value is the frequency
+        for elements in line_split:
+            avg_doclen += 1  # Calculate the number of terms in the document collection
+            if elements in newDict:  # Calculate the frequency of this term in this document
+                newDict[elements] += 1
+            else:
+                newDict[elements] = 1
+        for terms in newDict:  # Calculate the number of documents contains this term
+            if terms not in Ni:
+                Ni[terms] = 1
+            else:
+                Ni[terms] += 1
+        Fij[get_keys(document, docs)[0]] = newDict
+    t2 = time()
+    for terms in Ni.keys():
+        Ni[terms] = math.log2(
+            (N - Ni[terms] + 0.5) / (Ni[terms] + 0.5))  # Calculate the value for future calculations
+    avg_doclen = avg_doclen / N  # Calculate the average doc length
+    index = {}  # Store the BM25 value of every term in every document, key is the document name, value is the BM25_dict
+    for keys in Fij.keys():
+        BM25_dict = {}  # Store the BM25 value of each term, key is the term, value is BM25 value
+        lenDj = calculateLength(Fij[keys])
+        for elements in Fij[keys].keys():
+            BM25 = (((Fij[keys])[elements] * (1 + k)) / (
+                    (Fij[keys])[elements] + k * ((1 - b) + (b * lenDj) / avg_doclen))) * Ni[elements]
+            BM25_dict[elements] = BM25
+        index[keys] = BM25_dict
+    js = json.dumps(index)  # use json to store the dict in the txt file
+    with open("home_search.txt", "w") as f:
+        f.write(js)
+    t3 = time()
+    print("Document processing completed")
+
 def calculateLength(dict):  # calculate the length of a document
     length = 0
     for values in dict.values():
@@ -217,64 +277,8 @@ def getHouse():
 
         if not os.path.exists(
                 "home_search.txt"):  # The following code are for indexing, will only run on the first run.
-            print("This is the first time to run. The program needs document processing. Please wait a moment")
-            N = 0  # Calculate the number of documents in the collection
-            avg_doclen = 0  # The average length of a document in the collection, will be used later
-            comp = re.compile('[^a-z^0-9^ ]')  # A compiler to remove the punctuation
-            Ni = {}  # Number of documents contains term i, key is the term, value is Ni
-            Fij = {}  # Frequency of term i in document j, key is the document number, value is a dict
-            k = 1  # k for BM25
-            b = 0.75  # b for BM25
-            t1 = time()
-            for docs in document.values():
-                temp_l = []
-                for v in docs.values():
-                    if get_keys(docs, v)[0] != 'collected' and get_keys(docs, v)[0] != 'imgUrl' and get_keys(docs, v)[
-                        0] != 'houseId':
-                        temp_l.append(str(v))
+            preProcessing(document)
 
-                N += 1
-                line = ' '.join(temp_l)
-                # line = comp.sub(' ', line.lower())
-                line = line.lower()
-                line = line.replace("-", ",")
-                line = line.replace("_", ",")
-                line = line.replace(" ", ",")
-                line = line.replace("|", ",")
-                line_split = line.split(",")
-                print(line_split)
-                newDict = {}  # Store the frequency of terms in this document, key is the term, value is the frequency
-                for elements in line_split:
-                    avg_doclen += 1  # Calculate the number of terms in the document collection
-                    if elements in newDict:  # Calculate the frequency of this term in this document
-                        newDict[elements] += 1
-                    else:
-                        newDict[elements] = 1
-                for terms in newDict:  # Calculate the number of documents contains this term
-                    if terms not in Ni:
-                        Ni[terms] = 1
-                    else:
-                        Ni[terms] += 1
-                Fij[get_keys(document, docs)[0]] = newDict
-            t2 = time()
-            for terms in Ni.keys():
-                Ni[terms] = math.log2(
-                    (N - Ni[terms] + 0.5) / (Ni[terms] + 0.5))  # Calculate the value for future calculations
-            avg_doclen = avg_doclen / N  # Calculate the average doc length
-            index = {}  # Store the BM25 value of every term in every document, key is the document name, value is the BM25_dict
-            for keys in Fij.keys():
-                BM25_dict = {}  # Store the BM25 value of each term, key is the term, value is BM25 value
-                lenDj = calculateLength(Fij[keys])
-                for elements in Fij[keys].keys():
-                    BM25 = (((Fij[keys])[elements] * (1 + k)) / (
-                            (Fij[keys])[elements] + k * ((1 - b) + (b * lenDj) / avg_doclen))) * Ni[elements]
-                    BM25_dict[elements] = BM25
-                index[keys] = BM25_dict
-            js = json.dumps(index)  # use json to store the dict in the txt file
-            with open("home_search.txt", "w") as f:
-                f.write(js)
-            t3 = time()
-            print("Document processing completed")
         ######### indexing finish
         file = open('home_search.txt', 'r')  # open the index file and store to a dictionary
         print("Please wait for the system to load the file")

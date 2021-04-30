@@ -47,7 +47,7 @@
                         <el-dropdown-menu slot="dropdown">
                           <!--                        <el-button type="primary" icon="el-icon-search">搜索</el-button>-->
                           <el-dropdown-item>Detail</el-dropdown-item>
-                          <el-dropdown-item v-on:click="deldiv">Delete
+                          <el-dropdown-item @click="delList(index,item.collected)">Delete
                           </el-dropdown-item>
                         </el-dropdown-menu>
                       </el-dropdown>
@@ -65,10 +65,14 @@
 
 <script>
 import {getCollectionList} from '@/utils/api'
+import {del_collection} from '@/utils/api'
 
 
 export default {
   name: "collection",
+  // props:{
+  //           collectionList:{type:Array}
+  //       },
   data() {
     return {
       // collectionList: [{
@@ -102,7 +106,8 @@ export default {
       //     'title': '[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture',
       //     'collectDate': '2021.3.14'
       // }],
-      collectionList: []
+      collectionList: [],
+      form:[]
     };
   },
   created() {
@@ -125,6 +130,15 @@ export default {
         }
 
       })
+    },
+    delList(index) {
+      // console.log("--------userId--------", this.$store.state)
+      // let message;
+      del_collection({houseId:this.collectionList[index].houseId,userId: this.$store.state.userId})
+        //   .then(()=>{
+        // this.collectionList[index].collected=collected
+      // })
+      this.getList()
     },
   },
   maijia: 'liangbj0405'

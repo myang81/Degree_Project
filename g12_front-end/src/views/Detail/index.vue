@@ -1,14 +1,147 @@
 <template>
   <div>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <HeaderNav :navContent="navContent" show-search="true"></HeaderNav>
-    <div style="background: #f5f5f6" class="head-container">
-      <div style="max-width: 1200px;  margin: 0 auto;position: relative">
-        <div class="title-block">
-          {{ houseTitle }}
+    <div v-if="screenWidth>=762" class="pc-detail">
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+      <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+      <div style="background: #f5f5f6" class="head-container">
+        <div style="max-width: 1200px;  margin: 0 auto;position: relative">
+          <div class="title-block">
+            {{ houseTitle }}
+          </div>
+          <div style="display: inline-block;position: absolute;bottom: calc(50% - 40px);right: 20px">
+            <div class="buttons">
+              <button class="blob-btn" @click="handleCollect">
+                COLLECT <i :class="[collected?'el-icon-star-on':'el-icon-star-off']"></i>
+                <span class="blob-btn__inner">
+                <span class="blob-btn__blobs">
+                  <span class="blob-btn__blob"></span>
+                  <span class="blob-btn__blob"></span>
+                  <span class="blob-btn__blob"></span>
+                  <span class="blob-btn__blob"></span>
+                </span>
+              </span>
+              </button>
+            </div>
+          </div>
         </div>
-        <div style="display: inline-block;position: absolute;bottom: calc(50% - 40px);right: 20px">
+      </div>
+      <div style="max-width: 1200px;  margin: 0 auto;">
+        <div class="detail-container">
+          <div class="detail-left">
+            <div class="picture-div full-width mg-b-20">
+              <pictureScroll :picture-list="pictureList"></pictureScroll>
+            </div>
+            <div class="chart-div full-width mg-b-20">
+
+            </div>
+            <div class="recommend-div full-width">
+              <Recommendation></Recommendation>
+            </div>
+          </div>
+          <div class="detail-right">
+            <div class="price-div full-width mg-b-20">
+              <el-card>
+                <p><span style="font-size: 2rem">{{ totalPrice }}<span style="color: red">million</span></span><span
+                    style="font-size: 1rem;color: gray;margin-left: 20px">{{ unitPrice }}￥/m2</span></p>
+              </el-card>
+            </div>
+            <div class="detail-div full-width mg-b-20">
+              <el-card style="color: gray">
+                <el-row :gutter=20 v-for="(item,value) in houseDetail" :key="value" class="mg-b-8">
+                  <el-col :span=6>
+                    <p style="color: black">{{ value }}: </p>
+                  </el-col>
+                  <el-col :span=18>
+                    {{ item }}
+                  </el-col>
+                </el-row>
+              </el-card>
+            </div>
+            <div class="seller-div full-width mg-b-20">
+              <el-card style="color: gray">
+                <p style="color: black;font-size: 1.2rem;text-align: left;padding-bottom: 15px">Seller information</p>
+                <el-row :gutter=20 v-for="(item,value) in sellerDetail" :key="value" class="mg-b-8">
+                  <el-col :span=6>
+                    <p style="color: black">{{ value }}: </p>
+                  </el-col>
+                  <el-col :span=18>
+                    {{ item }}
+                  </el-col>
+                </el-row>
+              </el-card>
+            </div>
+            <div class="buy-div full-width">
+              BUY NOW
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div v-else class="mobile-detail">
+      <div style="background: #f5f5f6" class="head-container">
+        <div style="width: 100%;position: relative">
+          <div class="title-block">
+            {{ houseTitle }}
+          </div>
+        </div>
+      </div>
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+      <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+      <div style="width: 100%;padding: 0 10px">
+        <div class="detail-container">
+          <div class="detail-left">
+            <div class="picture-div full-width mg-b-20">
+              <pictureScroll :picture-list="pictureList" :height="'80px'"></pictureScroll>
+            </div>
+          </div>
+          <div class="detail-right">
+            <div class="price-div full-width mg-b-20">
+              <el-card>
+                <p><span style="font-size: 2rem">{{ totalPrice }}<span style="color: red">million</span></span><span
+                    style="font-size: 1rem;color: gray;margin-left: 20px">{{ unitPrice }}￥/m2</span></p>
+              </el-card>
+            </div>
+            <div class="detail-div full-width mg-b-20">
+              <el-card style="color: gray">
+                <el-row :gutter=20 v-for="(item,value) in houseDetail" :key="value" class="mg-b-8">
+                  <el-col :span=6>
+                    <p style="color: black">{{ value }}: </p>
+                  </el-col>
+                  <el-col :span=18>
+                    {{ item }}
+                  </el-col>
+                </el-row>
+              </el-card>
+            </div>
+            <div class="seller-div full-width mg-b-20">
+              <el-card style="color: gray">
+                <p style="color: black;font-size: 1.2rem;text-align: left;padding-bottom: 15px">Seller information</p>
+                <el-row :gutter=20 v-for="(item,value) in sellerDetail" :key="value" class="mg-b-8">
+                  <el-col :span=6>
+                    <p style="color: black">{{ value }}: </p>
+                  </el-col>
+                  <el-col :span=18>
+                    {{ item }}
+                  </el-col>
+                </el-row>
+              </el-card>
+            </div>
+            <div class="chart-div full-width mg-b-20">
+
+            </div>
+            <div class="recommend-div full-width">
+              <Recommendation></Recommendation>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      <div class="fixed-bottom justify-content-center d-flex bg-white" style="height: 50px">
+        <div class="collected-button">
           <div class="buttons">
             <button class="blob-btn" @click="handleCollect">
               COLLECT <i :class="[collected?'el-icon-star-on':'el-icon-star-off']"></i>
@@ -23,63 +156,13 @@
             </button>
           </div>
         </div>
-        <!--        <el-button style="display: inline-block;position: absolute;bottom: calc(50% - 40px);right: 20px">-->
-        <!--          collect <i class="el-icon-star-off"></i>-->
-        <!--        </el-button>-->
-      </div>
-    </div>
-    <div style="max-width: 1200px;  margin: 0 auto;">
-      <div class="detail-container">
-        <div class="detail-left">
-          <div class="picture-div full-width mg-b-20">
-            <pictureScroll :picture-list="pictureList"></pictureScroll>
-          </div>
-          <div class="chart-div full-width mg-b-20">
-
-          </div>
-          <div class="recommend-div full-width">
-            <Recommendation></Recommendation>
-          </div>
+        <div class="buy-div">
+          BUY NOW
         </div>
-        <div class="detail-right">
-          <div class="price-div full-width mg-b-20">
-            <el-card>
-              <p><span style="font-size: 2rem">{{ totalPrice }}<span style="color: red">million</span></span><span
-                  style="font-size: 1rem;color: gray;margin-left: 20px">{{ unitPrice }}￥/m2</span></p>
-            </el-card>
-          </div>
-          <div class="detail-div full-width mg-b-20">
-            <el-card style="color: gray">
-              <el-row :gutter=20 v-for="(item,value) in houseDetail" :key="value" class="mg-b-8">
-                <el-col :span=6>
-                  <p style="color: black">{{ value }}: </p>
-                </el-col>
-                <el-col :span=18>
-                  {{ item }}
-                </el-col>
-              </el-row>
-            </el-card>
-          </div>
-          <div class="seller-div full-width mg-b-20">
-            <el-card style="color: gray">
-              <p style="color: black;font-size: 1.2rem;text-align: left;padding-bottom: 15px">Seller information</p>
-              <el-row :gutter=20 v-for="(item,value) in sellerDetail" :key="value" class="mg-b-8">
-                <el-col :span=6>
-                  <p style="color: black">{{ value }}: </p>
-                </el-col>
-                <el-col :span=18>
-                  {{ item }}
-                </el-col>
-              </el-row>
-            </el-card>
-          </div>
-          <div class="buy-div full-width">
-            BUY NOW
-          </div>
-        </div>
-
       </div>
+
     </div>
+
   </div>
 </template>
 
@@ -109,6 +192,7 @@ export default {
       totalPrice: '4.16',
       sellerDetail: {},
       collected: false,
+      screenWidth: document.body.clientWidth,
     }
   },
   created() {
@@ -117,6 +201,12 @@ export default {
     this.getSellerDetail()
   },
   mounted() {
+    window.onresize = () => {
+      return (() => {
+        window.screenWidth = document.body.clientWidth
+        this.screenWidth = window.screenWidth
+      })()
+    };
   },
   methods: {
     getHouseDetail() {
@@ -153,6 +243,9 @@ export default {
 }
 
 $openSans: 'Open Sans', Helvetica, Arial, sans-serif;
+$cyan: #FF1493;
+$dark: rgb(205, 205, 206);
+$borderW: 6px;
 body {
   background: #333;
   font-family: $openSans;
@@ -163,9 +256,6 @@ body {
   text-align: center;
 }
 
-$cyan: #FF1493;
-$dark: rgb(205, 205, 206);
-$borderW: 6px;
 
 .blob-btn {
   $numOfBlobs: 4;
@@ -264,35 +354,60 @@ $borderW: 6px;
       }
     }
   }
+}
+.pc-detail{
+  .detail-container {
+    flex-direction: row;
+    display: flex;
+    padding: 20px;
+  }
+
+  .detail-left {
+    flex: 2;
+    padding: 10px;
+  }
+
+  .detail-right {
+    flex: 1;
+    padding: 10px;
+  }
+
+  .title-block {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: left;
+    padding: 40px 20% 20px 10px;
+    display: inline-block;
+    /*text-overflow:ellipsis;*/
+    /*white-space: nowrap;*/
+  }
+
 
 }
-</style>
-
-<style scoped>
-.detail-container {
-  flex-direction: row;
-  display: flex;
-  padding: 20px;
-}
-
-.detail-left {
-  flex: 2;
-  padding: 10px;
-}
-
-.detail-right {
-  flex: 1;
-  padding: 10px;
-}
-
-.title-block {
-  font-size: 2rem;
-  font-weight: bold;
-  text-align: left;
-  padding: 40px 20% 20px 10px;
-  display: inline-block;
-  /*text-overflow:ellipsis;*/
-  /*white-space: nowrap;*/
+.mobile-detail{
+  width: 100%;
+  height: 100%;
+  padding: 0 0 50px 0;
+  .title-block {
+    font-size: 1.4rem;
+    font-weight: bold;
+    text-align: left;
+    padding: 10px 10px 20px 10px;
+    display: inline-block;
+    /*text-overflow:ellipsis;*/
+    /*white-space: nowrap;*/
+  }
+  .buy-div{
+    display: inline-block;
+    width: 60%;
+    z-index: 9999;
+  }
+  .buttons{
+    margin-top: 0;
+  }
+  .blob-btn:after{
+    z-index: auto;
+  }
 }
 
 .buy-div, .buy-div::after {

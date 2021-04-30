@@ -60,7 +60,7 @@ p{
   margin-bottom: 8px;
 }
     .el-card{
-        border-radius: 25px!important;
+        border-radius: 15px!important;
     }
 .el-loading-spinner{
     display: inline;
@@ -71,16 +71,16 @@ img{
 }
 
 html {
-  font-size : 10px;
+  font-size : 13px;
 }
 @media only screen and (min-width: 401px){
   html {
-    font-size: 11px !important;
+    font-size: 13px !important;
   }
 }
 @media only screen and (min-width: 428px){
   html {
-    font-size: 12px !important;
+    font-size: 13px !important;
   }
 }
 @media only screen and (min-width: 481px){

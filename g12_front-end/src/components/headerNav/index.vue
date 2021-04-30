@@ -92,7 +92,7 @@ export default {
   width: 60vw;
   position: absolute;
   top: 0;
-  padding-top: 12px;
+  padding-top: 0.6rem;
   left: 50px;
 }
 </style>

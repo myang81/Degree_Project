@@ -13,7 +13,7 @@
     <div class="bottom-list">
       <div>
         <el-row :gutter=20>
-          <div style="width: 20%;height: 100px;display: inline-block;padding: 10px" v-for="(item,index) in pictureList" :key="index">
+          <div :style="{height:height}" style="width: 20%;display: inline-block;padding: 10px" v-for="(item,index) in pictureList" :key="index">
             <el-image
                 style="width: 100%; height: 100%"
                 :src="item"
@@ -35,6 +35,7 @@ export default {
   name: "pictureScroll",
   props: {
     pictureList: Array,
+    height: {type:String,default:'100px'}
   },
   data(){
     return{

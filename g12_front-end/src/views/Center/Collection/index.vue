@@ -41,14 +41,12 @@
                       </div>
                     </b-col>
                     <b-col :span="8" style="text-align: right">
-                      <el-dropdown>
+                      <el-dropdown  @command="handleCommand(item)">
                         <i class="el-icon-more el-icon--right"
                            style="transform:rotate(90deg)"></i>
                         <el-dropdown-menu slot="dropdown">
-                          <!--                        <el-button type="primary" icon="el-icon-search">搜索</el-button>-->
-                          <el-dropdown-item>Detail</el-dropdown-item>
-                          <el-dropdown-item @click="delList(index)">Delete
-                          </el-dropdown-item>
+<!--                          <el-dropdown-item>Detail</el-dropdown-item>-->
+                          <el-dropdown-item command="DELETE" @click="delList(item)">Delete</el-dropdown-item>
                         </el-dropdown-menu>
                       </el-dropdown>
                     </b-col>
@@ -64,17 +62,13 @@
 </template>
 
 <script>
-import {getCollectionList} from '@/utils/api'
-import {delCollection} from '@/utils/api'
-
+import {getCollectionList,delCollection} from '@/utils/api'
 
 export default {
   name: "collection",
-  props:{
-            collectionList:{type:Array}
-        },
   data() {
     return {
+      collectionList:[],
       // collectionList: [{
       //     'seller': 'liangbj0405',
       //     'date': '2020.1.1',
@@ -106,7 +100,6 @@ export default {
       //     'title': '[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture',
       //     'collectDate': '2021.3.14'
       // }],
-      // collectionList: [],
       form:[]
     };
   },
@@ -131,17 +124,23 @@ export default {
 
       })
     },
-    delList(index) {
-      // console.log("--------userId--------", this.$store.state)
+    delList(item) {
+      console.log(item)
       // let message;
-      delCollection({houseId:this.collectionList[index].houseId,userId: this.$store.state.userId})
-        //   .then(()=>{
+      delCollection({houseId:item.houseId,userId: this.$store.state.userId})
+          .then(()=>{
+            this.$message({
+              message: "success",
+              type: 'success'
+            });
         // this.collectionList[index].collected=collected
-      // })
+      })
       this.getList()
     },
+    handleCommand(item){
+      this.delList(item)
+    },
   },
-  maijia: 'liangbj0405'
 }
 
 // function deldiv(){

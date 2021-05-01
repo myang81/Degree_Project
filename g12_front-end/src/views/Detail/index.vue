@@ -170,6 +170,7 @@
 import HeaderNav from '@/components/headerNav/index.vue'
 import pictureScroll from '@/components/pictureScroll/index.vue'
 import Recommendation from '@/components/RecommendationBlock/index.vue'
+import {getDetail,getsellerDetail} from '@/utils/api'
 
 export default {
   name: "detail",
@@ -210,23 +211,33 @@ export default {
   },
   methods: {
     getHouseDetail() {
-      this.houseDetail = {
-        'describe': '2 room 1 halls | 69.1square meters | south north | Banlou | middle_floor ( total: 6 )',
-        'position': 'Fengtai-Corner_Gate',
-        'area': '123',
-        'houseStructure': 'flat_floor',
-        'direction': 'north,south',
-        'decoration': 'rough',
-        'heating': 'self_heating',
-        'elevator': 'yes',
-      }
+
+       // console.log("--------userId--------", this.$store.state)
+      getDetail(this.houseId).then(res => {
+        if (res.success) {
+         this.collected = res.data.collected;
+          this.sold = res.data.sold;
+          this.title= res.data.title;
+          this.totalPrice = res.data.totalPrice;
+          this.unitPrice = res.data.unitPrice;
+          this.houseId = res.data.houseId;
+          this.houseDetail = res.data.houseDetail;
+        }
+
+      })
     },
     getSellerDetail() {
-      this.sellerDetail = {
-        userName: 'sbLBJ',
-        userEmail: 'LBJLBJLBG@sb.com',
-        createTime: '1999-04-05'
-      }
+
+       // console.log("--------userId--------", this.$store.state)
+      getsellerDetail(this.houseId).then(res => {
+        if (res.success) {
+         this.userName = res.data.userName;
+          this.userEmail = res.data.userEmail;
+          this.createTime= res.data.createTime;
+
+        }
+
+      })
     },
     handleCollect(){
       this.collected=!this.collected

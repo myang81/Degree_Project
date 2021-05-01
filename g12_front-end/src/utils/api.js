@@ -95,6 +95,26 @@ export function delCollection(data){
     })
 }
 
+export function getDetail(data){
+    return axios({
+        url:'/detail/getHouseDetail',
+        method:'post',
+        data
+    })
+}
+
+export function getsellerDetail(data){
+    return axios({
+        url:'/detail/getSellerDetail',
+        method:'post',
+        data
+    })
+}
+
+
+
+
+
 
 export default {
     getExample,

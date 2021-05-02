@@ -48,7 +48,7 @@
               range
             </el-button>
             <el-card class="choice-card choice-range" :class="{'choice-card-show':choiceCardVisible.price}"
-                     >
+            >
               <div>
                 <p>totalPrice</p>
                 <el-row :gutter=20>
@@ -157,9 +157,9 @@
                     <el-tab-pane label="cheapest" name="fourth"></el-tab-pane>
                   </el-tabs>
                 </div>-->
-        <div class="list-container" >
+        <div class="list-container">
           <p style="" class="list-header_title">We find {{ total }} houses for you:</p>
-          <listCard :houseList="houseList"></listCard>
+          <listCard :houseList="houseList" @mouseover="mouseover" @mouseLeave="mouseLeave"></listCard>
           <el-pagination
               :page-size="form.pageSize"
               background
@@ -167,7 +167,7 @@
               :total="total"
               v-if="total"
               :current-page.sync="form.pageNum"
-              >
+          >
           </el-pagination>
           <div class="w-100" v-if="!total">
             <el-image :src="require('@/assets/emptyData.png')" fit="contain"/>
@@ -176,9 +176,11 @@
         <div id="map" :class="[ mapShow ? 'map_show' : 'map_hide' ]"></div>
       </div>
     </div>
-    <div :class="{'bland':choiceCardVisible.bland}" @click="handleHideChoice" style="transition: .3s;z-index: 9900;"></div>
+    <div :class="{'bland':choiceCardVisible.bland}" @click="handleHideChoice"
+         style="transition: .3s;z-index: 9900;"></div>
   </div>
 </template>
+
 
 <script>
 import HeaderNav from '@/components/headerNav/index.vue'
@@ -189,7 +191,9 @@ import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import global from '@/assets/global'
 import {getHouseList} from '@/utils/api'
-
+// import 'leaflet/dist/leaflet.css'
+// import 'leaflet.pm'
+// import 'leaflet.pm/dist/leaflet.pm.css'
 
 export default {
   name: "index",
@@ -245,7 +249,9 @@ export default {
       }, {name: 'Start to Sale', router: '/center/sale'}],
       global: global,
       screenWidth: document.body.clientWidth,
-      houseList:[]
+      houseList: [],
+      mapInited: false,
+      markerList:[]
     }
   },
   created() {
@@ -258,9 +264,9 @@ export default {
     this.getList()
   },
   mounted() {
-    if (this.screenWidth >= 768) {
-      this.initMap()
-    }
+    // if (this.screenWidth >= 768) {
+    //   this.initMap()
+    // }
     window.onresize = () => {
       return (() => {
         window.screenWidth = document.body.clientWidth
@@ -268,45 +274,55 @@ export default {
       })()
     };
   },
-  watch:{
-    'form.pageNum'(){
+  watch: {
+    'form.pageNum'() {
       // this.form.pageNum=val
-      this.loading=true
+      this.loading = true
       this.getList()
     }
   },
   methods: {
     initMap() {
-      this.map = L.map('map', {});
-      L.Marker.prototype.options.icon = L.icon({
-        iconUrl: icon,
-        shadowUrl: iconShadow
-      });
-      this.map.locate({setView: true, maxZoom: 16});
-      L.tileLayer(
-          "http://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}",
-          {
-            subdomains: ["1", "2", "3", "4"],
-            attribution: "高德"
-          }
-      ).addTo(this.map);
+      if(!this.mapInited){
+        L.Marker.prototype.options.icon = L.icon({
+          iconUrl: icon,
+          shadowUrl: iconShadow
+        });
+        this.map = L.map('map', { center: {lat:this.houseList[0].latitude,lng: this.houseList[0].longitude},zoom: 8});
+        // this.map.locate({setView: true, maxZoom: 16});
+        L.tileLayer(
+            "http://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}",
+            // 'http://mt0.google.cn/vt/lyrs=y@160000000&hl=zh-CN&gl=CN&src=app&y={y}&x={x}&z={z}&s=Ga',
+            {
+              subdomains: ["1", "2", "3", "4"],
+              attribution: "高德"
+            }
+        ).addTo(this.map);
+        // this.map.on('locationfound', (e) =>{
+        //   console.log(e)
+        //   var radius = e.accuracy;
+        //   console.log(L.marker(e.latlng))
+        //   L.marker(e.latlng).addTo(this.map)
+        //       .bindPopup("You are within " + radius + " meters from this point").openPopup();
+        //
+        //   // L.circle(e.latlng, radius).addTo(this.map);
+        // })
 
-      function onLocationFound(e) {
-        console.log(e)
-        var radius = e.accuracy;
-        L.marker(e.latlng).addTo(this.map)
-            .bindPopup("You are within " + radius + " meters from this point").openPopup();
-
-        L.circle(e.latlng, radius).addTo(this.map);
+        // function onLocationError(e) {
+        //     alert(e.message);
+        // }
+        //
+        // map.on('locationerror', onLocationError);
+        this.mapInited=true
       }
-
-      this.map.on('locationfound', onLocationFound);
-
-      // function onLocationError(e) {
-      //     alert(e.message);
-      // }
-      //
-      // map.on('locationerror', onLocationError);
+    },
+    mouseover(index){
+      console.log("parent mouseover")
+      this.markerList[index].openPopup()
+    },
+    mouseLeave(index){
+      console.log("parent mouseLeave")
+      this.markerList[index].closePopup()
     },
     handleChoiceButton(choice) {
       switch (choice) {
@@ -356,7 +372,16 @@ export default {
         if (res.success) {
           this.houseList = res.data.houseList;
           this.total = res.data.total
-        }
+          this.$nextTick(()=>{
+            if (this.screenWidth >= 768) {
+              this.initMap()
+              this.markerList=[]
+              for(let i=0;i<this.houseList.length;i++){
+                this.markerList.push(L.marker({lat:this.houseList[i].latitude,lng: this.houseList[i].longitude}).addTo(this.map).bindPopup(this.houseList[i].totalPrice+"million"))
+              }
+            }
+          })
+            }
         this.loading = false
       }).catch(() => {
         this.loading = false
@@ -373,15 +398,18 @@ export default {
 
 <style scoped>
 @import "../../assets/css/star.css";
+
 @media (min-width: 768px) {
   .choice-card {
     position: absolute;
     top: calc(100% + 10px);
     left: 0;
   }
-.choice-range{
-  width: 600px;
-}
+
+  .choice-range {
+    width: 600px;
+  }
+
   .choice-div {
     position: relative;
   }
@@ -600,15 +628,19 @@ export default {
 }
 </style>
 <style>
+.leaflet-popup{
+  left: -36px!important;
+}
 .choice-card .el-checkbox__inner {
   width: 19px;
   height: 19px;
 }
 
 @media (min-width: 768px) {
-  .choice-district{
+  .choice-district {
     width: 500px
   }
+
   .choice-district .el-checkbox__label {
     font-size: 19px;
     line-height: 30px;

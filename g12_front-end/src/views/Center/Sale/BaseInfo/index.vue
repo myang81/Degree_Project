@@ -5,18 +5,17 @@
       <b-row style="height: 100%" :gutter=20>
         <b-col :span=24>
           <div class="form-block">
-            <el-form label-position="right" label-width="90px" :model="form">
+            <el-form label-position="right" label-width="100px" :model="form" ref="ruleForm" :rules="rules">
               <b-row>
                 <b-col style="display: inline-block" cols="12">
-                  <el-form-item label="area" style="text-align: left;">
-                    <!--                    <el-input-number v-model="form.area" controls-position="right" ></el-input-number> m2-->
+                  <el-form-item label="area" style="text-align: left;" prop="area">
                     <b-form-input type="number" v-model="form.area" class="sale-form_numberInput"
                                   style="width: 70%"></b-form-input>
                     <span style="padding-left: 20px">m2</span>
                   </el-form-item>
                 </b-col>
                 <b-col style="display: inline-block" cols="12">
-                  <el-form-item label="property">
+                  <el-form-item label="property" prop="property">
                     <el-radio-group v-model="form.property" style="line-height: 50px;width: 100%;text-align: left">
                       <b-col style="display: inline-block" cols="12" v-for="(value,key) in global.propertyInfo"
                              :key="value">
@@ -26,7 +25,7 @@
                   </el-form-item>
                 </b-col>
                 <b-col style="display: inline-block" cols="12">
-                  <el-form-item label="house structure">
+                  <el-form-item label="house structure" prop="houseStructure">
                     <el-radio-group v-model="form.houseStructure"
                                     style="line-height: 50px;width: 100%;text-align: left">
                       <b-col style="display: inline-block" lg="3" sm="6" cols="12"
@@ -37,7 +36,7 @@
                   </el-form-item>
                 </b-col>
                 <b-col style="display: inline-block" cols="12">
-                  <el-form-item label="building type">
+                  <el-form-item label="building type" prop="buildingType">
                     <el-radio-group v-model="form.buildingType" style="line-height: 50px;width: 100%;text-align: left">
                       <b-col style="display: inline-block" lg="3" sm="6" cols="12"
                              v-for="(value,key) in global.building_type" :key="value">
@@ -47,7 +46,7 @@
                   </el-form-item>
                 </b-col>
                 <b-col style="display: inline-block" cols="12">
-                  <el-form-item label="building structure">
+                  <el-form-item label="building structure" prop="buildingStructure">
                     <el-radio-group v-model="form.buildingStructure"
                                     style="line-height: 50px;width: 100%;text-align: left">
                       <b-col style="display: inline-block" lg="3" sm="6" cols="12"
@@ -58,7 +57,7 @@
                   </el-form-item>
                 </b-col>
                 <b-col style="display: inline-block" cols="12">
-                  <el-form-item label="floor type">
+                  <el-form-item label="floor type" prop="floorType">
                     <el-radio-group v-model="form.floorType" style="line-height: 50px;width: 100%;text-align: left">
                       <b-col style="display: inline-block" lg="3" sm="6" cols="12"
                              v-for="(value,key) in global.floor_type" :key="value">
@@ -68,7 +67,7 @@
                   </el-form-item>
                 </b-col>
                 <b-col style="display: inline-block" cols="12">
-                  <el-form-item label="Total floors" style="    text-align: left;">
+                  <el-form-item label="Total floors" style="    text-align: left;" prop="floors">
                     <el-input-number v-model="form.floors" controls-position="right"></el-input-number>
                   </el-form-item>
                 </b-col>
@@ -93,6 +92,7 @@ export default {
   data() {
     return {
       form: {
+        area:'',
         property: undefined,
         houseStructure: undefined,
         buildingType: undefined,
@@ -101,17 +101,45 @@ export default {
         floors: undefined
 
       },
+      rules: {
+        area: [
+          {required: true, message: '请输入活动名称', trigger: 'blur'},
+        ],
+        property: [
+          {required: true, message: '请输入活动名称', trigger: 'blur'},
+        ],
+        houseStructure: [
+          {required: true, message: '请输入活动名称', trigger: 'blur'},
+        ],
+        buildingType: [
+          {required: true, message: '请输入活动名称', trigger: 'blur'},
+        ],
+        buildingStructure: [
+          {required: true, message: '请输入活动名称', trigger: 'blur'},
+        ],
+        floorType: [
+          {required: true, message: '请输入活动名称', trigger: 'blur'},
+        ],
+        floors: [
+          {required: true, message: '请输入活动名称', trigger: 'blur'},
+        ]
+      },
       global: global,
     }
   },
-  mounted() {
-    this.$route.params.form ? this.form = Object.assign(this.$route.params.form, this.form) :
-        console.log(this.form)
-    console.log(this.direction)
+  created() {
+    this.$route.params.form?this.form=Object.assign(this.form,this.$route.params.form):this.$router.push({ name: 'Address'})
+
+
+    console.log(this.form)
   },
   methods: {
     onSubmit() {
-      this.$router.push({name: 'AdvanceInfo', params: {form: this.form}})
+      this.$refs['ruleForm'].validate((valid) => {
+        if (valid) {
+          this.$router.push({name: 'AdvanceInfo', params: {form: this.form}})
+        }
+      })
     }
   }
 }

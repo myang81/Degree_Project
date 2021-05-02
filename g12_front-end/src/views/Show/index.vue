@@ -628,7 +628,7 @@ export default {
 }
 </style>
 <style>
-.leaflet-popup{
+.main-block .leaflet-popup{
   left: -36px!important;
 }
 .choice-card .el-checkbox__inner {

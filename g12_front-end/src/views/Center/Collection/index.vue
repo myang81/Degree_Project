@@ -8,12 +8,16 @@
             <el-card :body-style="{ padding: '10px' }">
               <div>
                 <article
-                    class="post-152 post type-post status-publish format-standard hentry category-people category-photos">
+                    class="">
                   <div class="post-format-content">
                     <div class="post-thumbnail">
-                      <img
-                          src="https://cdn.homedit.com/wp-content/uploads/2014/05/minimalist-interior-design.jpg"
-                          class="attachment-thumbnail wp-post-image" alt="105694702">
+                      <el-image
+                          :src="item.imgUrl"
+                          class="attachment-thumbnail wp-post-image" alt="105694702" fit="cover">
+                        <div slot="error" class="image-slot">
+                          <el-image class="attachment-thumbnail wp-post-image" :src="require('@/assets/home_header_bg.jpg')" fit="cover"/>
+                        </div>
+                      </el-image>
                     </div>
                     <div class="content-wrap">
                       <h1 class="entry-title">
@@ -156,7 +160,15 @@ export default {
 /**{ padding:0; margin:0}*/
 /*    a{ text-decoration:none;color:#6699ff}*/
 /*    ul,li{ list-style:none; text-align:left}*/
-
+.wp-post-image{
+  height: 30vh;
+  width: 100%;
+}
+@media (max-width: 576px) {
+  .wp-post-image{
+    height: 20vh;
+  }
+}
 .divcss4 {
   padding: 2px;
   width: 100%;
@@ -217,7 +229,7 @@ export default {
 
 .post-format-content {
   position: relative;
-  background: #111;
+  /*background: #111;*/
   border-radius: 15px;
 }
 
@@ -545,5 +557,11 @@ a:hover, a:active {
   to {
     left: 0
   }
+}
+</style>
+
+<style>
+.post-thumbnail .el-image{
+  display: block;
 }
 </style>

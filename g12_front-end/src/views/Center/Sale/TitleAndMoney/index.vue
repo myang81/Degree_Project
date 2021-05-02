@@ -4,20 +4,20 @@
     <b-row style="height: 100%;width: 100%">
       <el-col :span=24>
         <div class="form-block">
-          <el-form label-position="right" label-width="80px" :model="form">
+          <el-form label-position="right" label-width="100px" :model="form" ref="ruleForm" :rules="rules">
             <el-row>
-              <el-form-item label="title">
+              <el-form-item label="title" prop="title">
                 <el-input v-model="form.title"></el-input>
               </el-form-item>
             </el-row>
             <el-row>
               <el-col :span="24">
-                <el-form-item label="unit-price" style="text-align: left">
+                <el-form-item label="unit-price" prop="unitPrice" style="text-align: left">
                   <el-input v-model="form.unitPrice" style="max-width: 200px;width: 60%" v-b-tooltip.hover title="The house price is predicted by the system algorithm, and the error is about 8000￥/m2"></el-input><span style="padding-left: 10px">￥/m2</span>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="total-price" style="text-align: left">
+                <el-form-item label="total-price" prop="totalPrice" style="text-align: left">
                   <el-input v-model="form.totalPrice" style="max-width: 200px;width: 60%"></el-input><span style="padding-left: 10px">￥</span>
                 </el-form-item>
               </el-col>
@@ -53,20 +53,34 @@ name: "index",
     return {
       form: {
         title: '',
-        unitPrice: '58957.51',
-        totalPrice: '4447164.97'
+        unitPrice: '',
+        totalPrice: ''
       },
       global: global,
+      rules: {
+        title: [
+          {required: true, message: '请输入活动名称', trigger: 'blur'},
+        ],
+        unitPrice: [
+          {required: true, message: '请输入活动名称', trigger: 'blur'},
+        ],
+        totalPrice: [
+          {required: true, message: '请输入活动名称', trigger: 'blur'},
+        ]
+      }
     }
   },
   mounted() {
-    this.$route.params.form ? this.form = Object.assign(this.$route.params.form, this.form) :
+    this.$route.params.form ? this.form = Object.assign(this.form, this.$route.params.form) : this.$router.push({name: 'Address'})
         console.log(this.form)
-    console.log(this.direction)
   },
   methods: {
     onSubmit() {
-      // this.$router.push({name: 'TitleAndMoney', params: {form: this.form}})
+      this.$refs['ruleForm'].validate((valid) => {
+        if (valid) {
+          console.log(this.form)
+        }
+      })
     },
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url;

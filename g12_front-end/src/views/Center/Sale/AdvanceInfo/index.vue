@@ -3,9 +3,9 @@
     <P class="center-title">Advanced information</P>
     <b-row style="height: 100%;display: inline-block" cols="12">
       <div class="form-block">
-        <el-form label-position="right" label-width="80px" :model="form">
+        <el-form label-position="right" label-width="100px" :model="form" ref="ruleForm" :rules="rules">
           <b-col style="display: inline-block" cols="12">
-            <el-form-item label="decoration">
+            <el-form-item label="decoration" prop="decoration">
               <el-radio-group v-model="form.decoration" style="line-height: 50px;width: 100%;text-align: left">
                 <b-col style="display: inline-block" lg="3" sm="6" cols="12" v-for="(value,key) in global.decoration"
                        :key="value">
@@ -15,7 +15,7 @@
             </el-form-item>
           </b-col>
           <b-col style="display: inline-block" cols="12">
-            <el-form-item label="heating">
+            <el-form-item label="heating" prop="heating">
               <el-radio-group v-model="form.heating" style="line-height: 50px;width: 100%;text-align: left">
                 <b-col style="display: inline-block" lg="3" sm="6" cols="12" v-for="(value,key) in global.heating"
                        :key="value">
@@ -25,7 +25,7 @@
             </el-form-item>
           </b-col>
           <b-col style="display: inline-block" cols="12">
-            <el-form-item label="elevator">
+            <el-form-item label="elevator" prop="elevator">
               <el-radio-group v-model="form.elevator" style="line-height: 50px;width: 100%;text-align: left">
                 <b-col style="display: inline-block" lg="3" sm="6" cols="12" v-for="(value,key) in global.elevator"
                        :key="value">
@@ -35,19 +35,21 @@
             </el-form-item>
           </b-col>
           <b-col style="display: inline-block" cols="12">
-            <el-form-item label="rate">
-              <b-row :gutter=30 style="text-align: left;">
-                <b-col style="display: inline-block" cols="12" sm="6">
-                  <b-form-input type="number" v-model="form.elevatorNum" class="sale-form_numberInput" style="width: 60%"></b-form-input>
-                  <span style="padding-left: 20px">elevators</span>
-                </b-col>
-                <b-col style="display: inline-block" cols="12" sm="6">
-                  <b-form-input type="number" v-model="form.houseNum" style="width: 60%"
+            <b-row :gutter=30 style="text-align: left;">
+              <b-col style="display: inline-block" cols="12" sm="6">
+                <el-form-item label="elevatorNum" prop="elevatorNum">
+                  <b-form-input type="number" v-model="form.elevatorNum" class="sale-form_numberInput"
+                                ></b-form-input>
+                </el-form-item>
+              </b-col>
+              <b-col style="display: inline-block" cols="12" sm="6">
+                <el-form-item label="houseNum" prop="houseNum">
+                  <b-form-input type="number" v-model="form.houseNum"
                                 class="sale-form_numberInput"></b-form-input>
-                  <span style="padding-left: 20px">houses</span>
-                </b-col>
-              </b-row>
-            </el-form-item>
+                </el-form-item>
+
+              </b-col>
+            </b-row>
           </b-col>
           <b-col style="text-align: end" cols="12">
             <el-button type="primary" @click="onSubmit" style="width: 100%">N E X T</el-button>
@@ -71,19 +73,39 @@ export default {
         heating: undefined,
         elevator: undefined,
         elevatorNum: undefined,
-        houseNum: undefined
+        houseNum: undefined,
       },
       global: global,
+      rules: {
+        decoration: [
+          {required: true, message: '请输入活动名称', trigger: 'blur'},
+        ],
+        heating: [
+          {required: true, message: '请输入活动名称', trigger: 'blur'},
+        ],
+        elevator: [
+          {required: true, message: '请输入活动名称', trigger: 'blur'},
+        ],
+        elevatorNum: [
+          {required: true, message: '请输入活动名称', trigger: 'blur'}
+        ],
+        houseNum: [
+          {required: true, message: '请输入活动名称', trigger: 'blur'}
+        ]
+      },
     }
   },
   mounted() {
-    this.$route.params.form ? this.form = Object.assign(this.$route.params.form, this.form) :
-        console.log(this.form)
-    console.log(this.direction)
+    this.$route.params.form ? this.form = Object.assign(this.form, this.$route.params.form) : this.$router.push({name: 'Address'})
+    console.log(this.form)
   },
   methods: {
     onSubmit() {
-      this.$router.push({name: 'TitleAndMoney', params: {form: this.form}})
+      this.$refs['ruleForm'].validate((valid) => {
+        if (valid) {
+          this.$router.push({name: 'TitleAndMoney', params: {form: this.form}})
+        }
+      })
     }
   }
 }
@@ -98,9 +120,11 @@ export default {
   overflow: hidden;
 
 }
-.form-block{
+
+.form-block {
   width: 100%;
 }
+
 .center-title:after {
   content: "";
   display: block;

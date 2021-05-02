@@ -2,37 +2,39 @@
   <div style="height: 100%;flex-direction: column">
     <P class="center-title">Room number and the orientation</P>
         <div class="form-block">
-          <el-form label-position="right" label-width="80px" :model="form">
+          <el-form label-position="right" label-width="90px" :model="form" ref="ruleForm" :rules="rules">
             <b-row>
               <b-col  cols="12" sm="6">
-                <el-form-item label="hall">
+                <el-form-item label="hall" prop="hall">
                   <el-input-number v-model="form.hall"></el-input-number>
                 </el-form-item>
               </b-col>
               <b-col cols="12" sm="6">
-                <el-form-item label="room">
+                <el-form-item label="room" prop="room">
                   <el-input-number v-model="form.room"></el-input-number>
                 </el-form-item>
               </b-col>
             </b-row>
             <b-row>
               <b-col cols="12" sm="6">
-                <el-form-item label="kitchen">
+                <el-form-item label="kitchen" prop="kitchen">
                   <el-input-number v-model="form.kitchen"></el-input-number>
                 </el-form-item>
               </b-col>
               <b-col cols="12" sm="6">
-                <el-form-item label="bathroom">
+                <el-form-item label="bathroom" prop="bathroom">
                   <el-input-number v-model="form.bathroom"></el-input-number>
                 </el-form-item>
               </b-col>
-              <el-form-item label="direction">
-                <el-checkbox-group v-model="form.direction">
+              <b-col cols="12">
+              <el-form-item label="direction" prop="direction">
+                <el-checkbox-group v-model="form.direction" style="text-align: left">
                   <b-col cols="6" sm="3" v-for="(value,key) in direction" :key="value" style="display: inline-block">
                     <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
                   </b-col>
                 </el-checkbox-group>
               </el-form-item>
+              </b-col>
             </b-row>
             <b-col style="text-align: end" cols="12">
                 <el-button type="primary" @click="onSubmit" style="width: 100%">N E X T</el-button>
@@ -58,17 +60,37 @@ name: "index",
         bathroom:0,
         direction:[]
       },
+      rules: {
+        hall: [
+          {required: true, message: '请输入活动名称', trigger: 'blur'},
+        ],
+        room: [
+          {required: true, message: '请输入活动名称', trigger: 'blur'},
+        ],
+        kitchen: [
+          {required: true, message: '请输入活动名称', trigger: 'blur'},
+        ],
+        bathroom: [
+          {required: true, message: '请输入活动名称', trigger: 'blur'},
+        ],
+        direction: [
+          {required: true, message: '请输入活动名称', trigger: 'blur'},
+        ],
+      },
       direction:global.direction
     }
   },
-  mounted() {
-    this.$route.params.form?this.form=Object.assign(this.$route.params.form,this.form):
+  created() {
+    this.$route.params.form?this.form=Object.assign(this.$route.params.form,this.form):this.$router.push({ name: 'Address'})
     console.log(this.form)
-    console.log(this.direction)
   },
   methods:{
     onSubmit(){
-      this.$router.push({ name: 'BaseInfo', params: { form: this.form }})
+      this.$refs['ruleForm'].validate((valid) => {
+        if (valid) {
+          this.$router.push({ name: 'BaseInfo', params: { form: this.form }})
+        }
+      })
     }
   }
 }

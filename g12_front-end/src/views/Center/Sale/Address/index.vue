@@ -8,10 +8,10 @@
       </b-col>
       <b-col cols="12" md="6">
         <div class="form-block">
-          <el-form label-position="right" label-width="100px" :model="form">
+          <el-form label-position="right" label-width="100px" :model="form" ref="ruleForm" :rules="rules">
             <b-row>
               <b-col  :span=24>
-                <el-form-item label="region/district" style="text-align: left">
+                <el-form-item label="region/district" style="text-align: left" prop="regionAndDistrict" label-width="120px" >
                   <!--                <el-autocomplete v-model="form.region" :fetch-suggestions="querySearchRegion"></el-autocomplete>-->
                   <el-cascader
                       v-model="form.regionAndDistrict"
@@ -31,12 +31,12 @@
             </b-row>
             <b-row>
               <b-col cols="12" md="6">
-                <el-form-item label="longitude">
+                <el-form-item label="longitude"  prop="lng">
                   <el-input v-model="form.lng"></el-input>
                 </el-form-item>
               </b-col>
               <b-col cols="12" md="6">
-                <el-form-item label="latitude">
+                <el-form-item label="latitude" prop="lat">
                   <el-input v-model="form.lat"></el-input>
                 </el-form-item>
               </b-col>
@@ -65,10 +65,21 @@ name: "address",
   data(){
     return {
       form:{
-        regionAndDistrict:"",
+        regionAndDistrict:undefined,
         // coordinate:[undefined,undefined],
         lng:undefined,
         lat:undefined
+      },
+      rules: {
+        regionAndDistrict: [
+          {required: true, message: '请输入活动名称', trigger: 'blur'},
+        ],
+        lng: [
+          {required: true, message: '请选择活动区域', trigger: 'blur'}
+        ],
+        lat: [
+          {required: true, message: '请选择日期', trigger: 'blur'}
+        ],
       },
       options:[
         {
@@ -1369,16 +1380,12 @@ name: "address",
             attribution: "高德"
           }
       ).addTo(map);
-      function onLocationFound(e) {
+      map.on('locationfound', (e)=>{
         console.log(e)
-        var radius = e.accuracy;
-        L.marker(e.latlng).addTo(map)
-            .bindPopup("You are within " + radius + " meters from this point").openPopup();
-
-        L.circle(e.latlng, radius).addTo(map);
-      }
-
-      map.on('locationfound', onLocationFound);
+        L.marker(e.latlng).addTo(map).bindPopup("You are here at " + e.latlng.toString()).openPopup()
+        _this.form.lng=e.latlng.lng;
+        _this.form.lat =e.latlng.lat;
+      });
 
       function onLocationError(e) {
           alert(e.message);
@@ -1397,12 +1404,16 @@ name: "address",
     },
 
     onSubmit(){
-      let f={
-        coordinate:[this.form.lng,this.form.lat],
-        region:this.form.regionAndDistrict[0],
-        district:this.form.regionAndDistrict[1],
-      }
-      this.$router.push({ name: 'HouseNum', params: { form: f }})
+      this.$refs['ruleForm'].validate((valid) => {
+        if (valid) {
+          let f={
+            coordinate:[this.form.lng,this.form.lat],
+            region:this.form.regionAndDistrict[0],
+            district:this.form.regionAndDistrict[1],
+          }
+          this.$router.push({ name: 'HouseNum', params: { form: f }})
+        }
+      })
     },
   }
 }

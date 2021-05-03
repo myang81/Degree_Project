@@ -44,6 +44,14 @@
         },
         created() {
         },
+      mounted() {
+        window.onresize = () => {
+          return (() => {
+            window.screenWidth = document.body.clientWidth
+              this.screenWidth = window.screenWidth
+          })()
+        };
+      },
         methods: {
             handleSearch() {
                 this.$router.push({name: 'houseList', params: {searchString: this.searchString}})
@@ -98,7 +106,6 @@
 
     .home-header-content {
         width: 100%;
-        height: calc(100% - 50px);
     }
 
     @media (min-width: 768px) {
@@ -198,10 +205,15 @@
     }
 
     .recommendation-carousel {
-        width: 1200px;
-        margin: 20px auto 0 auto;
+        max-width: 1100px;
+        margin: 5px auto 0 auto;
     }
-
+    @media (max-width: 576px) {
+      .recommendation-carousel {
+        width: 100%;
+        margin: 5px auto 0 auto;
+      }
+    }
     .recommendation-carousel .recommendation-title {
         font-size: 1.8rem;
         color: rgba(84, 92, 100, 1);

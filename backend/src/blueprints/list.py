@@ -1,6 +1,9 @@
+import random
+
 from flask import Blueprint, render_template, session, flash, redirect, request, url_for
 from src.extension import db
 from src.Models.Houses import House
+from src.Models.Targets import Targets
 from src.Utility import enumMachine
 import math
 import re
@@ -79,6 +82,7 @@ def preProcessing(document):
     t3 = time()
     print("Document processing completed")
 
+
 def calculateLength(dict):  # calculate the length of a document
     length = 0
     for values in dict.values():
@@ -123,6 +127,7 @@ def get_keys(d, value):
 # 变量解释: argDict： 请求用的参数字典
 @list.route("/getHouseList", methods=['GET', 'POST'])
 def getHouse():
+    recommend()
     global argdict  # get the parameter from the front
     if request.method == 'POST':
         timeRange = None
@@ -252,7 +257,6 @@ def getHouse():
                 e['district'] = enumMachine.District.field2enum(e['district'])
             return li
 
-
         # print(direction)
         # print(request.json)
         print("The filter requirement is:")
@@ -260,7 +264,6 @@ def getHouse():
         print('searchString: ', searchString)
         houses = []
         total = 0
-
         document = {}
         document_id = 0
         houses = House.query.filter().all()
@@ -281,19 +284,15 @@ def getHouse():
 
         ######### indexing finish
         file = open('home_search.txt', 'r')  # open the index file and store to a dictionary
-        print("Please wait for the system to load the file")
         t4 = time()
         js = file.read()
         index = json.loads(js)
         t5 = time()
         print("done")
-        print(t5 - t4)
         query = searchString
-        print("Enter query: ", query)
         query = query.lower()
         similarity = {}  # A dict store the similarity, the  key is the document id, the value is the score
         query_term = []  # A list store the stemmed terms in the query
-        print("Result for query: ")
         for elements in query.split(" "):
             if elements not in stopwords:  # remove stopwords
                 query_term.append(elements)
@@ -376,7 +375,6 @@ def getHouse():
             p_end = total
         filter_List = filter_List[p_start:p_end]
         # convertListToEnum(filter_List)
-        print(filter_List)
         # houses=House.query.filter(House.price >argdict['totalPriceRange'][0],House.price<argdict['totalPriceRange'][1],
         #                                 House.floor_area >argdict['area'][0],House.floor_area<argdict['area'][1],
         #                               House._unit_price>argdict['unitPriceRange'][0],House._unit_price<argdict['unitPriceRange'][1],
@@ -409,7 +407,6 @@ def getHouse():
         #
         # print(houses)
         # print(total)
-        print(filter_List)
         return {
             "success": 1,
             "data": {
@@ -419,7 +416,6 @@ def getHouse():
             },
             "error": None
         }
-
     else:
         return {
             "success": 1,
@@ -430,6 +426,7 @@ def getHouse():
             },
             "error": None
         }
+
 
 ####################################
 #	3.2. 添加收藏接口：        ###
@@ -582,3 +579,69 @@ def getHouse():
 #
 #
 #
+def recommend(c_id):
+    print("####################Test for recommender###########################")
+
+    def filterDirection(l1, l2):
+        l1.append('no')
+        for element in l2:
+            if element not in l1:
+                return False
+        return True
+
+    c_target = Targets.query.filter(Targets.id == c_id).first()
+    tP = c_target.totalPriceRange.split(',')
+    up = c_target.unitPriceRange.split(',')
+    ar = c_target.area.split(',')
+    ds = c_target.district.split(',')
+    he = c_target.heating.split(',')
+    hs = c_target.houseStructure.split(',')
+    dr = c_target.direction.split(',')
+    de = c_target.decoration.split(',')
+    el = c_target.elevator.split(',')
+    targetDict = {
+        "totalPriceRange": tP,
+        "unitPriceRange": up,
+        "area": ar,
+        "district": ds,
+        "houseStructrue": hs,
+        "direction": dr,
+        "decoration": de,
+        "heating": he,
+        "elevator": el,
+    }
+    document = {}
+    document_id = 0
+    houses = House.query.filter().all()
+    for h in houses:
+        temp_h = h.generateDetail()
+        document[document_id] = temp_h
+        document_id += 1
+    recommend_list = []
+    hList = document.values()
+    for h in hList:
+        if h['title'] != '':
+            if (int(targetDict['totalPriceRange'][0]) <= int(h['totalPrice']) <= int(
+                    targetDict['totalPriceRange'][1]) and
+                    float(targetDict['area'][0]) <= float((h['describe'].split('|')[1]).split(' ')[0]) <= float(
+                        targetDict['area'][
+                            1]) and
+                    int(targetDict['unitPriceRange'][0]) <= int(h['unitPrice']) <= int(
+                        targetDict['unitPriceRange'][1]) and
+                    h['district'] in (targetDict["district"]) and
+                    filterDirection((h['describe'].split('|')[2]).split(' '), targetDict['direction']) and
+                    (h['describe'].split('|')[4]).split(' ')[1] in (targetDict['houseStructrue']) and
+                    h['otherInfo'].split('|')[0] in (targetDict["decoration"]) and
+                    h['otherInfo'].split('|')[1] in (targetDict["heating"]) and
+                    h['otherInfo'].split('|')[2] in (targetDict["elevator"])
+            ):
+                recommend_list.append(h)
+    if len(recommend_list) < 3:
+        for i in range(3 - len(recommend_list)):
+            recommend_list.append(document[random.randint(0, len(document) - 1)])
+    r_lenth = len(recommend_list)
+    return_list = []
+    for i in range(0, 3):
+        return_list.append(recommend_list[random.randint(0, r_lenth - 1)])
+    print(return_list)
+    return return_list

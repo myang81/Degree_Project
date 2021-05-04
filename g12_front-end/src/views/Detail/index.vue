@@ -11,8 +11,8 @@
           </div>
           <div style="display: inline-block;position: absolute;bottom: calc(50% - 40px);right: 20px">
             <div class="buttons">
-              <button class="blob-btn" @click="handleCollect">
-                COLLECT <i :class="[collected?'el-icon-star-on':'el-icon-star-off']"></i>
+              <button class="blob-btn" @click="handleCollect(collected)">
+                COLLECT <i :class="[collected==='true'?'el-icon-star-on':'el-icon-star-off']"></i>
                 <span class="blob-btn__inner">
                 <span class="blob-btn__blobs">
                   <span class="blob-btn__blob"></span>
@@ -71,7 +71,7 @@
                 </el-row>
               </el-card>
             </div>
-            <div class="buy-div full-width">
+            <div class="buy-div full-width" @click="handleBuy">
               BUY NOW
             </div>
           </div>
@@ -143,8 +143,8 @@
       <div class="fixed-bottom justify-content-center d-flex bg-white" style="height: 50px">
         <div class="collected-button">
           <div class="buttons">
-            <button class="blob-btn" @click="handleCollect">
-              COLLECT <i :class="[collected?'el-icon-star-on':'el-icon-star-off']"></i>
+            <button class="blob-btn" @click="handleCollect(collected)">
+              COLLECT <i :class="[collected==='true'?'el-icon-star-on':'el-icon-star-off']"></i>
               <span class="blob-btn__inner">
                 <span class="blob-btn__blobs">
                   <span class="blob-btn__blob"></span>
@@ -156,7 +156,7 @@
             </button>
           </div>
         </div>
-        <div class="buy-div">
+        <div class="buy-div" @click="handleBuy">
           BUY NOW
         </div>
       </div>
@@ -170,7 +170,7 @@
 import HeaderNav from '@/components/headerNav/index.vue'
 import pictureScroll from '@/components/pictureScroll/index.vue'
 import Recommendation from '@/components/RecommendationBlock/index.vue'
-import {getDetail,getsellerDetail} from '@/utils/api'
+import {getDetail,getsellerDetail,addCollection} from '@/utils/api'
 
 export default {
   name: "detail",
@@ -192,12 +192,12 @@ export default {
       unitPrice: '60203',
       totalPrice: '4.16',
       sellerDetail: {},
-      collected: false,
+      collected: undefined,
       screenWidth: document.body.clientWidth,
     }
   },
   created() {
-    if (this.$route.params.houseId) this.houseId = this.$route.params.houseId;
+    this.$route.params.houseId? this.houseId = this.$route.params.houseId: this.$router.push({name: 'houseList'});
     this.getHouseDetail()
     this.getSellerDetail()
   },
@@ -213,7 +213,7 @@ export default {
     getHouseDetail() {
 
        // console.log("--------userId--------", this.$store.state)
-      getDetail(this.houseId).then(res => {
+      getDetail({houseId:this.houseId}).then(res => {
         if (res.success) {
          this.collected = res.data.collected;
           this.sold = res.data.sold;
@@ -229,21 +229,49 @@ export default {
     getSellerDetail() {
 
        // console.log("--------userId--------", this.$store.state)
-      getsellerDetail(this.houseId).then(res => {
+      getsellerDetail({houseId:this.houseId}).then(res => {
         if (res.success) {
-         this.userName = res.data.userName;
-          this.userEmail = res.data.userEmail;
-          this.createTime= res.data.createTime;
-
+          this.sellerDetail={
+            userName:res.data.userName,
+            userEmail : res.data.userEmail,
+            createTime: res.data.createTime
+          }
         }
-
       })
     },
-    handleCollect(){
-      this.collected=!this.collected
+    handleCollect(collected){
+      console.log(this.collected)
+      console.log(collected)
+      let message;
+      if(collected==='true'){
+        collected='false'
+        message="cancel success"
+      }else{
+        collected='true'
+        message="collect success"
+      }
+      addCollection({houseId:this.houseId,userId:this.$store.state.userId,collected:collected}).then(()=>{
+        this.$message({
+          message: message,
+          type: 'success'
+        });
+        this.collected=collected
+        console.log( this.collected)
+      })
     },
+    handleBuy(){
+      this.$confirm('Are you sure you want to buy this house?', 'Secondary confirmation', {
+        confirmButtonText: 'confirm',
+        cancelButtonText: 'cancel',
+        type: 'warning'
+      }).then(() => {
+        this.$message({
+          type: 'success',
+          message: 'Successful purchase'
+        });
+      }).catch();
+    }
   }
-
 }
 </script>
 <style lang="scss">

@@ -92,7 +92,7 @@
         <el-checkbox-group v-model="form.district">
           <b-row>
           <b-col cols=6 md=3 v-for="(value,key) in global.district" :key="value">
-            <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
+            <el-checkbox :label="value" name="type" :value="value">{{key}}</el-checkbox>
           </b-col>
           </b-row>
         </el-checkbox-group>
@@ -101,7 +101,7 @@
         <el-checkbox-group v-model="form.houseStructure">
           <b-row>
           <b-col cols=6 md=3 v-for="(value,key) in global.house_structure" :key="value">
-            <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
+            <el-checkbox :label="value" name="type" :value="value">{{key}}</el-checkbox>
           </b-col>
           </b-row>
         </el-checkbox-group>
@@ -111,7 +111,7 @@
         <el-checkbox-group v-model="form.direction">
           <b-row>
           <b-col cols=6 md=3 v-for="(value,key) in global.direction" :key="value">
-            <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
+            <el-checkbox :label="value" name="type" :value="value">{{key}}</el-checkbox>
           </b-col>
           </b-row>
         </el-checkbox-group>
@@ -120,27 +120,35 @@
         <el-checkbox-group v-model="form.decoration">
           <b-row>
           <b-col cols=6 md=3 v-for="(value,key) in global.decoration" :key="value">
-            <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
+            <el-checkbox :label="value" name="type" :value="value">{{key}}</el-checkbox>
           </b-col>
           </b-row>
         </el-checkbox-group>
       </el-form-item>
       <el-form-item label="heating" prop="heating">
         <el-checkbox-group v-model="form.heating">
+          <b-row>
           <b-col cols=6 md=3 v-for="(value,key) in global.heating" :key="value">
-            <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
+            <el-checkbox :label="value" name="type" :value="value">{{key}}</el-checkbox>
           </b-col>
+          </b-row>
         </el-checkbox-group>
       </el-form-item>
       <el-form-item label="elevator" prop="elevator">
         <el-checkbox-group v-model="form.elevator">
+          <b-row>
           <b-col cols=6 md=3 v-for="(value,key) in global.elevator" :key="value">
-            <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
+            <el-checkbox :label="value" name="type" :value="value">{{key}}</el-checkbox>
           </b-col>
+          </b-row>
         </el-checkbox-group>
       </el-form-item>
       <el-form-item  style="text-align: right">
-        <el-button type="primary" @click="onSubmit" size="medium">S a v e</el-button>
+        <b-row>
+          <b-col cols="12">
+            <el-button type="primary" @click="onSubmit" size="medium" style="width: 100%;margin-bottom: 15px">S a v e</el-button>
+          </b-col>
+        </b-row>
         <!--                        <el-button>取消</el-button>-->
       </el-form-item>
     </el-form>

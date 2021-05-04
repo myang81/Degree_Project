@@ -111,6 +111,14 @@ export function getsellerDetail(data){
     })
 }
 
+export function getRecommended(data){
+    return axios({
+        url:'/recommendHouse',
+        method:'post',
+        data
+    })
+}
+
 
 
 

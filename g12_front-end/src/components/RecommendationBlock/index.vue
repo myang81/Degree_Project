@@ -47,20 +47,29 @@
 </template>
 
 <script>
+import {getRecommended} from '@/utils/api'
 export default {
   name: "index",
   data() {
     return {
-      recommendationList: [{
-        name: "house1",
-        image: "../assets/home_header_bg.jpg",
-        unitPrice: 52897
-      }, {name: "house2", image: "../assets/home_header_bg.jpg", unitPrice: 60203}, {
-        name: "house3",
-        image: "../assets/home_header_bg.jpg",
-        unitPrice: 59723
-      }],
+      // recommendationList: [{
+      //   name: "house1",
+      //   image: "../assets/home_header_bg.jpg",
+      //   unitPrice: 52897
+      // }, {name: "house2", image: "../assets/home_header_bg.jpg", unitPrice: 60203}, {
+      //   name: "house3",
+      //   image: "../assets/home_header_bg.jpg",
+      //   unitPrice: 59723
+      // }],
+      recommendationList:[]
     }
+  },
+  created() {
+    getRecommended({userId: this.$store.state.userId}).then(res => {
+      if (res.success) {
+        this.recommendationList = res.data.houseList;
+      }
+    })
   },
   mounted() {
   },

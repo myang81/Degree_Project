@@ -127,7 +127,6 @@ def get_keys(d, value):
 # 变量解释: argDict： 请求用的参数字典
 @list.route("/getHouseList", methods=['GET', 'POST'])
 def getHouse():
-    recommend()
     global argdict  # get the parameter from the front
     if request.method == 'POST':
         timeRange = None
@@ -579,6 +578,20 @@ def getHouse():
 #
 #
 #
+
+
+@list.route("/recommendHouse", methods=['GET', 'POST'])
+def recommendHouse():
+    u_id = request.json.get('userId')
+    return {
+        "success": 1,
+        "data": {
+            "houseList": recommend(int(u_id))
+        },
+        "error": None
+    }
+
+
 def recommend(c_id):
     print("####################Test for recommender###########################")
 

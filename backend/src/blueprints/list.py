@@ -661,8 +661,8 @@ def recommend(c_id):
     return return_list
 
 
-@list.route("/searchCommunity", methods=['GET', 'POST'])
-def searchCommunity():
+@list.route("/returnCommunity", methods=['GET', 'POST'])
+def returnCommunity():
     s_string = request.json.get('searchString')
     return {
         "success": 1,

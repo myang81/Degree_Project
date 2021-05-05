@@ -104,9 +104,9 @@
 
         position: fixed;
 
-        top: 0;
+        /*top: 0;*/
 
-        left: 0;
+        /*left: 0;*/
 
         width: 100%;
 
@@ -132,7 +132,10 @@
     .main-agileits {
         width: 42%;
         margin: 0 auto;
-        margin-top: 200px;
+        margin-top: 15vh;
+
+
+
     }
 
 
@@ -166,41 +169,11 @@
 
     .form-w3-agile h1 {
         color: #EBEEF5;
+      font-size: 3rem;
     }
 
 
-    /*.submit-w3l input[type="submit"] {*/
-    /*    background: #fff;*/
-    /*    color: #000;*/
-    /*    outline: none;*/
-    /*    display: block;*/
-    /*    margin: 0 auto;*/
-    /*    border: none;*/
-    /*    cursor: pointer;*/
-    /*    padding: 13px 38px;*/
-    /*    font-size: 14px;*/
-    /*    width: 100%;*/
-    /*    margin-top: 1em;*/
-    /*    text-align: center;*/
-    /*    font-weight: bold;*/
-    /*    text-transform: uppercase;*/
-
-    /*    transition: 0.3s all;*/
-    /*    -webkit-transition: 0.3s all;*/
-    /*    -moz-transition: 0.3s all;*/
-    /*    -o-transition: 0.3s all;*/
-    /*    -ms-transition: 0.3s all;*/
-    /*}*/
-
-    /*.submit-w3l input[type="submit"]:hover {*/
-    /*    background: #3A5FCD;*/
-    /*    color: #ffffff;*/
-    /*    transition: 0.3s all;*/
-    /*    -webkit-transition: 0.3s all;*/
-    /*    -moz-transition: 0.3s all;*/
-    /*    -o-transition: 0.3s all;*/
-    /*    -ms-transition: 0.3s all;*/
-    /*}*/
+    
 
     input::-webkit-input-placeholder {
         color: #EBEEF5;
@@ -208,7 +181,15 @@
 
 
     @media only screen and (max-width: 500px) {
-
+           .main-agileits {
+        width: 100%;
+        margin: 0 auto;
+        margin-top: 2vh;
+    }
+      .form-w3-agile h1 {
+        color: #EBEEF5;
+      font-size: 2rem;
+    }
     }
 
 

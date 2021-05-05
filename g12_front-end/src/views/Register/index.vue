@@ -154,7 +154,7 @@
     .main-agileits {
         width: 42%;
         margin: 0 auto;
-        /*margin-top: 200px;*/
+        margin-top: 8vh;
     }
 
 
@@ -228,6 +228,17 @@
 
 
     @media only screen and (max-width: 500px) {
+      .main-agileits {
+        width: 100%;
+        margin: 0 auto;
+        margin-top: 1vh;
+    }
+      .form-w3-agile h1 {
+        color: #EBEEF5;
+      font-size: 2rem;
+    }
+
+
 
     }
 </style>

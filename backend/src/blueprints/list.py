@@ -10,6 +10,7 @@ import re
 from time import time
 import os
 import json
+from src.blueprints.search_community import searchCommunity
 
 list = Blueprint('list', __name__)
 
@@ -658,3 +659,15 @@ def recommend(c_id):
         return_list.append(recommend_list[random.randint(0, r_lenth - 1)])
     print(return_list)
     return return_list
+
+
+@list.route("/searchCommunity", methods=['GET', 'POST'])
+def searchCommunity():
+    s_string = request.json.get('searchString')
+    return {
+        "success": 1,
+        "data": {
+            "community": searchCommunity(s_string)
+        },
+        "error": None
+    }

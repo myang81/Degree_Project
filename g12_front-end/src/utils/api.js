@@ -127,6 +127,17 @@ export function searchCommunity(data){
     })
 }
 
+export function delPublished(data){
+    return axios({
+        url:'/center/published/delPublished',
+        method:'post',
+        data
+    })
+}
+
+
+
+
 
 
 

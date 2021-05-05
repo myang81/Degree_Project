@@ -46,12 +46,12 @@
                                                     </div>
                                                 </el-col>
                                                 <el-col :span="8" style="text-align: right">
-                                                    <el-dropdown>
+                                                    <el-dropdown @command="handleCommand(item)">
                                                         <i class="el-icon-more el-icon--right" style="transform:rotate(90deg)"></i>
                                                         <el-dropdown-menu slot="dropdown">
                                                             <!--                        <el-button type="primary" icon="el-icon-search">搜索</el-button>-->
-                                                            <el-dropdown-item>Detail</el-dropdown-item>
-                                                            <el-dropdown-item v-on:click="deldiv">Delete
+<!--                                                            <el-dropdown-item>Detail</el-dropdown-item>-->
+                                                            <el-dropdown-item command="DELETE" @click="delList(item)">Delete
                                                             </el-dropdown-item>
                                                         </el-dropdown-menu>
                                                     </el-dropdown>
@@ -71,7 +71,7 @@
 
 <script>
 
-    import {getPublishedList} from '@/utils/api'
+    import {getPublishedList,delPublished} from '@/utils/api'
 
     export default {
         name: "published",
@@ -132,8 +132,27 @@
 
                 })
             },
+
+              delList(item) {
+                  console.log(item)
+                  // let message;
+                  delPublished({houseId:item.houseId,userId: this.$store.state.userId})
+                      .then(()=>{
+                        this.$message({
+                          message: "success",
+                          type: 'success'
+                        });
+                    // this.collectionList[index].collected=collected
+                  })
+                  this.getList()
         },
-        maijia: 'liangbj0405'
+        handleCommand(item){
+          this.delList(item)
+        },
+
+
+        },
+
     }
 
     // function deldiv(){

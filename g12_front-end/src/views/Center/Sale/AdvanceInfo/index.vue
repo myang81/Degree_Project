@@ -9,7 +9,7 @@
               <el-radio-group v-model="form.decoration" style="line-height: 50px;width: 100%;text-align: left">
                 <b-col style="display: inline-block" lg="3" sm="6" cols="12" v-for="(value,key) in global.decoration"
                        :key="value">
-                  <el-radio :label="key" name="type" :value="value"></el-radio>
+                  <el-radio :label="value" :value="value">{{ key }}</el-radio>
                 </b-col>
               </el-radio-group>
             </el-form-item>
@@ -19,7 +19,7 @@
               <el-radio-group v-model="form.heating" style="line-height: 50px;width: 100%;text-align: left">
                 <b-col style="display: inline-block" lg="3" sm="6" cols="12" v-for="(value,key) in global.heating"
                        :key="value">
-                  <el-radio :label="key" name="type" :value="value"></el-radio>
+                  <el-radio :label="value" :value="value">{{ key }}</el-radio>
                 </b-col>
               </el-radio-group>
             </el-form-item>
@@ -29,7 +29,7 @@
               <el-radio-group v-model="form.elevator" style="line-height: 50px;width: 100%;text-align: left">
                 <b-col style="display: inline-block" lg="3" sm="6" cols="12" v-for="(value,key) in global.elevator"
                        :key="value">
-                  <el-radio :label="key" name="type" :value="value"></el-radio>
+                  <el-radio :label="value" :value="value">{{ key }}</el-radio>
                 </b-col>
               </el-radio-group>
             </el-form-item>

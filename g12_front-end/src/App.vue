@@ -58,11 +58,17 @@ p{
 .mg-b-8{
   margin-bottom: 8px;
 }
+.ds-none{
+  display: none;
+}
     .el-card{
         border-radius: 15px!important;
     }
 .el-loading-spinner{
     display: inline;
+}
+.el-loading-mask{
+  z-index: 1000!important;
 }
 img{
   border-radius: 10px!important;

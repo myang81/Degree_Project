@@ -265,9 +265,7 @@ export default {
 </script>
 
 <style scoped>
-.ds-none{
-  display: none;
-}
+
 .center-title{
   font-size: 2rem;
   padding: 30px;

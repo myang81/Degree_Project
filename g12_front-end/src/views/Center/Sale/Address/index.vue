@@ -8,7 +8,7 @@
       </b-col>
       <b-col cols="12" md="6">
         <div class="form-block">
-          <el-form label-position="right" label-width="100px" :model="form" ref="ruleForm" :rules="rules">
+          <el-form label-position="right" label-width="120px" :model="form" ref="ruleForm" :rules="rules">
             <b-row>
               <b-col  :span=24>
                 <el-form-item label="region/district" style="text-align: left" prop="regionAndDistrict" label-width="120px" >
@@ -19,15 +19,20 @@
                   ></el-cascader>
                 </el-form-item>
               </b-col>
-              <!--            <b-col cols="12" md="6">-->
-              <!--              <el-form-item label="district">-->
-              <!--&lt;!&ndash;                <el-autocomplete v-model="form.district" :fetch-suggestions="querySearchDistrict"></el-autocomplete>&ndash;&gt;-->
-              <!--                <el-cascader-->
-              <!--                        v-model="value"-->
-              <!--                        :options="options"-->
-              <!--                        ></el-cascader>-->
-              <!--              </el-form-item>-->
-              <!--            </b-col>-->
+            </b-row>
+            <b-row>
+              <b-col  :span=24>
+                <el-form-item label="block" style="text-align: left" prop="regionAndDistrict" label-width="120px" >
+                  <el-select v-model="form.block" filterable placeholder="please choose">
+                    <el-option
+                        v-for="(value,index) in block"
+                        :key="value"
+                        :label="index"
+                        :value="value">
+                    </el-option>
+                  </el-select>
+                </el-form-item>
+              </b-col>
             </b-row>
             <b-row>
               <b-col cols="12" md="6">
@@ -54,6 +59,7 @@
 
 <script>
 import global from '@/assets/global'
+import {block} from '@/assets/global/block'
 import * as L from 'leaflet'
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
@@ -64,11 +70,13 @@ export default {
 name: "address",
   data(){
     return {
+      block:block,
       form:{
         regionAndDistrict:undefined,
         // coordinate:[undefined,undefined],
         lng:undefined,
-        lat:undefined
+        lat:undefined,
+        block:''
       },
       rules: {
         regionAndDistrict: [

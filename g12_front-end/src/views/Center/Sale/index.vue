@@ -16,5 +16,6 @@ name: "sale",
 <style>
  .sale-page .el-form-item__label{
    font-weight: bold;
+   text-align: left;
  }
 </style>

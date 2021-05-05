@@ -51,70 +51,93 @@
             >
               <div>
                 <p>totalPrice</p>
-                <el-row :gutter=20>
-                  <el-col :span=6 class="ds-flex ds-ver_center">
-                    <el-input v-model="form.totalPriceRange[0]" style="flex: 2"
-                              type="text"></el-input>
-                    <span>￥</span>
-                  </el-col>
-                  <el-col :span=12>
+                <b-row>
+                  <b-col cols=3 class="ds-flex" :class="{'ds-none':this.screenWidth < 768}">
+                    <el-input v-model="form.totalPriceRange[0]" style="flex: 2" type="text"></el-input>
+                    <span style="margin-left: 10px;line-height:40px">￥</span>
+                  </b-col>
+                  <b-col v-if="this.screenWidth >= 768" cols=6>
                     <el-slider
                         v-model="form.totalPriceRange"
                         range
-                        :step="1000"
-                        :max="200000">
+                        :step="100000"
+                        :max="100000000"
+                        >
                     </el-slider>
-                  </el-col>
-                  <el-col :span=6 class="ds-flex ds-ver_center">
-                    <el-input v-model="form.totalPriceRange[1]" style="flex: 2"
-                              type="text"></el-input>
-                    <span>￥</span>
-                  </el-col>
-                </el-row>
+                  </b-col>
+                  <b-col v-if="this.screenWidth < 768" cols=12>
+                    <el-slider
+                        v-model="form.totalPriceRange"
+                        range
+                        :step="100000"
+                        :max="100000000"
+                        :tooltip-class="{'ds-none':!this.showTooltip}">
+                    </el-slider>
+                  </b-col>
+                  <b-col cols=3 class="ds-flex" :class="{'ds-none':this.screenWidth < 768}">
+                    <el-input v-model="form.totalPriceRange[1]" style="flex: 2" type="text"></el-input>
+                    <span style="margin-left: 10px;line-height:40px">￥</span>
+                  </b-col>
+                </b-row>
               </div>
               <el-divider></el-divider>
               <div>
                 <p>unitPrice</p>
-                <el-row :gutter=20>
-                  <el-col :span=6 class="ds-flex ds-ver_center">
-                    <el-input v-model="form.unitPriceRange[0]" style="flex: 2"
-                              type="text"></el-input>
-                    <span>￥/m2</span>
-                  </el-col>
-                  <el-col :span=12>
+                <b-row>
+                  <b-col cols=3 class="ds-flex" :class="{'ds-none':this.screenWidth < 768}">
+                    <el-input v-model="form.unitPriceRange[0]" style="flex: 2" type="text"></el-input>
+                    <span style="margin-left: 10px;line-height:40px">￥/m2</span>
+                  </b-col>
+                  <b-col v-if="this.screenWidth >= 768" cols=6>
                     <el-slider
                         v-model="form.unitPriceRange"
                         range
-                        :max="1000000">
+                        :step="1000"
+                        :max="200000">
                     </el-slider>
-                  </el-col>
-                  <el-col :span=6 class="ds-flex ds-ver_center">
-                    <el-input v-model="form.unitPriceRange[1]" style="flex: 2"
-                              type="text"></el-input>
-                    <span>￥/m2</span>
-                  </el-col>
-                </el-row>
+                  </b-col>
+                  <b-col v-if="this.screenWidth < 768" cols=12>
+                    <el-slider
+                        v-model="form.unitPriceRange"
+                        range
+                        :step="1000"
+                        :max="200000">
+                    </el-slider>
+                  </b-col>
+                  <b-col cols=3 class="ds-flex" :class="{'ds-none':this.screenWidth < 768}">
+                    <el-input v-model="form.unitPriceRange[1]" style="flex: 2" type="text"></el-input>
+                    <span style="margin-left: 10px;line-height:40px">￥/m2</span>
+                  </b-col>
+                </b-row>
               </div>
               <el-divider></el-divider>
               <div class="mg-b-20">
                 <p>area</p>
-                <el-row :gutter=20>
-                  <el-col :span=6 class="ds-flex ds-ver_center">
+                <b-row>
+                  <b-col cols=3 class="ds-flex" :class="{'ds-none':this.screenWidth < 768}">
                     <el-input v-model="form.area[0]" style="flex: 2" type="text"></el-input>
-                    <span>m2</span>
-                  </el-col>
-                  <el-col :span=12>
+                    <span style="margin-left: 10px;line-height:40px">m2</span>
+                  </b-col>
+                  <b-col v-if="this.screenWidth >= 768" cols=6>
+                    <el-slider
+                        v-model="form.area"
+                        range
+                        :step="100"
+                        :max="1000">
+                    </el-slider>
+                  </b-col>
+                  <b-col v-if="this.screenWidth < 768" cols=12>
                     <el-slider
                         v-model="form.area"
                         range
                         :max="1000">
                     </el-slider>
-                  </el-col>
-                  <el-col :span=6 class="ds-flex ds-ver_center">
+                  </b-col>
+                  <b-col cols=3 class="ds-flex" :class="{'ds-none':this.screenWidth < 768}">
                     <el-input v-model="form.area[1]" style="flex: 2" type="text"></el-input>
-                    <span>m2</span>
-                  </el-col>
-                </el-row>
+                    <span style="margin-left: 10px;line-height:40px">m2</span>
+                  </b-col>
+                </b-row>
               </div>
               <div class="choice-card-bottom">
                 <span class="cancel" @click="handleHideChoice">Cancel</span>
@@ -177,7 +200,7 @@
       </div>
     </div>
     <div :class="{'bland':choiceCardVisible.bland}" @click="handleHideChoice"
-         style="transition: .3s;z-index: 9900;"></div>
+         style="transition: .3s;z-index: 1100;"></div>
   </div>
 </template>
 
@@ -204,6 +227,7 @@ export default {
   },
   data() {
     return {
+      showTooltip:false,
       loading: false,
       map: undefined,
       mapShow: true,
@@ -251,7 +275,7 @@ export default {
       screenWidth: document.body.clientWidth,
       houseList: [],
       mapInited: false,
-      markerList:[]
+      markerList:[],
     }
   },
   created() {
@@ -317,11 +341,11 @@ export default {
       }
     },
     mouseover(index){
-      console.log("parent mouseover")
+      // console.log("parent mouseover")
       this.markerList[index].openPopup()
     },
     mouseLeave(index){
-      console.log("parent mouseLeave")
+      // console.log("parent mouseLeave")
       this.markerList[index].closePopup()
     },
     handleChoiceButton(choice) {
@@ -334,6 +358,7 @@ export default {
           break
         case 'price':
           this.choiceCardVisible.price = true;
+          this.showTooltip=true
           break
       }
       this.choiceCardVisible.bland = true
@@ -352,6 +377,7 @@ export default {
         console.log(this.choiceCardVisible[item] = false)
       }
       this.choiceCardVisible.init = init
+      this.showTooltip=false
     },
     handleConfirmChoice() {
       this.getList()
@@ -377,7 +403,7 @@ export default {
               this.initMap()
               this.markerList=[]
               for(let i=0;i<this.houseList.length;i++){
-                this.markerList.push(L.marker({lat:this.houseList[i].latitude,lng: this.houseList[i].longitude}).addTo(this.map).bindPopup(this.houseList[i].totalPrice+"million"))
+                this.markerList.push(L.marker({lat:this.houseList[i].latitude,lng: this.houseList[i].longitude}).addTo(this.map).bindPopup(this.houseList[i].totalPriceRange+"million"))
               }
             }
           })
@@ -533,7 +559,7 @@ export default {
 .choice-card {
   position: absolute;
   display: none;
-  z-index: 999999;
+  z-index: 1200;
 }
 
 .choice-card-bottom .confirm {

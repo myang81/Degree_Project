@@ -6,24 +6,24 @@
             <b-row>
               <b-col  cols="12" sm="6">
                 <el-form-item label="hall" prop="hall">
-                  <el-input-number v-model="form.hall"></el-input-number>
+                  <el-input-number :min="0" v-model="form.hall"></el-input-number>
                 </el-form-item>
               </b-col>
               <b-col cols="12" sm="6">
                 <el-form-item label="room" prop="room">
-                  <el-input-number v-model="form.room"></el-input-number>
+                  <el-input-number :min="0" v-model="form.room"></el-input-number>
                 </el-form-item>
               </b-col>
             </b-row>
             <b-row>
               <b-col cols="12" sm="6">
                 <el-form-item label="kitchen" prop="kitchen">
-                  <el-input-number v-model="form.kitchen"></el-input-number>
+                  <el-input-number :min="0" v-model="form.kitchen"></el-input-number>
                 </el-form-item>
               </b-col>
               <b-col cols="12" sm="6">
                 <el-form-item label="bathroom" prop="bathroom">
-                  <el-input-number v-model="form.bathroom"></el-input-number>
+                  <el-input-number :min="0" v-model="form.bathroom"></el-input-number>
                 </el-form-item>
               </b-col>
               <b-col cols="12">

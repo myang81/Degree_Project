@@ -22,12 +22,12 @@
             </b-row>
             <b-row>
               <b-col  :span=24>
-                <el-form-item label="community" style="text-align: left" prop="regionAndDistrict" label-width="120px" >
+                <el-form-item label="community" style="text-align: left" prop="community" label-width="120px" >
                   <el-select v-model="form.community" filterable placeholder="please choose"  :remote-method="remoteMethod" :loading="loading" remote>
                     <el-option
-                        v-for="(value,index) in community"
+                        v-for="value in community"
                         :key="value"
-                        :label="index"
+                        :label="value"
                         :value="value">
                     </el-option>
                   </el-select>
@@ -81,6 +81,9 @@ name: "address",
       },
       rules: {
         regionAndDistrict: [
+          {required: true, message: '请输入活动名称', trigger: 'blur'},
+        ],
+        community: [
           {required: true, message: '请输入活动名称', trigger: 'blur'},
         ],
         lng: [
@@ -1422,6 +1425,7 @@ name: "address",
             coordinate:[this.form.lng,this.form.lat],
             region:this.form.regionAndDistrict[0],
             district:this.form.regionAndDistrict[1],
+            community:this.form.community,
           }
           this.$router.push({ name: 'HouseNum', params: { form: f }})
         }

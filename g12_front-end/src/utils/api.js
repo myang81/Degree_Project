@@ -121,7 +121,7 @@ export function getRecommended(data){
 
 export function searchCommunity(data){
     return axios({
-        url:'/searchCommunity',
+        url:'/returnCommunity',
         method:'post',
         data
     })

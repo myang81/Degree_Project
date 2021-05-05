@@ -119,6 +119,13 @@ export function getRecommended(data){
     })
 }
 
+export function searchCommunity(data){
+    return axios({
+        url:'/searchCommunity',
+        method:'post',
+        data
+    })
+}
 
 
 
@@ -131,5 +138,6 @@ export default {
     login,
     getHouseList,
     register,
+    searchCommunity
     // del_collection
 }

@@ -403,7 +403,7 @@ export default {
               this.initMap()
               this.markerList=[]
               for(let i=0;i<this.houseList.length;i++){
-                this.markerList.push(L.marker({lat:this.houseList[i].latitude,lng: this.houseList[i].longitude}).addTo(this.map).bindPopup(this.houseList[i].totalPriceRange+"million"))
+                this.markerList.push(L.marker({lat:this.houseList[i].latitude,lng: this.houseList[i].longitude}).addTo(this.map).bindPopup(this.houseList[i].totalPrice+"million"))
               }
             }
           })

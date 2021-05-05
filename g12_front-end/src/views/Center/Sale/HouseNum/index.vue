@@ -30,7 +30,7 @@
               <el-form-item label="direction" prop="direction">
                 <el-checkbox-group v-model="form.direction" style="text-align: left">
                   <b-col cols="6" sm="3" v-for="(value,key) in direction" :key="value" style="display: inline-block">
-                    <el-checkbox :label="key" name="type" :value="value"></el-checkbox>
+                    <el-checkbox :label="value" name="type" :value="value">{{key}}</el-checkbox>
                   </b-col>
                 </el-checkbox-group>
               </el-form-item>

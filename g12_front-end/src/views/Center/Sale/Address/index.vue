@@ -93,7 +93,7 @@ name: "address",
           {required: true, message: 'please enter latitude', trigger: 'blur'}
         ],
       },
-      options:[
+      options:  [
         {
           "value": "a1",
           "label": "Fengtai",
@@ -1423,7 +1423,7 @@ name: "address",
         if (valid) {
           let f={
             coordinate:[this.form.lng,this.form.lat],
-            region:this.form.regionAndDistrict[0],
+            region:this.form.regionAndDistrict[0].substr(1),
             district:this.form.regionAndDistrict[1],
             community:this.form.community,
           }

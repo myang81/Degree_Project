@@ -19,7 +19,7 @@
                     <el-radio-group v-model="form.property" style="line-height: 50px;width: 100%;text-align: left">
                       <b-col style="display: inline-block" cols="12" v-for="(value,key) in global.propertyInfo"
                              :key="value">
-                        <el-radio :label="value">{{ key }}</el-radio>
+                        <el-radio :label="value" :value="value">{{ key }}</el-radio>
                       </b-col>
                     </el-radio-group>
                   </el-form-item>
@@ -30,7 +30,7 @@
                                     style="line-height: 50px;width: 100%;text-align: left">
                       <b-col style="display: inline-block" lg="3" sm="6" cols="12"
                              v-for="(value,key) in global.house_structure" :key="value">
-                        <el-radio :label="key" name="type" :value="value"></el-radio>
+                        <el-radio :label="value" :value="value">{{ key }}</el-radio>
                       </b-col>
                     </el-radio-group>
                   </el-form-item>
@@ -40,7 +40,7 @@
                     <el-radio-group v-model="form.buildingType" style="line-height: 50px;width: 100%;text-align: left">
                       <b-col style="display: inline-block" lg="3" sm="6" cols="12"
                              v-for="(value,key) in global.building_type" :key="value">
-                        <el-radio :label="key" name="type" :value="value"></el-radio>
+                        <el-radio :label="value" :value="value">{{ key }}</el-radio>
                       </b-col>
                     </el-radio-group>
                   </el-form-item>
@@ -51,7 +51,7 @@
                                     style="line-height: 50px;width: 100%;text-align: left">
                       <b-col style="display: inline-block" lg="3" sm="6" cols="12"
                              v-for="(value,key) in global.building_structure" :key="value">
-                        <el-radio :label="key" name="type" :value="value"></el-radio>
+                        <el-radio :label="value" :value="value">{{ key }}</el-radio>
                       </b-col>
                     </el-radio-group>
                   </el-form-item>
@@ -61,7 +61,7 @@
                     <el-radio-group v-model="form.floorType" style="line-height: 50px;width: 100%;text-align: left">
                       <b-col style="display: inline-block" lg="3" sm="6" cols="12"
                              v-for="(value,key) in global.floor_type" :key="value">
-                        <el-radio :label="key" name="type" :value="value"></el-radio>
+                        <el-radio :label="value" :value="value">{{ key }}</el-radio>
                       </b-col>
                     </el-radio-group>
                   </el-form-item>

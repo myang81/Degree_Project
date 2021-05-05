@@ -1,77 +1,76 @@
 <template>
     <div>
         <P class="center-title" type="danger" icon="el-icon-delete">Your collection</P>
-        <el-form ref="form" :model="form" label-width="80px">
-            <div class="divcss5" :span="8">
-                <el-row :gutter="30">
-                    <el-col :span="6" v-for="(item,index) in collectionList" :key="index">
-                        <div>
-                            <div class="div2">
-                                <el-card :body-style="{ padding: '10px' }">
-                                    <div>
-                                        <article
-                                                class="post-152 post type-post status-publish format-standard hentry category-people category-photos">
-                                            <div class="post-format-content">
-                                                <div class="post-thumbnail">
-                                                    <img
-                                                            src="https://cdn.homedit.com/wp-content/uploads/2014/05/minimalist-interior-design.jpg"
-                                                            class="attachment-thumbnail wp-post-image" alt="105694702">
-                                                </div>
-                                                <div class="content-wrap">
-                                                    <h1 class="entry-title"><a href="" class="featured-image"
-                                                                               title="amp; Fashion" rel="bookmark">
-                                                        <div>Seller: {{item.seller}}</div>
-                                                        <br>
-                                                        <div>Date: {{item.date}}</div>
-                                                        <br>
-                                                        <div>Current price: {{item.price}}</div>
-                                                    </a></h1>
-
-                                                </div>
-
+        <div class="divcss5" :span="8">
+            <el-row :gutter="30">
+                <el-col :span="6" v-for="(item,index) in collectionList" :key="index">
+                    <div>
+                        <div class="div2">
+                            <el-card :body-style="{ padding: '10px' }">
+                                <div>
+                                    <article
+                                            class="post-152 post type-post status-publish format-standard hentry category-people category-photos">
+                                        <div class="post-format-content">
+                                            <div class="post-thumbnail">
+                                                <img
+                                                        src="https://cdn.homedit.com/wp-content/uploads/2014/05/minimalist-interior-design.jpg"
+                                                        class="attachment-thumbnail wp-post-image" alt="105694702">
+                                            </div>
+                                            <div class="content-wrap">
+                                                <h1 class="entry-title"><a href="" class="featured-image"
+                                                                           title="amp; Fashion" rel="bookmark">
+                                                    <div>Seller: {{item.seller}}</div>
+                                                    <br>
+                                                    <div>Date: {{item.date}}</div>
+                                                    <br>
+                                                    <div>Current price: {{item.price}}</div>
+                                                </a></h1>
 
                                             </div>
-                                        </article>
-                                    </div>
 
-                                    <div style="padding: 0 10px;">
-                                        <ul class="divcss4" style="white-space: nowrap;text-overflow: ellipsis;">
-                                            <li><a href="#"> {{item.title}} </a></li>
-                                        </ul>
-                                        <div class="bottom clearfix">
 
-                                            <el-row>
-                                                <el-col :span="16">
-                                                    <div class="time" style="text-align: left">{{ item.collectDate }}
-                                                    </div>
-                                                </el-col>
-                                                <el-col :span="8" style="text-align: right">
-                                                    <el-dropdown @command="handleCommand(item)">
-                                                        <i class="el-icon-more el-icon--right" style="transform:rotate(90deg)"></i>
-                                                        <el-dropdown-menu slot="dropdown">
-                                                            <!--                        <el-button type="primary" icon="el-icon-search">搜索</el-button>-->
-<!--                                                            <el-dropdown-item>Detail</el-dropdown-item>-->
-                                                            <el-dropdown-item command="DELETE" @click="delList(item)">Delete
-                                                            </el-dropdown-item>
-                                                        </el-dropdown-menu>
-                                                    </el-dropdown>
-                                                </el-col>
-                                            </el-row>
                                         </div>
+                                    </article>
+                                </div>
+
+                                <div style="padding: 0 10px;">
+                                    <ul class="divcss4" style="white-space: nowrap;text-overflow: ellipsis;">
+                                        <li>
+                                            <span @click="handleClickTitle(item.houseId)"> {{item.title}}</span>
+                                        </li>
+                                    </ul>
+                                    <div class="bottom clearfix">
+
+                                        <el-row>
+                                            <el-col :span="16">
+                                                <div class="time" style="text-align: left">{{ item.collectDate }}
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="8" style="text-align: right">
+                                                <el-dropdown @command="handleCommand(item)">
+                                                    <i class="el-icon-more el-icon--right"
+                                                       style="transform:rotate(90deg)"></i>
+                                                    <el-dropdown-menu slot="dropdown">
+                                                        <el-dropdown-item command="DELETE" @click="delList(item)">Delete
+                                                        </el-dropdown-item>
+                                                    </el-dropdown-menu>
+                                                </el-dropdown>
+                                            </el-col>
+                                        </el-row>
                                     </div>
-                                </el-card>
-                            </div>
+                                </div>
+                            </el-card>
                         </div>
-                    </el-col>
-                </el-row>
-            </div>
-        </el-form>
+                    </div>
+                </el-col>
+            </el-row>
+        </div>
     </div>
 </template>
 
 <script>
 
-    import {getPublishedList,delPublished} from '@/utils/api'
+    import {getPublishedList, delPublished} from '@/utils/api'
 
     export default {
         name: "published",
@@ -108,10 +107,10 @@
                 //     'title': '[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture',
                 //     'collectDate': '2021.3.14'
                 // }]
-              collectionList: []
+                collectionList: []
             };
         },
-      created() {
+        created() {
             // console.log(this.$route.params)
             console.log("--------userId--------", this.$store.state.userId)
             this.getList()
@@ -119,11 +118,14 @@
 
 
         methods: {
+            handleClickTitle(houseId){
+                this.$router.push({name: 'detail', params: {houseId: houseId}})
+            },
             deldiv: function () {
                 var obj = document.getElementById('div2');
                 obj.parentNode.removeChild(obj);
             },
-          getList() {
+            getList() {
                 console.log("--------userId--------", this.$store.state)
                 getPublishedList({userId: this.$store.state.userId}).then(res => {
                     if (res.success) {
@@ -133,22 +135,22 @@
                 })
             },
 
-              delList(item) {
-                  console.log(item)
-                  // let message;
-                  delPublished({houseId:item.houseId,userId: this.$store.state.userId})
-                      .then(()=>{
+            delList(item) {
+                console.log(item)
+                // let message;
+                delPublished({houseId: item.houseId, userId: this.$store.state.userId})
+                    .then(() => {
                         this.$message({
-                          message: "success",
-                          type: 'success'
+                            message: "success",
+                            type: 'success'
                         });
-                    // this.collectionList[index].collected=collected
-                  })
-                  this.getList()
-        },
-        handleCommand(item){
-          this.delList(item)
-        },
+                        this.getList()
+                    })
+                this.getList()
+            },
+            handleCommand(item) {
+                this.delList(item)
+            },
 
 
         },
@@ -168,15 +170,25 @@
     /**{ padding:0; margin:0}*/
     /*    a{ text-decoration:none;color:#6699ff}*/
     /*    ul,li{ list-style:none; text-align:left}*/
+    .wp-post-image {
+        height: 25vh;
+        width: 100%;
+    }
+
+    @media (max-width: 576px) {
+        .wp-post-image {
+            height: 20vh;
+        }
+    }
 
     .divcss4 {
         padding: 2px;
-        width: 280px;
+        width: 100%;
         margin-top: 10px
     }
 
     .divcss4 li {
-        width: 280px;
+        width: 100%;
         height: 24px;
         line-height: 24px;
         font-size: 14px;
@@ -229,7 +241,8 @@
 
     .post-format-content {
         position: relative;
-        background: #111;
+        /*background: #111;*/
+        border-radius: 15px;
     }
 
     .post-thumbnail {
@@ -251,12 +264,13 @@
     }
 
     .content-wrap h1.entry-title {
-        display: table;
+        /*display: table;*/
         font-size: 100%;
         height: 100%;
         text-transform: uppercase;
         width: 100%;
         margin: 0;
+        border-radius: 15px;
     }
 
     .content-wrap h2.entry-title {
@@ -273,7 +287,10 @@
     }
 
     .featured-image {
-        display: table-cell;
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        flex-direction: column;
         position: relative;
         transition: opacity .25s ease-in-out, background .25s ease-in-out;
         -moz-transition: opacity .25s ease-in-out, background .25s ease-in-out;
@@ -284,12 +301,17 @@
         text-decoration: none;
         opacity: 0;
         padding: 10%;
+        height: 100%;
+        border-radius: 15px;
+
     }
 
     .featured-image:hover {
         opacity: 0.9;
         color: #fff;
         background: rgba(0, 0, 0, 0.8);
+        border-radius: 15px;
+        height: 100%;
     }
 
     .post-thumbnail img {
@@ -304,6 +326,7 @@
 
     .div2 {
         display: inline-block;
+        width: 100%;
     }
 
     .divcss5 {
@@ -366,12 +389,13 @@
         box-sizing: border-box;
     }
 
-    a {
+    span {
         color: #888;
         text-decoration: none;
+        cursor: pointer;
     }
 
-    a:hover, a:active {
+    span:hover, span:active {
         color: #333;
     }
 
@@ -549,5 +573,10 @@
         to {
             left: 0
         }
+    }
+</style>
+<style>
+    .post-thumbnail .el-image {
+        display: block;
     }
 </style>

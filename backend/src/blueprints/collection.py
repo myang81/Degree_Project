@@ -59,7 +59,7 @@ def get_collection():
         houseList=[]
         for item in houses:
             info={}
-            info["id"]=item.id
+            info["houseId"]=item.id
             info["sold"]=True
             info["imgUrl"]=item.imgUrl
             info["title"]=item.title

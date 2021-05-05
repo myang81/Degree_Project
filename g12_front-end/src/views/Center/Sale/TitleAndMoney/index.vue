@@ -59,13 +59,13 @@ name: "index",
       global: global,
       rules: {
         title: [
-          {required: true, message: '请输入活动名称', trigger: 'blur'},
+          {required: true, message: 'please enter title', trigger: 'blur'},
         ],
         unitPrice: [
-          {required: true, message: '请输入活动名称', trigger: 'blur'},
+          {required: true, message: 'please enter unit price', trigger: 'blur'},
         ],
         totalPrice: [
-          {required: true, message: '请输入活动名称', trigger: 'blur'},
+          {required: true, message: 'please enter total price', trigger: 'blur'},
         ]
       }
     }

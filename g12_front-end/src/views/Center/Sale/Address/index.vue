@@ -81,16 +81,16 @@ name: "address",
       },
       rules: {
         regionAndDistrict: [
-          {required: true, message: '请输入活动名称', trigger: 'blur'},
+          {required: true, message: 'please enter area', trigger: 'blur'},
         ],
         community: [
-          {required: true, message: '请输入活动名称', trigger: 'blur'},
+          {required: true, message: 'please enter comminity', trigger: 'blur'},
         ],
         lng: [
-          {required: true, message: '请选择活动区域', trigger: 'blur'}
+          {required: true, message: 'please enter longtitude', trigger: 'blur'}
         ],
         lat: [
-          {required: true, message: '请选择日期', trigger: 'blur'}
+          {required: true, message: 'please enter latitude', trigger: 'blur'}
         ],
       },
       options:  [

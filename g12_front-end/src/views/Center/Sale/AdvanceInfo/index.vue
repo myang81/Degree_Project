@@ -78,19 +78,19 @@ export default {
       global: global,
       rules: {
         decoration: [
-          {required: true, message: '请输入活动名称', trigger: 'blur'},
+          {required: true, message: 'please choose decoration type', trigger: 'blur'},
         ],
         heating: [
-          {required: true, message: '请输入活动名称', trigger: 'blur'},
+          {required: true, message: 'please choose heating type', trigger: 'blur'},
         ],
         elevator: [
-          {required: true, message: '请输入活动名称', trigger: 'blur'},
+          {required: true, message: 'is there an elevator?', trigger: 'blur'},
         ],
         elevatorNum: [
-          {required: true, message: '请输入活动名称', trigger: 'blur'}
+          {required: true, message: 'how many are there', trigger: 'blur'}
         ],
         houseNum: [
-          {required: true, message: '请输入活动名称', trigger: 'blur'}
+          {required: true, message: 'please choose house number', trigger: 'blur'}
         ]
       },
     }

@@ -103,25 +103,25 @@ export default {
       },
       rules: {
         area: [
-          {required: true, message: '请输入活动名称', trigger: 'blur'},
+          {required: true, message: 'please enter area', trigger: 'blur'},
         ],
         property: [
-          {required: true, message: '请输入活动名称', trigger: 'blur'},
+          {required: true, message: 'please choose property', trigger: 'blur'},
         ],
         houseStructure: [
-          {required: true, message: '请输入活动名称', trigger: 'blur'},
+          {required: true, message: 'please choose house structure', trigger: 'blur'},
         ],
         buildingType: [
-          {required: true, message: '请输入活动名称', trigger: 'blur'},
+          {required: true, message: 'please choose house type', trigger: 'blur'},
         ],
         buildingStructure: [
-          {required: true, message: '请输入活动名称', trigger: 'blur'},
+          {required: true, message: 'please choose building structure', trigger: 'blur'},
         ],
         floorType: [
-          {required: true, message: '请输入活动名称', trigger: 'blur'},
+          {required: true, message: 'please choose floor type', trigger: 'blur'},
         ],
         floors: [
-          {required: true, message: '请输入活动名称', trigger: 'blur'},
+          {required: true, message: 'please choose floor', trigger: 'blur'},
         ]
       },
       global: global,

@@ -681,7 +681,7 @@ def returnCommunity():
 @list.route("/prediction", methods=['GET', 'POST'])
 def prediction():
     # s_string = request.json.get('searchString')
-    area = int(request.json.get('area'))
+    area = float(request.json.get('area'))
     bathroom = request.json.get('bathroom')
     buildingStructure = request.json.get('buildingStructure')
     buildingType = request.json.get('buildingType')

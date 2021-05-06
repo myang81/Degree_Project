@@ -31,6 +31,50 @@ center=Blueprint('center',__name__)
 #             },
 #             "error":None
 #             }
+
+#添加已经发布
+# @collection.route("/addCollection",methods=['GET','POST'])
+# def addCollection():
+#     #db
+#     userId=request.json.get('userId')
+#     houseId=request.json.get('houseId')
+#     collected=request.json.get('collected')
+#     if collected == "true":
+#         user=User.query.filter(User.id==userId).first()
+#         house=House.query.filter(House.id==houseId).first()
+#         user.collections.append(house)
+#         house.setCollected("true")
+#         db.session.add(user)
+#         db.session.add(house)
+#         db.session.commit()
+#         return {
+#         "success": 1,
+#         "data": {
+#         },
+#             "error":"None"
+#         }
+#     if collected == "false":
+#         user = User.query.filter(User.id == userId).first()
+#         house = House.query.filter(House.id == houseId).first()
+#         user.collections.remove(house)
+#         house.setCollected("false")
+#         db.session.add(user)
+#         db.session.add(house)
+#         db.session.commit()
+#         return {
+#             "success": 1,
+#             "data": {
+#             },
+#             "error": "None"
+#         }
+#     return {
+#             "success": 0,
+#             "data": {
+#             },
+#             "error": "Error"
+#         }
+
+
 #4.2 获取发布列表
 @center.route("/center/published/getPublishedList",methods=["POST"])
 def getPublish():
@@ -63,17 +107,34 @@ def del_publish():
     if request.method=="POST":
         userId = request.json.get('userId')
         houseId = request.json.get('houseId')
-        user = User.query.filter(User.id == userId).first()
-        house = House.query.filter(House.id == houseId).first()
-        user.publishments.remove(house)
-        db.session.add(user)
-        db.session.commit()
-        return {
-            "success": 1,
-            "data": {
-            },
-            "error": "None"
-        }
+        if houseId is not None and userId is not  None:
+            user = User.query.filter(User.id == userId).first()
+            house = House.query.filter(House.id == houseId).first()
+            if house in user.publishments:
+                user.publishments.remove(house)
+                db.session.add(user)
+                db.session.commit()
+            else:
+                return {
+                    "success": 0,
+                    "data": {
+                    },
+                    "error": "The house is not in publish list"
+                }
+
+            return {
+                "success": 1,
+                "data": {
+                },
+                "error": "No such house or user"
+            }
+        else:
+            return {
+                "success": 1,
+                "data": {
+                },
+                "error": "No such user or house"
+            }
     else:
         return {
             "success": 0,
@@ -156,7 +217,6 @@ def getTartgetInfo():
         else:
 
             t_str=user.target
-            target=Target.loadJson(d=t_str)
 
             ts=user.targets.all()
             list=[]

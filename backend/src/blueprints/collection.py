@@ -174,21 +174,29 @@ def sellerDetail():
         house=House.query.filter(House.id==houseId).first()
         print(house)
         print(house.publishments_users.all())
-        seller=house.publishments_users.all().pop(0)
-        print(house)
-        data={}
-        houseDetial={}
-        housePictrue=[]
-        if(house is not None and seller is not None):
-            return {
-                "success": 1,
-                "data":{
-                   "userName":seller.username,
-                   "userEmail":seller.email,
-                    "createTime":house.PublishTime
-                },
-                "error":None
-            }
+        if (len(house.publishments_users.all())!=0):
+            seller=house.publishments_users.all().pop(0)
+            print(house)
+            data={}
+            houseDetial={}
+            housePictrue=[]
+            if(house is not None and seller is not None):
+                return {
+                    "success": 1,
+                    "data":{
+                       "userName":seller.username,
+                       "userEmail":seller.email,
+                        "createTime":house.PublishTime
+                    },
+                    "error":None
+                }
+            else:
+                return {
+                    "success": 1,
+                    "data": {
+                    },
+                    "error": "No such house"
+                }
 
         else:
             return {

@@ -1,4 +1,7 @@
 from flask import Blueprint, render_template, session, flash, redirect,request,url_for
+
+from src.Models.Target import Target
+from src.Models.Targets import Targets
 from src.extension import db
 from src.Models.Users import User
 from datetime import time
@@ -33,8 +36,25 @@ def registerPage():
                 save.set_password(password)
                 save.email=email
                 token=generate_token(username)
+
+
+
+                t = Targets.saveTarget(Targets(), Target.initDict())
+                save.targets.append(t)
                 db.session.add(save)
+
+                # #add a empty target
+                #
+                # j = Target.initData()
+                # save.saveTarget(target=j)
+                # tars = save.targets.all()
+                #
+                # t = Targets.saveTarget(Targets(), target=target.toDict())
+                # save.targets.append(t)
+                # db.session.add(user)
+                # #
                 db.session.commit()
+
                 return {
                     "success": 1,
                     "data":{

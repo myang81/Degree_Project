@@ -2,9 +2,9 @@ from flask import Blueprint, render_template, session, flash, redirect,request,u
 
 apiv2=Blueprint('api2',__name__)
 
-@apiv2.route("/apiV2/home", methods=['GET', 'POST'])
-def hello():
-    return "hello"
+@apiv2.route("/apiV2/photos", methods=['GET', 'POST'])
+def uploadPhoto():
+    return
 
 
 

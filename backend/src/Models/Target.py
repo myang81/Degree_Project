@@ -24,6 +24,7 @@ class Target(object):
         a=Target(totalPriceRange=data['totalPriceRange'],unitPriceRange=data['unitPriceRange'],
                  area=data['area'],district=data['district'],houseStructure=data['houseStructure'],direction=data['direction']
                  ,decoration=data['decoration'],heating=data['heating'],elevator=data['elevator'])
+        print(type(a))
         return a
 
     @classmethod
@@ -40,6 +41,20 @@ class Target(object):
         data['elevator']=target.elevator
         j=json.dumps(data,ensure_ascii=False)
         return j
+
+    @classmethod
+    def initDict(self):
+        data={}
+        data['totalPriceRange'] = []
+        data['unitPriceRange'] = []
+        data['area'] = []
+        data['district'] = []
+        data['houseStructure'] = []
+        data['direction'] = []
+        data['decoration'] = []
+        data['heating'] = []
+        data['elevator'] = []
+        return data
 
     def getJson(self):
         str=Target.convertJson(self)

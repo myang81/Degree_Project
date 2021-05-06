@@ -135,6 +135,14 @@ export function delPublished(data){
     })
 }
 
+export function prediction(data){
+    return axios({
+        url:'/prediction',
+        method:'post',
+        data
+    })
+}
+
 
 
 

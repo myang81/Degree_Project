@@ -654,6 +654,9 @@ export default {
 }
 </style>
 <style>
+    .choice-card .el-loading-mask{
+        z-index: 1000!important;
+    }
 .main-block .leaflet-popup{
   left: -36px!important;
 }

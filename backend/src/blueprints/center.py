@@ -331,12 +331,12 @@ def getTartgetInfo():
             t_str=user.target
 
             ts=user.targets.all()
-            list=[]
-            for i in ts:
-                list.append(i.toEnum())
+            # list=[]
+            # for i in ts:
+            #     list.append(i.toEnum())
             return {
                 "success":1,
-                "data":list,
+                "data":ts[0].toEnum(),
                 "error":None
             }
     return "0"

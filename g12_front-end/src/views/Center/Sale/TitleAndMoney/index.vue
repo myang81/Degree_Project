@@ -25,9 +25,9 @@
             <el-row>
               <el-form-item label="picture" style="text-align: left;">
                 <el-upload
-                    action="https://jsonplaceholder.typicode.com/posts/"
+                    action="/api/uploadimg"
                     list-type="picture-card"
-                    :on-preview="handlePictureCardPreview"
+                    :on-success="successUpload"
                     :before-upload="beforeAvatarUpload">
                   <i class="el-icon-plus"></i>
                 </el-upload>
@@ -56,7 +56,8 @@ name: "index",
       form: {
         title: '',
         unitPrice: '',
-        totalPrice: ''
+        totalPrice: '',
+        imgUrlList:[],
       },
       loading:true,
       global: global,
@@ -79,7 +80,7 @@ name: "index",
     prediction(this.form).then((res)=>{
       console.log(res)
       if(res.success){
-        this.unitPrice=res.data.price
+        this.form.unitPrice=res.data.price
       }
       this.loading=false
     }).catch(()=>{
@@ -87,11 +88,11 @@ name: "index",
     })
   },
   watch:{
-    unitPrice(val){
-      this.totalPrice=val*this.form.area
+    'form.unitPrice'(val){
+      this.form.totalPrice=val*this.form.area
     },
-    totalPrice(val){
-      this.unitPrice=val/this.form.area
+    'form.totalPrice'(val){
+      this.form.unitPrice=val/this.form.area
     }
   },
   mounted() {
@@ -110,6 +111,9 @@ name: "index",
       this.dialogVisible = true;
     },
     beforeAvatarUpload(file) {
+      console.log(file)
+      let formData = new FormData();
+      formData.append("file", file);
       const isJPG = file.type === 'image/jpeg';
       const isLt2M = file.size / 1024 / 1024 < 2;
 
@@ -119,7 +123,17 @@ name: "index",
       if (!isLt2M) {
         this.$message.error('上传头像图片大小不能超过 2MB!');
       }
-      return isJPG && isLt2M;
+      // if(isJPG && isLt2M) {
+      //   uploadImg({file:formData}).then((res)=>{
+      //     if(res.success){
+      //       this.form.imgUrlList.push(res.data.imgUrl)
+      //     }
+      //   })
+      // }
+      return isJPG && isLt2M
+    },
+    successUpload(res){
+      this.form.imgUrlList.push(res.data.imgUrl)
     }
   }
 }

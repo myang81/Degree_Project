@@ -14,13 +14,13 @@ import json
 from src.blueprints.search_community import searchCommunity
 from src.blueprints.search_community import data
 
-list = Blueprint('list', __name__)
+houseList = Blueprint('HouseList', __name__)
 
 
 ###################################################
 # 3. 列表接口
 ############################################
-@list.route("/test", methods=['GET', 'POST'])
+@houseList.route("/test", methods=['GET', 'POST'])
 def test():
     return 0
 
@@ -128,7 +128,7 @@ def get_keys(d, value):
 #
 
 # 变量解释: argDict： 请求用的参数字典
-@list.route("/getHouseList", methods=['GET', 'POST'])
+@houseList.route("/getHouseList", methods=['GET', 'POST'])
 def getHouse():
     global argdict  # get the parameter from the front
     if request.method == 'POST':
@@ -585,14 +585,14 @@ def getHouse():
 #
 
 
-@list.route("/recommendHouse", methods=['GET', 'POST'])
+@houseList.route("/recommendHouse", methods=['GET', 'POST'])
 def recommendHouse():
     u_id = request.json.get('userId')
     print(u_id)
     return {
         "success": 1,
         "data": {
-            "houseList": recommend(int(u_id))
+            "houseList": recommend(u_id)
         },
         "error": None
     }
@@ -608,53 +608,64 @@ def recommend(c_id):
                 return False
         return True
 
-    c_target = Targets.query.filter(Targets.id == c_id).first()
-    tP = c_target.totalPriceRange.split(',')
-    up = c_target.unitPriceRange.split(',')
-    ar = c_target.area.split(',')
-    ds = c_target.district.split(',')
-    he = c_target.heating.split(',')
-    hs = c_target.houseStructure.split(',')
-    dr = c_target.direction.split(',')
-    de = c_target.decoration.split(',')
-    el = c_target.elevator.split(',')
-    targetDict = {
-        "totalPriceRange": tP,
-        "unitPriceRange": up,
-        "area": ar,
-        "district": ds,
-        "houseStructrue": hs,
-        "direction": dr,
-        "decoration": de,
-        "heating": he,
-        "elevator": el,
-    }
-    document = {}
-    document_id = 0
-    houses = House.query.filter().all()
-    for h in houses:
-        temp_h = h.generateDetail()
-        document[document_id] = temp_h
-        document_id += 1
-    recommend_list = []
-    hList = document.values()
-    for h in hList:
-        if h['title'] != '':
-            if (int(targetDict['totalPriceRange'][0]) <= int(h['totalPrice']) <= int(
-                    targetDict['totalPriceRange'][1]) and
-                    float(targetDict['area'][0]) <= float((h['describe'].split('|')[1]).split(' ')[0]) <= float(
-                        targetDict['area'][
-                            1]) and
-                    int(targetDict['unitPriceRange'][0]) <= int(h['unitPrice']) <= int(
-                        targetDict['unitPriceRange'][1]) and
-                    h['district'] in (targetDict["district"]) and
-                    filterDirection((h['describe'].split('|')[2]).split(' '), targetDict['direction']) and
-                    (h['describe'].split('|')[4]).split(' ')[1] in (targetDict['houseStructrue']) and
-                    h['otherInfo'].split('|')[0] in (targetDict["decoration"]) and
-                    h['otherInfo'].split('|')[1] in (targetDict["heating"]) and
-                    h['otherInfo'].split('|')[2] in (targetDict["elevator"])
-            ):
-                recommend_list.append(h)
+    if c_id is None:
+        document = {}
+        document_id = 0
+        houses = House.query.filter(House.saled == 'FALSE').all()
+        for h in houses:
+            temp_h = h.generateDetail()
+            document[document_id] = temp_h
+            document_id += 1
+        recommend_list = list(document.values())
+    else:
+        c_id = int(c_id)
+        c_target = Targets.query.filter(Targets.id == c_id).first()
+        tP = c_target.totalPriceRange.split(',')
+        up = c_target.unitPriceRange.split(',')
+        ar = c_target.area.split(',')
+        ds = c_target.district.split(',')
+        he = c_target.heating.split(',')
+        hs = c_target.houseStructure.split(',')
+        dr = c_target.direction.split(',')
+        de = c_target.decoration.split(',')
+        el = c_target.elevator.split(',')
+        targetDict = {
+            "totalPriceRange": tP,
+            "unitPriceRange": up,
+            "area": ar,
+            "district": ds,
+            "houseStructrue": hs,
+            "direction": dr,
+            "decoration": de,
+            "heating": he,
+            "elevator": el,
+        }
+        document = {}
+        document_id = 0
+        houses = House.query.filter(House.saled == 'FALSE').all()
+        for h in houses:
+            temp_h = h.generateDetail()
+            document[document_id] = temp_h
+            document_id += 1
+        recommend_list = []
+        hList = document.values()
+        for h in hList:
+            if h['title'] != '':
+                if (int(targetDict['totalPriceRange'][0]) <= int(h['totalPrice']) <= int(
+                        targetDict['totalPriceRange'][1]) and
+                        float(targetDict['area'][0]) <= float((h['describe'].split('|')[1]).split(' ')[0]) <= float(
+                            targetDict['area'][
+                                1]) and
+                        int(targetDict['unitPriceRange'][0]) <= int(h['unitPrice']) <= int(
+                            targetDict['unitPriceRange'][1]) and
+                        h['district'] in (targetDict["district"]) and
+                        filterDirection((h['describe'].split('|')[2]).split(' '), targetDict['direction']) and
+                        (h['describe'].split('|')[4]).split(' ')[1] in (targetDict['houseStructrue']) and
+                        h['otherInfo'].split('|')[0] in (targetDict["decoration"]) and
+                        h['otherInfo'].split('|')[1] in (targetDict["heating"]) and
+                        h['otherInfo'].split('|')[2] in (targetDict["elevator"])
+                ):
+                    recommend_list.append(h)
     if len(recommend_list) < 3:
         for i in range(3 - len(recommend_list)):
             recommend_list.append(document[random.randint(0, len(document) - 1)])
@@ -666,7 +677,7 @@ def recommend(c_id):
     return return_list
 
 
-@list.route("/returnCommunity", methods=['GET', 'POST'])
+@houseList.route("/returnCommunity", methods=['GET', 'POST'])
 def returnCommunity():
     s_string = request.json.get('searchString')
     return {
@@ -678,10 +689,10 @@ def returnCommunity():
     }
 
 
-@list.route("/prediction", methods=['GET', 'POST'])
+@houseList.route("/prediction", methods=['GET', 'POST'])
 def prediction():
     # s_string = request.json.get('searchString')
-    area = int(request.json.get('area'))
+    area = float(request.json.get('area'))
     bathroom = request.json.get('bathroom')
     buildingStructure = request.json.get('buildingStructure')
     buildingType = request.json.get('buildingType')
@@ -698,16 +709,16 @@ def prediction():
     houseNum = int(request.json.get('houseNum'))
     houseStructure = request.json.get('houseStructure')
     kitchen = request.json.get('kitchen')
-    property = request.json.get('property')
+    property_ = request.json.get('property')
     region = int(request.json.get('region'))
     room = request.json.get('room')
 
     community_convert = data[community]
     direction_convert = [0, 0, 0, 0, 0, 0, 0, 0]
     for i in range(len(direction) - 1):
-        direction_convert[int(direction)] = 1
+        direction_convert[int(direction[i])] = 1
 
-    predictArray = [property, area, houseStructure, buildingType, buildingStructure, decoration, elevatorNum / houseNum,
+    predictArray = [property_, area, houseStructure, buildingType, buildingStructure, decoration, elevatorNum / houseNum,
                     heating, elevator, district, community_convert, region, hall, kitchen, bathroom, floorType, floors]
     for element in direction_convert:
         predictArray.append(element)
@@ -717,7 +728,7 @@ def prediction():
     # 产权信息 建筑面积 户型结构 建筑类型 建筑结构 装修 梯户比 供暖 电梯 区域 小区 具体区域 厅 厨 卫 楼层类型 总层数 东南西北东南东北西南西北 室
     # estimate_price = estimator.predict(
     #     [[0, 100, 0, 0, 0, 0, 1, 0, 0, 10, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1]])
-    estimate_price = estimator.predict([predictArray])
+    estimate_price = estimator.predict([predictArray])[0]
     print(estimate_price, '############Test for ml')
     return {
         "success": 1,

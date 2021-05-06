@@ -13,13 +13,13 @@ const service = axios.create({
 });
 // request拦截器
 service.interceptors.request.use(config => {
-        console.log("service.interceptors.request:",store.state);
-        console.log("localStorage:",localStorage);
+        // console.log("service.interceptors.request:",store.state);
+        // console.log("localStorage:",localStorage);
         if (store.state.token||localStorage) {  // 判断是否存在token，如果存在的话，则每个http header都加上token
             if(store.state.token==null) {
                 store.commit('set_token', [localStorage.token,localStorage.userId])
             }
-            console.log("service.interceptors.request",store.state.token)
+            // console.log("service.interceptors.request",store.state.token)
             config.headers.Authorization = `token ${store.state.token}`;
         }
         return config;
@@ -29,7 +29,7 @@ service.interceptors.request.use(config => {
     });
 // 响应拦截器
 service.interceptors.response.use(res => {
-        console.log("service.interceptors.response", res)
+        // console.log("service.interceptors.response", res)
         // 未设置状态码则默认成功状态
         const code = res.status || 0;
         const success = res.data.success;

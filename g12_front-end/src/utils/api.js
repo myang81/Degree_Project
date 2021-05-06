@@ -143,6 +143,21 @@ export function prediction(data){
     })
 }
 
+export function uploadImg(data){
+    return axios({
+        url:'/uploadimg',
+        method:'post',
+        data
+    })
+}
+
+export function buyHouse(data){
+    return axios({
+        url:'/detail/buyHouse',
+        method:'post',
+        data
+    })
+}
 
 
 

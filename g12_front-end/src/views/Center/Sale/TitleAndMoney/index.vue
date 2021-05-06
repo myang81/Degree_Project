@@ -46,7 +46,7 @@
 
 <script>
 import global from "@/assets/global";
-import {prediction} from '@/utils/api'
+import {prediction,addPublishList} from '@/utils/api'
 
 
 export default {
@@ -102,6 +102,9 @@ name: "index",
     onSubmit() {
       this.$refs['ruleForm'].validate((valid) => {
         if (valid) {
+          addPublishList(this.form).then((res)=>{
+            this.$router.push({name: 'detail', query: {houseId: res.data.houseId}})
+          });
           console.log(this.form)
         }
       })

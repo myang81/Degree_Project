@@ -9,7 +9,7 @@
           <div class="title-block">
             {{ houseTitle }}
           </div>
-          <div style="display: inline-block;position: absolute;bottom: calc(50% - 40px);right: 20px">
+          <div style="display: inline-block;position: absolute;bottom: 0;right: 20px">
             <div class="buttons">
               <button class="blob-btn" @click="handleCollect(collected)">
                 COLLECT <i :class="[collected==='true'?'el-icon-star-on':'el-icon-star-off']"></i>
@@ -71,8 +71,11 @@
                 </el-row>
               </el-card>
             </div>
-            <div class="buy-div full-width" @click="handleBuy">
+            <div class="buy-div full-width" @click="handleBuy" v-if="sold!=='TRUE'">
               BUY NOW
+            </div>
+            <div class="sold-div full-width" v-else>
+              S O L D
             </div>
           </div>
 
@@ -156,8 +159,11 @@
             </button>
           </div>
         </div>
-        <div class="buy-div" @click="handleBuy">
+        <div class="buy-div" @click="handleBuy" v-if="sold!=='TRUE'">
           BUY NOW
+        </div>
+        <div class="sold-div" v-else>
+          S O L D
         </div>
       </div>
 
@@ -170,7 +176,7 @@
 import HeaderNav from '@/components/headerNav/index.vue'
 import pictureScroll from '@/components/pictureScroll/index.vue'
 import Recommendation from '@/components/RecommendationBlock/index.vue'
-import {getDetail,getsellerDetail,addCollection} from '@/utils/api'
+import {getDetail,getsellerDetail,addCollection,buyHouse} from '@/utils/api'
 
 export default {
   name: "detail",
@@ -186,18 +192,19 @@ export default {
         name: 'Collection',
         router: '/center/collection'
       }, {name: 'Start to Sale', router: '/center/sale'}],
-      pictureList: ['https://img1.baidu.com/it/u=1947907598,3262319172&fm=26&fmt=auto&gp=0.jpg', 'https://img1.baidu.com/it/u=1267115342,3426495198&fm=26&fmt=auto&gp=0.jpg', 'https://img1.baidu.com/it/u=632875621,3849475090&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=428922356,2955791946&fm=26&fmt=auto&gp=0.jpg', 'https://img1.baidu.com/it/u=1206287871,1293580609&fm=26&fmt=auto&gp=0.jpg'],
+      pictureList: [],
       houseDetail: {},
-      houseTitle: 'The corner gate of Majiabao is close to the subway, with good north-south transparency, sufficient lighting and complete supporting facilities',
+      houseTitle: '',
       unitPrice: '60203',
       totalPrice: '4.16',
       sellerDetail: {},
       collected: undefined,
       screenWidth: document.body.clientWidth,
+      sold:undefined
     }
   },
   created() {
-    this.$route.params.houseId? this.houseId = this.$route.params.houseId: this.$router.push({name: 'houseList'});
+    this.$route.query.houseId? this.houseId = this.$route.query.houseId: this.$router.push({name: 'houseList'});
     this.getHouseDetail()
     this.getSellerDetail()
   },
@@ -222,6 +229,11 @@ export default {
           this.unitPrice = res.data.unitPrice;
           this.houseId = res.data.houseId;
           this.houseDetail = res.data.houseDetail;
+          this.pictureList=res.data.housePicture;
+          this.houseTitle=res.data.title;
+          if(this.pictureList.length===0||this.pictureList[0]==="None"||typeof (this.pictureList)!=='object') {
+            this.pictureList=['https://img1.baidu.com/it/u=1947907598,3262319172&fm=26&fmt=auto&gp=0.jpg', 'https://img1.baidu.com/it/u=1267115342,3426495198&fm=26&fmt=auto&gp=0.jpg', 'https://img1.baidu.com/it/u=632875621,3849475090&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=428922356,2955791946&fm=26&fmt=auto&gp=0.jpg', 'https://img1.baidu.com/it/u=1206287871,1293580609&fm=26&fmt=auto&gp=0.jpg']
+          }
         }
 
       })
@@ -265,9 +277,11 @@ export default {
         cancelButtonText: 'cancel',
         type: 'warning'
       }).then(() => {
-        this.$message({
-          type: 'success',
-          message: 'Successful purchase'
+        buyHouse({houseId:this.houseId,userId:this.$store.state.userId}).then(()=>{
+          this.$message({
+            type: 'success',
+            message: 'Successful purchase'
+          });
         });
       }).catch();
     }
@@ -421,7 +435,9 @@ body {
     /*white-space: nowrap;*/
   }
 
-
+}
+.title-block{
+  width: 100%;
 }
 .mobile-detail{
   width: 100%;
@@ -436,7 +452,7 @@ body {
     /*text-overflow:ellipsis;*/
     /*white-space: nowrap;*/
   }
-  .buy-div{
+  .buy-div,.sold-div{
     display: inline-block;
     width: 60%;
     z-index: 9999;
@@ -462,7 +478,37 @@ body {
   width: 100%;
   cursor: pointer;
 }
-
+.sold-div, .sold-div::after {
+  font-size: 2.5rem;
+  font-family: 'Bebas Neue', cursive;
+  background: linear-gradient(45deg, transparent 5%, rgba(0,0,0,0.3) 5%);
+  border: 0;
+  color: #fff;
+  letter-spacing: 3px;
+  box-shadow: 6px 0 0  rgba(0,0,0,0.6);
+  outline: transparent;
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+}
+.sold-div::after {
+  --slice-0: inset(50% 50% 50% 50%);
+  --slice-1: inset(80% -6px 0 0);
+  --slice-2: inset(50% -6px 30% 0);
+  --slice-3: inset(10% -6px 85% 0);
+  --slice-4: inset(40% -6px 43% 0);
+  --slice-5: inset(80% -6px 5% 0);
+  font-weight: bold;
+  content: 'S O L D';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 3%,  rgba(0,0,0,0.6) 3%,  rgba(0,0,0,0.3) 5%, rgba(0,0,0,0.6) 5%);
+  text-shadow: -3px -3px 0px  rgba(0,0,0,0.1), 3px 3px 0 rgba(0,0,0,0.7);
+  clip-path: var(--slice-0);
+}
 .buy-div::after {
   --slice-0: inset(50% 50% 50% 50%);
   --slice-1: inset(80% -6px 0 0);
@@ -481,8 +527,7 @@ body {
   text-shadow: -3px -3px 0px #F8F005, 3px 3px 0 #00E6F6;
   clip-path: var(--slice-0);
 }
-
-.buy-div:hover::after {
+.buy-div:hover::after,.sold-div:hover::after {
   animation: glitch 1s;
   animation-timing-function: steps(1, end);
 }

@@ -22,7 +22,7 @@
         </el-card>
       </el-col>
     </el-row>
-    <el-carousel trigger="click" class="mobile_show" height="320px" :indicator-position="none">
+    <el-carousel trigger="click" class="mobile_show" height="290px" indicator-position="none">
       <el-carousel-item v-for="(item,index) in recommendationList"  :key="index">
         <el-card :body-style="{ padding: '20px'}" class="recommendation-card" shadow="hover" >
           <div class="img-container">

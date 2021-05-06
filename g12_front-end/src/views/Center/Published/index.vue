@@ -119,7 +119,7 @@
 
         methods: {
             handleClickTitle(houseId){
-                this.$router.push({name: 'detail', params: {houseId: houseId}})
+                this.$router.push({name: 'detail', query: {houseId: houseId}})
             },
             deldiv: function () {
                 var obj = document.getElementById('div2');

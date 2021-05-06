@@ -76,8 +76,8 @@
         data() {
             return {
                 collectionList: [],
-                // collectionList: [{
-                //     'seller': 'liangbj0405',
+                    // collectionList: [{
+                    //     'seller': 'liangbj0405',
                 //     'date': '2020.1.1',
                 //     'price': '200W',
                 //     'title': '[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture',
@@ -119,7 +119,7 @@
 
         methods: {
             handleClickTitle(houseId){
-                this.$router.push({name: 'detail', params: {houseId: houseId}})
+                this.$router.push({name: 'detail', query: {houseId: houseId}})
             },
             deldiv: function () {
                 var obj = document.getElementById('div2');

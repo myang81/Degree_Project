@@ -151,6 +151,14 @@ export function uploadImg(data){
     })
 }
 
+export function buyHouse(data){
+    return axios({
+        url:'/detail/buyHouse',
+        method:'post',
+        data
+    })
+}
+
 
 
 

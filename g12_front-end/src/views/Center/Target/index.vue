@@ -234,15 +234,16 @@
                 console.log("--------userId--------", this.$store.state)
                 getTartgetInfo({userId: this.$store.state.userId}).then(res => {
                     if (res.success) {
-                        this.totalPriceRange = res.data.totalPriceRange;
-                        this.unitPriceRange = res.data.unitPriceRange;
-                        this.area = res.data.area;
-                        this.district = res.data.district;
-                        this.houseStructure = res.data.houseStructure;
-                        this.direction = res.data.direction;
-                        this.decoration = res.data.decoration;
-                        this.heating = res.data.heating;
-                        this.elevator = res.data.elevator;
+                        this.form.totalPriceRange = res.data.totalPriceRange;
+                      this.form.unitPriceRange = res.data.unitPriceRange;
+                      this.form.area = res.data.area;
+                      this.form.district = res.data.district;
+                      this.form.houseStructure = res.data.houseStructure;
+                      this.form.direction = res.data.direction;
+                      this.form.decoration = res.data.decoration;
+                      this.form.heating = res.data.heating;
+                      this.form.elevator = res.data.elevator;
+                      console.log(this.form)
                     }
                     this.loading = false
                 }).catch(() => {

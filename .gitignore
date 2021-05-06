@@ -15,3 +15,4 @@ yarn-error.log
 .vscode/
 __pycache__/
 db.sqlite3
+backend/upload/

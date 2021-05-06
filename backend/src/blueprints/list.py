@@ -1,5 +1,6 @@
 import random
 
+import joblib
 from flask import Blueprint, render_template, session, flash, redirect, request, url_for
 from src.extension import db
 from src.Models.Houses import House
@@ -10,6 +11,8 @@ import re
 from time import time
 import os
 import json
+from src.blueprints.search_community import searchCommunity
+from src.blueprints.search_community import data
 
 list = Blueprint('list', __name__)
 
@@ -149,7 +152,9 @@ def getHouse():
 
         totalPriceRange = request.json.get('totalPriceRange')
         if totalPriceRange == [0, 0]:
-            totalPriceRange = [0, 9999999]
+            totalPriceRange = [0, 999999999]
+        totalPriceRange[0] = int(totalPriceRange[0] / 10000)
+        totalPriceRange[1] = int(totalPriceRange[1] / 10000)
 
         unitPriceRange = request.json.get('unitPriceRange')
         if unitPriceRange == [0, 0]:
@@ -583,6 +588,7 @@ def getHouse():
 @list.route("/recommendHouse", methods=['GET', 'POST'])
 def recommendHouse():
     u_id = request.json.get('userId')
+    print(u_id)
     return {
         "success": 1,
         "data": {
@@ -658,3 +664,65 @@ def recommend(c_id):
         return_list.append(recommend_list[random.randint(0, r_lenth - 1)])
     print(return_list)
     return return_list
+
+
+@list.route("/returnCommunity", methods=['GET', 'POST'])
+def returnCommunity():
+    s_string = request.json.get('searchString')
+    return {
+        "success": 1,
+        "data": {
+            "community": searchCommunity(s_string)
+        },
+        "error": None
+    }
+
+
+@list.route("/prediction", methods=['GET', 'POST'])
+def prediction():
+    # s_string = request.json.get('searchString')
+    area = int(request.json.get('area'))
+    bathroom = request.json.get('bathroom')
+    buildingStructure = request.json.get('buildingStructure')
+    buildingType = request.json.get('buildingType')
+    community = request.json.get('community')
+    decoration = request.json.get('decoration')
+    direction = request.json.get('direction')
+    district = request.json.get('district')
+    elevator = request.json.get('elevator')
+    elevatorNum = int(request.json.get('elevatorNum'))
+    floorType = request.json.get('floorType')
+    floors = request.json.get('floors')
+    hall = request.json.get('hall')
+    heating = request.json.get('heating')
+    houseNum = int(request.json.get('houseNum'))
+    houseStructure = request.json.get('houseStructure')
+    kitchen = request.json.get('kitchen')
+    property = request.json.get('property')
+    region = int(request.json.get('region'))
+    room = request.json.get('room')
+
+    community_convert = data[community]
+    direction_convert = [0, 0, 0, 0, 0, 0, 0, 0]
+    for i in range(len(direction) - 1):
+        direction_convert[int(direction)] = 1
+
+    predictArray = [property, area, houseStructure, buildingType, buildingStructure, decoration, elevatorNum / houseNum,
+                    heating, elevator, district, community_convert, region, hall, kitchen, bathroom, floorType, floors]
+    for element in direction_convert:
+        predictArray.append(element)
+    predictArray.append(room)
+    # Load Model
+    estimator = joblib.load('model.pkl')
+    # 产权信息 建筑面积 户型结构 建筑类型 建筑结构 装修 梯户比 供暖 电梯 区域 小区 具体区域 厅 厨 卫 楼层类型 总层数 东南西北东南东北西南西北 室
+    # estimate_price = estimator.predict(
+    #     [[0, 100, 0, 0, 0, 0, 1, 0, 0, 10, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1]])
+    estimate_price = estimator.predict([predictArray])
+    print(estimate_price, '############Test for ml')
+    return {
+        "success": 1,
+        "data": {
+            "price": estimate_price
+        },
+        "error": None
+    }

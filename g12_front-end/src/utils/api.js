@@ -119,6 +119,24 @@ export function getRecommended(data){
     })
 }
 
+export function searchCommunity(data){
+    return axios({
+        url:'/returnCommunity',
+        method:'post',
+        data
+    })
+}
+
+export function delPublished(data){
+    return axios({
+        url:'/center/published/delPublished',
+        method:'post',
+        data
+    })
+}
+
+
+
 
 
 
@@ -131,5 +149,6 @@ export default {
     login,
     getHouseList,
     register,
+    searchCommunity
     // del_collection
 }

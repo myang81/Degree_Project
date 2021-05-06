@@ -705,7 +705,7 @@ def prediction():
     community_convert = data[community]
     direction_convert = [0, 0, 0, 0, 0, 0, 0, 0]
     for i in range(len(direction) - 1):
-        direction_convert[int(direction)] = 1
+        direction_convert[int(direction[i])] = 1
 
     predictArray = [property, area, houseStructure, buildingType, buildingStructure, decoration, elevatorNum / houseNum,
                     heating, elevator, district, community_convert, region, hall, kitchen, bathroom, floorType, floors]
@@ -717,7 +717,7 @@ def prediction():
     # 产权信息 建筑面积 户型结构 建筑类型 建筑结构 装修 梯户比 供暖 电梯 区域 小区 具体区域 厅 厨 卫 楼层类型 总层数 东南西北东南东北西南西北 室
     # estimate_price = estimator.predict(
     #     [[0, 100, 0, 0, 0, 0, 1, 0, 0, 10, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1]])
-    estimate_price = estimator.predict([predictArray])
+    estimate_price = estimator.predict([predictArray])[0]
     print(estimate_price, '############Test for ml')
     return {
         "success": 1,

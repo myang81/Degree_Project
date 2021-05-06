@@ -192,11 +192,9 @@ def sellerDetail():
                 }
             else:
                 return {
-                    "success": 1,
+                    "success": 0,
                     "data": {
-                        "userName": "admin",
-                        "userEmail": "admin@163.com",
-                        "createTime": "00-00-00"
+
                     },
                     "error": "No such house"
                 }
@@ -205,6 +203,9 @@ def sellerDetail():
             return {
                 "success": 1,
                 "data": {
+                    "userName": "admin",
+                    "userEmail": "admin@163.com",
+                    "createTime": "00-00-00"
                 },
                 "error": "No such seller"
             }

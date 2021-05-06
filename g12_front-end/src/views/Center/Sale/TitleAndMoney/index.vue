@@ -73,7 +73,7 @@ name: "index",
       }
     }
   },
-  create(){
+  created() {
     this.$route.params.form ? this.form = Object.assign(this.form, this.$route.params.form) : this.$router.push({name: 'Address'})
     console.log(this.form)
     prediction(this.form).then((res)=>{

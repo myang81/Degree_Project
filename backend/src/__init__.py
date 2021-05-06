@@ -9,7 +9,7 @@ from src.blueprints.apiV1 import apiv1
 from src.blueprints.apiV2 import apiv2
 from src.blueprints.login import login
 from src.blueprints.register import register
-from src.blueprints.list import list
+from src.blueprints.houseList import houseList
 from src.blueprints.center import center
 from src.setting import config
 from flask import Flask, render_template, Blueprint
@@ -22,7 +22,7 @@ from src.extension import socketio
 import click
 
 # 构建FLask APP 导入设置，允许跨域
-from src.blueprints.list import preProcessing
+from src.blueprints.houseList import preProcessing
 
 
 
@@ -59,7 +59,7 @@ def register_blueprint(app):
     app.register_blueprint(blueprint=register)
     app.register_blueprint(blueprint=center)
     app.register_blueprint(blueprint=collection)
-    app.register_blueprint(blueprint=list)
+    app.register_blueprint(blueprint=houseList)
     app.register_blueprint(blueprint=login)
     app.register_blueprint(blueprint=apiv2)
     app.register_blueprint(blueprint=apiv1)

@@ -96,7 +96,7 @@ def publish():
     arg['heating'] = request.json.get('heating')
     arg['houseStructure'] = request.json.get('houseStructure')
     arg['property'] = request.json.get('property')
-    arg['region'] = request.json.get('region')
+    arg['region'] =int(request.json.get('region'))
     arg['decoration'] = request.json.get('decoration')
     arg['district'] = request.json.get('district')
     arg['coordinate'] = request.json.get('coordinate')

@@ -724,6 +724,7 @@ def prediction():
         predictArray.append(element)
     predictArray.append(room)
     # Load Model
+    print(os.getcwd())
     estimator = joblib.load('model.pkl')
     # 产权信息 建筑面积 户型结构 建筑类型 建筑结构 装修 梯户比 供暖 电梯 区域 小区 具体区域 厅 厨 卫 楼层类型 总层数 东南西北东南东北西南西北 室
     # estimate_price = estimator.predict(

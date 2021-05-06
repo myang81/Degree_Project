@@ -67,9 +67,6 @@ p{
 .el-loading-spinner{
     display: inline;
 }
-.el-loading-mask{
-  z-index: 1000!important;
-}
 img{
   border-radius: 10px!important;
   background: transparent!important;

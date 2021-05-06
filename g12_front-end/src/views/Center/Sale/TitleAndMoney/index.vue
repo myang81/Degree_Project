@@ -57,7 +57,7 @@ name: "index",
         title: '',
         unitPrice: '',
         totalPrice: '',
-        imgUrlList:[]
+        imgUrlList:[],
       },
       loading:true,
       global: global,
@@ -89,10 +89,10 @@ name: "index",
   },
   watch:{
     'form.unitPrice'(val){
-      this.totalPrice=val*this.form.area
+      this.form.totalPrice=val*this.form.area
     },
     'form.totalPrice'(val){
-      this.unitPrice=val/this.form.area
+      this.form.unitPrice=val/this.form.area
     }
   },
   mounted() {

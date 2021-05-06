@@ -121,7 +121,9 @@ center=Blueprint('center',__name__)
 #     house.Architectural_structure=enumMachine.Building_structrue.enum2field(arg['buildingStructure'])
 #     house.Building_Type=enumMachine.Building_type.enum2field(arg['buildingType'])
 #     house.elevator=enumMachine.Elevator.enum2field(arg['elevator'])
-#     house
+#     house.Floor_type=enumMachine.Floor_type.enum2field(arg['floorType'])
+#     house.heating=enumMachine.Heating.enum2field(arg['heating'])
+#     house.House_structure=enumMachine.House_structrue.enum2field(arg['houseStructure'])
 
 
 #4.2 获取发布列表
@@ -270,7 +272,7 @@ def getTartgetInfo():
             ts=user.targets.all()
             list=[]
             for i in ts:
-                list.append(i.toDict())
+                list.append(i.toEnum())
             return {
                 "success":1,
                 "data":list,

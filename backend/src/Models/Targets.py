@@ -40,6 +40,48 @@ class Targets(db.Model):
 
        }
 
+    def toEnum(self):
+        price=[]
+        for i in self.totalPriceRange.split(","):
+            price.append(int(i))
+        p2=[]
+        for i in self.unitPriceRange.split(","):
+            p2.append(int(i))
+        a=[]
+        for i in self.area.split(","):
+            a.append(int(i))
+        d=[]
+        for i in self.district.split(","):
+            d.append(enumMachine.District.field2enum(i))
+        d1=[]
+        for i in self.direction.split(","):
+            d1.append(enumMachine.Direction.field2enum(i))
+        d2=[]
+        for i in self.decoration.split(","):
+            d2.append(enumMachine.Ddecoration.field2enum(i))
+        e1=[]
+        for i in self.elevator.split(","):
+            e1.append(enumMachine.Elevator.field2enum(i))
+        h=[]
+        for i in self.houseStructure.split(","):
+            h.append(enumMachine.House_structrue.field2enum(i))
+        h1=[]
+        for i in self.heating.split(","):
+            h1.append(enumMachine.Heating.field2enum(i))
+        h2=[]
+        for i in self.houseStructure.split(","):
+            h2.append(enumMachine.House_structrue.field2enum(i))
+        return{
+        "totalPriceRange": price,
+        "unitPriceRange": p2,
+        "area": a,
+        "district": d,
+        "houseStructure": h ,
+        "direction": d1,
+        "decoration": d2,
+        "heating": h1,
+        "elevator": e1
+        }
 
     def saveTarget(self,target):
         print(target)

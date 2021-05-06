@@ -18,6 +18,19 @@ class Target(object):
         self.elevator=elevator
 
 
+    def toEnum(self):
+        dict={}
+        dict["totalPriceRange"] = self.totalPriceRange
+        dict["unitPriceRange"] = self.unitPriceRange
+        dict["area"] = self.area
+        dict["district"] = self.distrcit
+        dict["houseStructure"] = self.houseStructure
+        dict["decoration"] = self.decoration
+        dict["direction"] = self.direction
+        dict["heating"] = self.heating
+        dict["elevator"] = self.elevator
+
+
     @classmethod
     def loadJson(self,d):
         data = json.loads(d)

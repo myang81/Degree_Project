@@ -108,7 +108,7 @@
             this.$emit('mouseLeave',index)
           },
             handleClickTitle(houseId) {
-                this.$router.push({name: 'detail', params: {houseId: houseId}})
+                this.$router.push({name: 'detail', query: {houseId: houseId}})
             },
             handleCollect(index,collected){
               let message;

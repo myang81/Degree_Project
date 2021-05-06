@@ -159,6 +159,14 @@ export function buyHouse(data){
     })
 }
 
+export function addPublishList(data){
+    return axios({
+        url:'/addPublishlist',
+        method:'post',
+        data
+    })
+}
+
 
 
 

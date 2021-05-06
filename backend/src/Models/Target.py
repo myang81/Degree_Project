@@ -58,15 +58,15 @@ class Target(object):
     @classmethod
     def initDict(self):
         data={}
-        data['totalPriceRange'] = []
-        data['unitPriceRange'] = []
-        data['area'] = []
-        data['district'] = []
-        data['houseStructure'] = []
-        data['direction'] = []
-        data['decoration'] = []
-        data['heating'] = []
-        data['elevator'] = []
+        data['totalPriceRange'] = [0,100]
+        data['unitPriceRange'] = [0,999]
+        data['area'] = [1,2]
+        data['district'] = [1]
+        data['houseStructure'] = [1]
+        data['direction'] = [1]
+        data['decoration'] = [0]
+        data['heating'] = [1]
+        data['elevator'] = [0]
         return data
 
     def getJson(self):

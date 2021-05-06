@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, session, flash, redirect,request,u
 from src.extension import db
 from src.Models.Users import User
 from src.Models.Houses import House
+from src.Utility import enumMachine
 from src.Models.Target import Target
 from src.Models.Targets import Targets
 center=Blueprint('center',__name__)
@@ -73,6 +74,54 @@ center=Blueprint('center',__name__)
 #             },
 #             "error": "Error"
 #         }
+
+# #添加已经发布
+# @center.route("/addPublishlist",method=["POST"])
+# def publish():
+#     arg={}
+#     arg['']=request.json.get('')
+#     arg['userId'] = request.json.get('userId')
+#     arg['bathroom'] = request.json.get('bathroom')
+#     arg['hall'] = request.json.get('hall')
+#     arg['kitchen'] = request.json.get('kitchen')
+#     arg['room'] = request.json.get('room')
+#     arg['area'] = request.json.get('area')
+#     arg['floors'] = request.json.get('floors')
+#     arg['buildingStructure'] = request.json.get('buildingStructure')
+#     arg['buildingStructure'] = request.json.get('buildingStructure')
+#     arg['buildingType'] = request.json.get('buildingType')
+#     arg['elevator'] = request.json.get('elevator')
+#     arg['floorType'] = request.json.get('floorType')
+#     arg['heating'] = request.json.get('heating')
+#     arg['houseStructure'] = request.json.get('houseStructure')
+#     arg['property'] = request.json.get('property')
+#     arg['region'] = request.json.get('region')
+#     arg['decoration'] = request.json.get('decoration')
+#     arg['district'] = request.json.get('district')
+#     arg['coordinate'] = request.json.get('coordinate')
+#     arg['direction'] = request.json.get('direction')
+#     arg['elevatorNum'] = request.json.get('elevatorNum')
+#     arg['houseNum'] = request.json.get('houseNum')
+#     arg['community'] = request.json.get('community')
+#     arg['title'] = request.json.get('title')
+#     arg['describe'] = request.json.get('describe')
+#     arg['unitPrice'] = request.json.get('unitPrice')
+#     arg['totalPrice'] = request.json.get('totalPrice')
+#
+#     house=House()
+#     user=User.query.filter(User.id==arg['userId'])
+#     house.publishments_users=user
+#
+#     house.toilet=arg['bathroom']
+#     house.hall=arg['hall']
+#     house.kitchen=arg['kitchen']
+#     house.room=arg['room']
+#     house.floor_area=arg['area']
+#     house.total_floors=arg['floors']
+#     house.Architectural_structure=enumMachine.Building_structrue.enum2field(arg['buildingStructure'])
+#     house.Building_Type=enumMachine.Building_type.enum2field(arg['buildingType'])
+#     house.elevator=enumMachine.Elevator.enum2field(arg['elevator'])
+#     house
 
 
 #4.2 获取发布列表

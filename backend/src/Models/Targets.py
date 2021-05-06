@@ -57,8 +57,9 @@ class Targets(db.Model):
         self.unitPriceRange=",".join(u)
         area=[]
         for i in target['area']:
-            area.append(enumMachine.Region.enum2field(i))
+            area.append(str(i))
         self.area=",".join(area)
+        print(area)
         district=[]
         for i in target['district']:
             district.append(enumMachine.District.enum2field(i))

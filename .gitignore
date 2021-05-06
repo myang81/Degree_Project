@@ -16,3 +16,4 @@ yarn-error.log
 __pycache__/
 db.sqlite3
 backend/upload/
+backend/model.pkl

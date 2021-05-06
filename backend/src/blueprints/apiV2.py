@@ -45,7 +45,7 @@ def api_upload():
     file_dir = os.path.join(basedir, UPLOAD_FOLDER)
     if not os.path.exists(file_dir):
         os.makedirs(file_dir)
-    f = request.files['photo']
+    f = request.files['file']
     if f and allowed_file(f.filename):
         fname = secure_filename(f.filename)
         print(fname)

@@ -143,6 +143,13 @@ export function prediction(data){
     })
 }
 
+export function uploadImg(data){
+    return axios({
+        url:'/uploadimg',
+        method:'post',
+        data
+    })
+}
 
 
 

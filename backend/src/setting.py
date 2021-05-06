@@ -5,6 +5,9 @@ basedir=os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 class BaseConfig(object):
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    UPLOAD_FOLDER = 'upload'
+    ALLOWED_EXTENSIONS = set(['png', 'jpg', 'JPG', 'PNG', 'gif', 'GIF'])
+
 
     # ADMIN_EMAIL = ['ysytql@163.com','admin@163.com','han@163.com','aren@163.com','zhang@163.com','all@163.com']
     #

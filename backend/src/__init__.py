@@ -25,12 +25,19 @@ import click
 from src.blueprints.list import preProcessing
 
 
+
+
+
 def create_app(config_name=None):
     if config_name is None:
         config_name = os.getenv('FLASK_CONFIG', 'development')
 
     app = Flask(__name__)
     app.config.from_object(config[config_name])
+
+    #photo setting
+    # app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 
     # enable CORS
     CORS(app, resources={r'/*': {'origins': '*'}})
@@ -41,6 +48,10 @@ def create_app(config_name=None):
     register_logging(app)
     register_commands(app)
     return app
+
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 
 # 绑定蓝图

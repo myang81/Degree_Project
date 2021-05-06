@@ -121,7 +121,7 @@ def detail():
         housePictrue=[]
         if(house is not None):
             data["collected"]=house.getCollected()
-            data["sold"]=False
+            data["sold"]=house.saled
             data["title"]=house.title
             data["totalPrice"]=house.price
             data["unitPrice"]=house._unit_price
@@ -203,3 +203,29 @@ def sellerDetail():
             },
             "error": "Error"
         }
+
+@collection.route("/detail/buyHouse",methods=["GET","POST"])
+def buy():
+    if request.method == "POST":
+        houseId = request.json.get('houseId')
+        userId=request.json.get('userId')
+        if houseId is not None and userId is not None:
+            house = House.query.filter(House.id == houseId).first()
+            buyer = User.query.filter(User.id == userId).first()
+            house.saled="TRUE"
+            db.session.add(house)
+            db.session.commit()
+            return {
+                "success": 1,
+                "data":{
+                     },
+                "error":"Null"
+                }
+        else:
+
+            return{
+                "success": 0,
+                "data": {
+                },
+                "error": "No such house or user"
+            }

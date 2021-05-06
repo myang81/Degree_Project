@@ -52,6 +52,7 @@ class House(db.Model):
     PublishTime = db.Column(db.String(120), index=True, unique=False)
     imgUrl = db.Column(db.String(120), index=True, unique=False)
     collected = db.Column(db.String(120), index=True, unique=False)
+    saled=db.Column(db.String(120),index=True,unique=False)
 
 
     collection_users=db.relationship('User',secondary=collections,backref=db.backref('collections',lazy='dynamic'),lazy='dynamic')

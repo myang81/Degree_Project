@@ -4,7 +4,10 @@ from src.Models.Users import User
 from src.Models.Houses import House
 from src.Utility import enumMachine
 from src.Models.Target import Target
+import datetime
 from src.Models.Targets import Targets
+from datetime import datetime
+
 center=Blueprint('center',__name__)
 
 # #4.1 获取收藏列表
@@ -75,55 +78,113 @@ center=Blueprint('center',__name__)
 #             "error": "Error"
 #         }
 
-# #添加已经发布
-# @center.route("/addPublishlist",method=["POST"])
-# def publish():
-#     arg={}
-#     arg['']=request.json.get('')
-#     arg['userId'] = request.json.get('userId')
-#     arg['bathroom'] = request.json.get('bathroom')
-#     arg['hall'] = request.json.get('hall')
-#     arg['kitchen'] = request.json.get('kitchen')
-#     arg['room'] = request.json.get('room')
-#     arg['area'] = request.json.get('area')
-#     arg['floors'] = request.json.get('floors')
-#     arg['buildingStructure'] = request.json.get('buildingStructure')
-#     arg['buildingStructure'] = request.json.get('buildingStructure')
-#     arg['buildingType'] = request.json.get('buildingType')
-#     arg['elevator'] = request.json.get('elevator')
-#     arg['floorType'] = request.json.get('floorType')
-#     arg['heating'] = request.json.get('heating')
-#     arg['houseStructure'] = request.json.get('houseStructure')
-#     arg['property'] = request.json.get('property')
-#     arg['region'] = request.json.get('region')
-#     arg['decoration'] = request.json.get('decoration')
-#     arg['district'] = request.json.get('district')
-#     arg['coordinate'] = request.json.get('coordinate')
-#     arg['direction'] = request.json.get('direction')
-#     arg['elevatorNum'] = request.json.get('elevatorNum')
-#     arg['houseNum'] = request.json.get('houseNum')
-#     arg['community'] = request.json.get('community')
-#     arg['title'] = request.json.get('title')
-#     arg['describe'] = request.json.get('describe')
-#     arg['unitPrice'] = request.json.get('unitPrice')
-#     arg['totalPrice'] = request.json.get('totalPrice')
-#
-#     house=House()
-#     user=User.query.filter(User.id==arg['userId'])
-#     house.publishments_users=user
-#
-#     house.toilet=arg['bathroom']
-#     house.hall=arg['hall']
-#     house.kitchen=arg['kitchen']
-#     house.room=arg['room']
-#     house.floor_area=arg['area']
-#     house.total_floors=arg['floors']
-#     house.Architectural_structure=enumMachine.Building_structrue.enum2field(arg['buildingStructure'])
-#     house.Building_Type=enumMachine.Building_type.enum2field(arg['buildingType'])
-#     house.elevator=enumMachine.Elevator.enum2field(arg['elevator'])
-#     house.Floor_type=enumMachine.Floor_type.enum2field(arg['floorType'])
-#     house.heating=enumMachine.Heating.enum2field(arg['heating'])
-#     house.House_structure=enumMachine.House_structrue.enum2field(arg['houseStructure'])
+#添加已经发布
+@center.route("/addPublishlist",methods=["POST"])
+def publish():
+    arg={}
+    arg['userId'] = request.json.get('userId')
+    arg['bathroom'] = request.json.get('bathroom')
+    arg['hall'] = request.json.get('hall')
+    arg['kitchen'] = request.json.get('kitchen')
+    arg['room'] = request.json.get('room')
+    arg['area'] = request.json.get('area')
+    arg['floors'] = request.json.get('floors')
+    arg['buildingStructure'] = request.json.get('buildingStructure')
+    arg['buildingType'] = request.json.get('buildingType')
+    arg['elevator'] = request.json.get('elevator')
+    arg['floorType'] = request.json.get('floorType')
+    arg['heating'] = request.json.get('heating')
+    arg['houseStructure'] = request.json.get('houseStructure')
+    arg['property'] = request.json.get('property')
+    arg['region'] = request.json.get('region')
+    arg['decoration'] = request.json.get('decoration')
+    arg['district'] = request.json.get('district')
+    arg['coordinate'] = request.json.get('coordinate')
+    arg['direction'] = request.json.get('direction')
+    arg['elevatorNum'] = int(request.json.get('elevatorNum'))
+    arg['houseNum'] = int(request.json.get('houseNum'))
+    arg['community'] = request.json.get('community')
+    arg['title'] = request.json.get('title')
+    arg['describe'] = request.json.get('describe')
+    arg['unitPrice'] = int(request.json.get('unitPrice'))
+    arg['totalPrice'] = int(request.json.get('totalPrice'))
+
+    print(arg)
+    house=House()
+    user=User.query.filter(User.id == arg['userId']).first()
+    print(user)
+
+
+
+    house.toilet=arg['bathroom']
+    house.hall=arg['hall']
+    house.kitchen=arg['kitchen']
+    house.room=arg['room']
+    house.floor_area=arg['area']
+    house.total_floors=arg['floors']
+    house.Architectural_structure=enumMachine.Building_structrue.enum2field(arg['buildingStructure'])
+    house.Building_Type=enumMachine.Building_type.enum2field(arg['buildingType'])
+    house.elevator=enumMachine.Elevator.enum2field(arg['elevator'])
+    house.Floor_type=enumMachine.Floor_type.enum2field(arg['floorType'])
+    house.heating=enumMachine.Heating.enum2field(arg['heating'])
+    house.House_structure=enumMachine.House_structrue.enum2field(arg['houseStructure'])
+    house.Property_information=enumMachine.PropertyInfo.enum2field(arg['property'])
+    house.Specific_area=enumMachine.Region.enum2field(arg['region'])
+    house.Interior_design=enumMachine.Ddecoration.enum2field(arg['decoration'])
+    house.District=enumMachine.District.enum2field(arg['district'])
+    house.Longitude=int(arg['coordinate'][0])
+    house.Latitude=int(arg['coordinate'][1])
+    house.title=arg['title']
+    house._unit_price=arg['unitPrice']
+    house.price=arg['totalPrice']/10000
+    house.saled="FALSE"
+    utc_time = datetime.utcnow()
+    house.PublishTime=utc_time
+    house.imgUrl=None
+    house.collected="FALSE"
+
+
+    direction_list=[]
+    for i in arg['direction']:
+        direction_list.append(enumMachine.Direction.enum2field(i))
+
+    direction = {
+        "west": "west" if "west" in direction_list else "no",
+        "east": "east" if "east" in direction_list else "no",
+        "south": "south" if "south" in direction_list else "no",
+        "north": "north" if "north" in direction_list else "no",
+        "southwest": "southwest" if "southwest" in direction_list else "no",
+        "southeast": "southeast" if "southeast" in direction_list else "no",
+        "northeast": "northeast" if "northeast" in direction_list else "no",
+        "northwest": "northwest" if "northwest" in direction_list else "no"
+    }
+    house.west=direction['west']
+    house.east=direction['east']
+    house.north=direction["north"]
+    house.south=direction["south"]
+    house.east_north=direction['northeast']
+    house.east_south=direction['southeast']
+    house.west_north=direction['northwest']
+    house.west_south=direction['southwest']
+
+    elvatorNum=arg['elevatorNum']
+    houseNum=arg['houseNum']
+    ratio=elvatorNum/houseNum
+    house.ladder_ratio=ratio
+    user.publishments.append(house)
+    db.session.add(house)
+    db.session.add(user)
+    db.session.commit()
+
+
+    return {
+        "success": 1,
+        "data":{
+            "houseId":house.id
+        },
+        "error":"None"
+        }
+
 
 
 #4.2 获取发布列表

@@ -18,7 +18,7 @@ publishments=db.Table('user_houses_publish',
 class House(db.Model):
     __tablename__ = 'houses'
 
-    id = db.Column(db.String, primary_key=True,autoincrement=True)
+    id = db.Column(db.Integer, primary_key=True,autoincrement=True)
     title = db.Column(db.String(120), index=True, unique=False)
     price = db.Column(db.Integer)
     _unit_price = db.Column(' unit price', db.Integer)

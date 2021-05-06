@@ -80,7 +80,7 @@ name: "index",
     prediction(this.form).then((res)=>{
       console.log(res)
       if(res.success){
-        this.unitPrice=res.data.price
+        this.form.unitPrice=res.data.price
       }
       this.loading=false
     }).catch(()=>{
@@ -88,10 +88,10 @@ name: "index",
     })
   },
   watch:{
-    unitPrice(val){
+    'form.unitPrice'(val){
       this.totalPrice=val*this.form.area
     },
-    totalPrice(val){
+    'form.totalPrice'(val){
       this.unitPrice=val/this.form.area
     }
   },

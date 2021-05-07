@@ -39,7 +39,7 @@
           </div>
           <div style="padding: 5px 5px 0 5px;text-align: left">
             <div class="bottom clearfix">
-              <p style="margin: 0;color: #394043;font-size: 19px;font-weight: bold;;" class="oneline-text">{{ item.title }}</p>
+              <p style="margin: 0;color: #394043;font-size: 19px;font-weight: bold;;" class="oneline-text" @click="handleClickTitle(item.houseId)">{{ item.title }}</p>
               <p style="margin: 0; color: #394043;font-size: 14px;font-weight: bold;line-height: 1;">{{
                   item.unitPrice
                 }}￥/m2</p>

@@ -151,16 +151,20 @@ def getHouse():
             timeRange = [0, 9999990]
 
         totalPriceRange = request.json.get('totalPriceRange')
+        totalPriceRange = [int(x) for x in totalPriceRange]
         if totalPriceRange == [0, 0]:
             totalPriceRange = [0, 999999999]
         totalPriceRange[0] = int(totalPriceRange[0] / 10000)
         totalPriceRange[1] = int(totalPriceRange[1] / 10000)
 
         unitPriceRange = request.json.get('unitPriceRange')
+        unitPriceRange = [int(x) for x in unitPriceRange]
         if unitPriceRange == [0, 0]:
             unitPriceRange = [0, 99999999]
 
         area = request.json.get('area')
+        print(area)
+        area = [int(x) for x in area]
         if area == [0, 0]:
             area = [0, 99999999]
 

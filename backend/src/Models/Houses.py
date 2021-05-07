@@ -95,6 +95,12 @@ class House(db.Model):
             direction_str += self.west_north + " "
         return direction_str
 
+    def isSold(self):
+        if self.saled=="TRUE":
+            return "TRUE"
+        else:
+            return "FALSE"
+
     def getCollected(self):
         if self.collected=="FALSE":
             return "false"
@@ -153,6 +159,7 @@ class House(db.Model):
                             + str(self.Building_Type) + ' | ' +
                             str(self.House_structure) + ' ( total: ' +
                             str(self.total_floors) + ' )',
+                'sold':self.saled,
                 'unitPrice': str(self._unit_price),
                 'collected': self.getCollected(),
                 'totalPrice': self.price,

@@ -60,13 +60,13 @@ def get_collection():
         for item in houses:
             info={}
             info["houseId"]=item.id
-            info["sold"]=True
+            info["sold"]=item.isSold()
             info["imgUrl"]=item.imgUrl
             info["title"]=item.title
             info["date"]=item.PublishTime
             info["seller"]=current_user.username
             info["price"]=item.price
-            info["collectDate"]='collectDate'
+            info["collectDate"]=item.PublishTime
             houseList.append(info)
         return {
             "success": 1,

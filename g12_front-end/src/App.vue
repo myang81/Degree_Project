@@ -49,6 +49,24 @@ a:hover {
 p{
   margin-bottom: 0!important;
 }
+.sold-cover{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: rgba(0,0,0,0.3);
+  top: 0;
+  left: 0;
+  z-index: 200;
+}
+.sold-cover::after{
+  content: 'SOLD';
+  right: 0;
+  bottom: 10%;
+  position: absolute;
+  font-size: 3.5rem;
+  transform: rotate(-45deg);
+  font-weight: bold;
+}
 .full-width{
   width: 100%;
 }
@@ -60,6 +78,9 @@ p{
 }
 .ds-none{
   display: none;
+}
+.oneline-text{
+  overflow: hidden;text-overflow: ellipsis;white-space: nowrap;
 }
     .el-card{
         border-radius: 15px!important;

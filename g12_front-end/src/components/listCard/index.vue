@@ -45,6 +45,8 @@
               </el-col>
             </el-row>
           </div>
+          <div v-if="item.sold==='TRUE'" class="sold-cover"></div>
+<!--            <div class="sold-cover"></div>-->
         </el-card>
         <el-card class="list-block mobile_card" v-for="(item,index) in houseList" :key="index" shadow="hover" @mouseenter="mouseover(index)" @mouseleave="mouseLeave(index)">
             <el-row class="house-item">
@@ -83,6 +85,8 @@
                     <div class="item-price">{{ item.totalPrice }}<span style="color: red;padding-left: 5px">million</span>
                     </div>
             </el-row>
+                    <div v-if="item.sold==='TRUE'" class="sold-cover"></div>
+<!--          <div class="sold-cover"></div>-->
         </el-card>
     </div>
 </template>
@@ -280,5 +284,6 @@
 
     .list-block {
         margin: 10px;
+      position: relative;
     }
 </style>

@@ -195,8 +195,8 @@ export default {
       pictureList: [],
       houseDetail: {},
       houseTitle: '',
-      unitPrice: '60203',
-      totalPrice: '4.16',
+      unitPrice: '',
+      totalPrice: '',
       sellerDetail: {},
       collected: undefined,
       screenWidth: document.body.clientWidth,
@@ -277,11 +277,14 @@ export default {
         cancelButtonText: 'cancel',
         type: 'warning'
       }).then(() => {
-        buyHouse({houseId:this.houseId,userId:this.$store.state.userId}).then(()=>{
-          this.$message({
-            type: 'success',
-            message: 'Successful purchase'
-          });
+        buyHouse({houseId:this.houseId,userId:this.$store.state.userId}).then((res)=>{
+          if(res.success){
+            this.$message({
+              type: 'success',
+              message: 'Successful purchase'
+            });
+            this.sold="TRUE"
+          }
         });
       }).catch();
     }

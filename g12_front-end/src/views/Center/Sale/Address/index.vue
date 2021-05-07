@@ -11,10 +11,10 @@
           <el-form label-position="right" label-width="120px" :model="form" ref="ruleForm" :rules="rules">
             <b-row>
               <b-col  :span=24>
-                <el-form-item label="region/district" style="text-align: left" prop="regionAndDistrict" label-width="120px" >
+                <el-form-item label="region/district" style="text-align: left" prop="DistrictAndRegion" label-width="120px" >
                   <!--                <el-autocomplete v-model="form.region" :fetch-suggestions="querySearchRegion"></el-autocomplete>-->
                   <el-cascader
-                      v-model="form.regionAndDistrict"
+                      v-model="form.DistrictAndRegion"
                       :options="options"
                   ></el-cascader>
                 </el-form-item>
@@ -73,14 +73,14 @@ name: "address",
     return {
       loading:false,
       form:{
-        regionAndDistrict:undefined,
+        DistrictAndRegion:undefined,
         // coordinate:[undefined,undefined],
         lng:undefined,
         lat:undefined,
         community:''
       },
       rules: {
-        regionAndDistrict: [
+        DistrictAndRegion: [
           {required: true, message: 'please enter area', trigger: 'blur'},
         ],
         community: [
@@ -1423,8 +1423,8 @@ name: "address",
         if (valid) {
           let f={
             coordinate:[this.form.lng,this.form.lat],
-            region:this.form.regionAndDistrict[0].substr(1),
-            district:this.form.regionAndDistrict[1],
+            district:parseInt(this.form.DistrictAndRegion[0].substr(1)),
+            region:this.form.DistrictAndRegion[1],
             community:this.form.community,
           }
           this.$router.push({ name: 'HouseNum', params: { form: f }})

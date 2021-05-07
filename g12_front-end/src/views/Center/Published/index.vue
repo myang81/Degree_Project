@@ -2,70 +2,70 @@
   <div>
     <P class="center-title" type="danger" icon="el-icon-delete">Your collection</P>
     <div class="divcss5" :span="8">
-      <el-row :gutter="30">
-        <el-col :span="6" v-for="(item,index) in collectionList" :key="index">
-          <div>
-            <div class="div2">
-              <el-card :body-style="{ padding: '10px' }" style="position: relative">
-                <div>
-                  <article
-                      class="post-152 post type-post status-publish format-standard hentry category-people category-photos">
-                    <div class="post-format-content">
-                      <div class="post-thumbnail">
-                        <img
-                            src="https://cdn.homedit.com/wp-content/uploads/2014/05/minimalist-interior-design.jpg"
-                            class="attachment-thumbnail wp-post-image" alt="105694702">
-                      </div>
-                      <div class="content-wrap">
-                        <h1 class="entry-title"><a href="" class="featured-image"
-                                                   title="amp; Fashion" rel="bookmark">
+      <b-row :gutter="30">
+        <b-col cols="12" sm="6" lg="3" v-for="(item,index) in publishList" :key="index">
+          <div class="div2">
+            <el-card :body-style="{ padding: '10px' }" style="position: relative">
+              <div>
+                <article
+                    class="">
+                  <div class="post-format-content">
+                    <div class="post-thumbnail">
+                      <el-image
+                          :src="item.imgUrl"
+                          class="attachment-thumbnail wp-post-image" alt="105694702"
+                          fit="cover">
+                        <div slot="error" class="image-slot">
+                          <el-image class="attachment-thumbnail wp-post-image"
+                                    :src="require('@/assets/home_header_bg.jpg')"
+                                    fit="cover"/>
+                        </div>
+                      </el-image>
+                    </div>
+                    <div class="content-wrap">
+                      <h1 class="entry-title">
+                        <div href="" class="featured-image"
+                             title="amp; Fashion" rel="bookmark">
                           <div>Seller: {{ item.seller }}</div>
                           <br>
-                          <div>Date: {{ item.date }}</div>
+                          <div>Date: {{ item.Date }}</div>
                           <br>
                           <div>Current price: {{ item.price }}</div>
-                        </a></h1>
-
-                      </div>
-
-
-                    </div>
-                  </article>
-                </div>
-
-                <div style="padding: 0 10px;">
-                  <ul class="divcss4" style="white-space: nowrap;text-overflow: ellipsis;">
-                    <li>
-                      <span @click="handleClickTitle(item.houseId)"> {{ item.title }}</span>
-                    </li>
-                  </ul>
-                  <div class="bottom clearfix">
-
-                    <el-row>
-                      <el-col :span="16">
-                        <div class="time" style="text-align: left">{{ item.collectDate }}
                         </div>
-                      </el-col>
-                      <el-col :span="8" style="text-align: right">
-                        <el-dropdown @command="handleCommand(item)">
-                          <i class="el-icon-more el-icon--right"
-                             style="transform:rotate(90deg)"></i>
-                          <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item command="DELETE" @click="delList(item)">Delete
-                            </el-dropdown-item>
-                          </el-dropdown-menu>
-                        </el-dropdown>
-                      </el-col>
-                    </el-row>
+                      </h1>
+                    </div>
                   </div>
+                </article>
+              </div>
+              <div style="padding: 0 10px;">
+                <ul class="divcss4" style="white-space: nowrap;text-overflow: ellipsis;">
+                  <li><span @click="handleClickTitle(item.houseId)"> {{ item.Title }} </span></li>
+                </ul>
+                <div class="bottom clearfix">
+                  <b-row>
+                    <b-col :span="16">
+<!--                      <div class="time" style="text-align: left">{{ item.Date }}-->
+<!--                      </div>-->
+                    </b-col>
+                    <b-col :span="8" style="text-align: right">
+                      <el-dropdown @command="handleCommand(item)">
+                        <i class="el-icon-more el-icon--right"
+                           style="transform:rotate(90deg)"></i>
+                        <el-dropdown-menu slot="dropdown">
+                          <el-dropdown-item command="DELETE" @click="delList(item)">Delete
+                          </el-dropdown-item>
+                        </el-dropdown-menu>
+                      </el-dropdown>
+                    </b-col>
+                  </b-row>
                 </div>
-                <div v-if="item.sold==='TRUE'" class="sold-cover"></div>
-                <!--                              <div class="sold-cover"></div>-->
-              </el-card>
-            </div>
+              </div>
+              <div v-if="item.sold==='TRUE'" class="sold-cover"></div>
+              <!--                                      <div class="sold-cover"></div>-->
+            </el-card>
           </div>
-        </el-col>
-      </el-row>
+        </b-col>
+      </b-row>
     </div>
   </div>
 </template>
@@ -78,7 +78,7 @@ export default {
   name: "published",
   data() {
     return {
-      // collectionList: [{
+      // publishList: [{
       //     'seller': 'liangbj0405',
       //     'date': '2020.1.1',
       //     'price': '200W',
@@ -109,7 +109,7 @@ export default {
       //     'title': '[Taoran North Shore] North and South facing three rooms and one hall, fine decoration with furniture',
       //     'collectDate': '2021.3.14'
       // }]
-      collectionList: []
+      publishList: []
     };
   },
   created() {
@@ -131,7 +131,7 @@ export default {
       console.log("--------userId--------", this.$store.state)
       getPublishedList({userId: this.$store.state.userId}).then(res => {
         if (res.success) {
-          this.collectionList = res.data.collectionList;
+          this.publishList = res.data.publishList;
         }
 
       })
@@ -342,6 +342,7 @@ img {
 
 .el-dropdown {
   vertical-align: top;
+  z-index: 600
 }
 
 .el-dropdown + .el-dropdown {

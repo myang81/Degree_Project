@@ -8,7 +8,8 @@
             <el-image
                 :src="item.imgUrl"
                 fit="cover"
-                style="width: 100%;height: 220px"
+                style="width: 100%;"
+                :style="{'height':height}"
                 class="img-content"
             >
             </el-image>
@@ -59,6 +60,9 @@ export default {
     return {
       recommendationList: []
     }
+  },
+  props: {
+    height: {type: String,default:'220px'},
   },
   created() {
     getRecommended({userId: this.$store.state.userId}).then(res => {

@@ -11,7 +11,7 @@
               </el-form-item>
             </el-row>
             <el-row>
-              <el-form-item label="title" prop="title">
+              <el-form-item label="describe" prop="describe">
                 <el-input v-model="form.describe"></el-input>
               </el-form-item>
             </el-row>
@@ -71,6 +71,9 @@ name: "index",
         title: [
           {required: true, message: 'please enter title', trigger: 'blur'},
         ],
+        describe: [
+          {required: true, message: 'please enter title', trigger: 'blur'},
+        ],
         unitPrice: [
           {required: true, message: 'please enter unit price', trigger: 'blur'},
         ],
@@ -109,6 +112,7 @@ name: "index",
       this.$refs['ruleForm'].validate((valid) => {
         if (valid) {
           console.log(this.form)
+          this.form.userId= this.$store.state.userId
           addPublishList(this.form).then((res)=>{
             this.$router.push({name: 'detail', query: {houseId: res.data.houseId}})
           });
@@ -121,9 +125,7 @@ name: "index",
     },
     beforeAvatarUpload(file) {
       console.log(file)
-      let formData = new FormData();
-      formData.append("file", file);
-      const isJPG = file.type === 'image/jpeg';
+      const isJPG = file.type === 'image/jpeg'||file.type === 'image/png';
       const isLt2M = file.size / 1024 / 1024 < 2;
 
       if (!isJPG) {

@@ -53,7 +53,8 @@
                 <p>totalPrice</p>
                 <b-row>
                   <b-col cols=3 class="ds-flex" :class="{'ds-none':this.screenWidth < 768}">
-                    <el-input v-model="form.totalPriceRange[0]" style="flex: 2" type="text"></el-input>
+<!--                    <el-input v-model="form.totalPriceRange[0]" style="flex: 2" type="text"></el-input>-->
+                    <span style="flex: 2;line-height:40px">{{form.totalPriceRange[0]}}</span>
                     <span style="margin-left: 10px;line-height:40px">￥</span>
                   </b-col>
                   <b-col v-if="this.screenWidth >= 768" cols=6>
@@ -75,7 +76,8 @@
                     </el-slider>
                   </b-col>
                   <b-col cols=3 class="ds-flex" :class="{'ds-none':this.screenWidth < 768}">
-                    <el-input v-model="form.totalPriceRange[1]" style="flex: 2" type="text"></el-input>
+<!--                    <el-input v-model="form.totalPriceRange[1]" style="flex: 2" type="text"></el-input>-->
+                    <span style="flex: 2;line-height:40px">{{form.totalPriceRange[1]}}</span>
                     <span style="margin-left: 10px;line-height:40px">￥</span>
                   </b-col>
                 </b-row>
@@ -85,7 +87,8 @@
                 <p>unitPrice</p>
                 <b-row>
                   <b-col cols=3 class="ds-flex" :class="{'ds-none':this.screenWidth < 768}">
-                    <el-input v-model="form.unitPriceRange[0]" style="flex: 2" type="text"></el-input>
+<!--                    <el-input v-model="form.unitPriceRange[0]" style="flex: 2" type="text"></el-input>-->
+                    <span style="flex: 2;line-height:40px">{{form.unitPriceRange[0]}}</span>
                     <span style="margin-left: 10px;line-height:40px">￥/m2</span>
                   </b-col>
                   <b-col v-if="this.screenWidth >= 768" cols=6>
@@ -105,7 +108,8 @@
                     </el-slider>
                   </b-col>
                   <b-col cols=3 class="ds-flex" :class="{'ds-none':this.screenWidth < 768}">
-                    <el-input v-model="form.unitPriceRange[1]" style="flex: 2" type="text"></el-input>
+<!--                    <el-input v-model="form.unitPriceRange[1]" style="flex: 2" type="text"></el-input>-->
+                    <span style="flex: 2;line-height:40px">{{form.unitPriceRange[1]}}</span>
                     <span style="margin-left: 10px;line-height:40px">￥/m2</span>
                   </b-col>
                 </b-row>
@@ -115,7 +119,8 @@
                 <p>area</p>
                 <b-row>
                   <b-col cols=3 class="ds-flex" :class="{'ds-none':this.screenWidth < 768}">
-                    <el-input v-model="form.area[0]" style="flex: 2" type="text"></el-input>
+<!--                    <el-input v-model="form.area[0]" style="flex: 2" type="text"></el-input>-->
+                    <span style="flex: 2;line-height:40px">{{form.area[0]}}</span>
                     <span style="margin-left: 10px;line-height:40px">m2</span>
                   </b-col>
                   <b-col v-if="this.screenWidth >= 768" cols=6>
@@ -134,7 +139,8 @@
                     </el-slider>
                   </b-col>
                   <b-col cols=3 class="ds-flex" :class="{'ds-none':this.screenWidth < 768}">
-                    <el-input v-model="form.area[1]" style="flex: 2" type="text"></el-input>
+<!--                    <el-input v-model="form.area[1]" style="flex: 2" type="text"></el-input>-->
+                    <span style="flex: 2;line-height:40px">{{form.area[1]}}</span>
                     <span style="margin-left: 10px;line-height:40px">m2</span>
                   </b-col>
                 </b-row>
@@ -190,6 +196,7 @@
               :total="total"
               v-if="total"
               :current-page.sync="form.pageNum"
+              pager-count="5"
           >
           </el-pagination>
           <div class="w-100" v-if="!total">

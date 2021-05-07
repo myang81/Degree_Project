@@ -197,7 +197,8 @@ def getPublish():
     houseList = []
     for item in houses:
         info = {}
-        info["sold"] = True
+        info["houseId"]=item.id
+        info["sold"] = item.saled
         info["imgUrl"] = item.imgUrl
         info["Title"] = item.title
         info["Date"] = item.PublishTime
@@ -219,13 +220,20 @@ def del_publish():
     if request.method=="POST":
         userId = request.json.get('userId')
         houseId = request.json.get('houseId')
-        if houseId is not None and userId is not  None:
+        if houseId is not None and userId is not None:
             user = User.query.filter(User.id == userId).first()
             house = House.query.filter(House.id == houseId).first()
             if house in user.publishments:
                 user.publishments.remove(house)
+                db.session.delete(house)
                 db.session.add(user)
                 db.session.commit()
+                return  {
+                    "success": 1,
+                    "data": {
+                    },
+                    "error": "Delete successfully"
+                }
             else:
                 return {
                     "success": 0,
@@ -235,14 +243,14 @@ def del_publish():
                 }
 
             return {
-                "success": 1,
+                "success": 0,
                 "data": {
                 },
                 "error": "No such house or user"
             }
         else:
             return {
-                "success": 1,
+                "success": 0,
                 "data": {
                 },
                 "error": "No such user or house"

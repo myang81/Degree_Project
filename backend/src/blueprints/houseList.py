@@ -145,7 +145,7 @@ def getHouse():
         pageNum = None
         pageSize = None
         searchString = None
-
+        userId=request.json.get('userId')
         timeRange = request.json.get('timeRange')
         if timeRange == [0, 0]:
             timeRange = [0, 9999990]
@@ -276,7 +276,7 @@ def getHouse():
         document_id = 0
         houses = House.query.filter().all()
         for h in houses:
-            temp_h = h.generateDetail()
+            temp_h = h.generateDetail(id=userId)
             document[document_id] = temp_h
             document_id += 1
         #####Search Engine

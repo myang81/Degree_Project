@@ -1,5 +1,6 @@
 # coding: utf-8
 from src.extension import db
+from src.Models.Users import User
 
 
 
@@ -59,7 +60,8 @@ class House(db.Model):
     publishments_users = db.relationship('User', secondary=publishments, backref=db.backref('publishments', lazy='dynamic'),
                                        lazy='dynamic')
 
-    def generateDirection(self):
+    def generateDirection(self,id):
+
         direction_str = ""
         if self.east == 'no':
             direction_str += ""
@@ -101,11 +103,13 @@ class House(db.Model):
         else:
             return "FALSE"
 
-    def getCollected(self):
-        if self.collected=="FALSE":
-            return "false"
-        else:
+    def getCollected(self,id):
+        current_user = User.query.filter(User.id == id).first()
+        houses = current_user.collections
+        if self in houses:
             return "true"
+        else:
+            return "false"
 
     def setCollected(self,value):
         if value=="false":
@@ -115,7 +119,7 @@ class House(db.Model):
         db.session.add(self)
         db.session.commit()
 
-    def generateDetail(self):
+    def generateDetail(self,id):
         direction_str = ""
         if self.east == 'no':
             direction_str += ""
@@ -167,7 +171,7 @@ class House(db.Model):
                             str(self.total_floors) + ' )',
                 'sold':self.saled,
                 'unitPrice': str(self._unit_price),
-                'collected': self.getCollected(),
+                'collected': self.getCollected(id),
                 'totalPrice': self.price,
                 'otherInfo': str(self.Interior_design + '|' + self.heating + '|' + self.elevator),
                 'imgUrl': first,

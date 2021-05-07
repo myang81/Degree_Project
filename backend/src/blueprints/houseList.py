@@ -5,6 +5,7 @@ from flask import Blueprint, render_template, session, flash, redirect, request,
 from src.extension import db
 from src.Models.Houses import House
 from src.Models.Targets import Targets
+from src.Models.Users import User
 from src.Utility import enumMachine
 import math
 import re
@@ -276,7 +277,7 @@ def getHouse():
         document_id = 0
         houses = House.query.filter().all()
         for h in houses:
-            temp_h = h.generateDetail(id=userId)
+            temp_h = h.generateDetail()
             document[document_id] = temp_h
             document_id += 1
         #####Search Engine
@@ -382,6 +383,19 @@ def getHouse():
         if p_end > total:
             p_end = total
         filter_List = filter_List[p_start:p_end]
+
+        user=User.query.filter(User.id==userId).first()
+        houses=user.collections
+        hids=[]
+        for i in houses:
+            hids.append(i.id)
+
+        for item in filter_List:
+            hid = item['houseId']
+            if hid in hids:
+                item['collected']="true"
+            else:
+                item["collected"]="false"
         # convertListToEnum(filter_List)
         # houses=House.query.filter(House.price >argdict['totalPriceRange'][0],House.price<argdict['totalPriceRange'][1],
         #                                 House.floor_area >argdict['area'][0],House.floor_area<argdict['area'][1],

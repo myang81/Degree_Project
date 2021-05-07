@@ -60,7 +60,7 @@ class House(db.Model):
     publishments_users = db.relationship('User', secondary=publishments, backref=db.backref('publishments', lazy='dynamic'),
                                        lazy='dynamic')
 
-    def generateDirection(self,id):
+    def generateDirection(self):
 
         direction_str = ""
         if self.east == 'no':
@@ -103,13 +103,11 @@ class House(db.Model):
         else:
             return "FALSE"
 
-    def getCollected(self,id):
-        current_user = User.query.filter(User.id == id).first()
-        houses = current_user.collections
-        if self in houses:
-            return "true"
-        else:
+    def getCollected(self):
+        if self.collected == "FALSE":
             return "false"
+        else:
+            return "true"
 
     def setCollected(self,value):
         if value=="false":
@@ -119,7 +117,7 @@ class House(db.Model):
         db.session.add(self)
         db.session.commit()
 
-    def generateDetail(self,id):
+    def generateDetail(self):
         direction_str = ""
         if self.east == 'no':
             direction_str += ""
@@ -171,7 +169,7 @@ class House(db.Model):
                             str(self.total_floors) + ' )',
                 'sold':self.saled,
                 'unitPrice': str(self._unit_price),
-                'collected': self.getCollected(id),
+                'collected': self.getCollected(),
                 'totalPrice': self.price,
                 'otherInfo': str(self.Interior_design + '|' + self.heating + '|' + self.elevator),
                 'imgUrl': first,

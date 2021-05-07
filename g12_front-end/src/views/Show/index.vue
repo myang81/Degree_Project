@@ -400,7 +400,7 @@ export default {
     },
     getList() {
       this.loading = true;
-      this.form.useId=this.$store.state.userId;
+      this.form.userId=this.$store.state.userId;
       getHouseList(this.form).then(res => {
         console.log(res);
         if (res.success) {

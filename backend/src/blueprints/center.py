@@ -108,6 +108,7 @@ def publish():
     arg['describe'] = request.json.get('describe')
     arg['unitPrice'] = int(request.json.get('unitPrice'))
     arg['totalPrice'] = int(request.json.get('totalPrice'))
+    arg['imgUrlList'] = request.json.get('imgUrlList')
 
     print(arg)
     house=House()
@@ -140,7 +141,7 @@ def publish():
     house.saled="FALSE"
     utc_time = datetime.utcnow()
     house.PublishTime=utc_time
-    house.imgUrl=None
+    house.imgUrl=','.join(arg['imgUrlList'])
     house.collected="FALSE"
 
 

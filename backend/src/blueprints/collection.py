@@ -135,10 +135,12 @@ def detail():
             houseDetial["decoration"]=house.Interior_design
             houseDetial["heating"]=house.heating
             houseDetial["elecator"]=house.elevator
-            housePictrue.append(house.imgUrl)
+            housePictrue=house.imgUrl.split(",")
             return {
                 "success": 1,
                 "data":{
+                    "region":house.Specific_area,
+                    "district":house.District,
                     "collected": data["collected"],
                     "sold":data["sold"],
                     "title":data["title"],

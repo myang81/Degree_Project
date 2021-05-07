@@ -6,7 +6,7 @@
       <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
       <div style="background: #f5f5f6" class="head-container">
         <div style="max-width: 1200px;  margin: 0 auto;position: relative">
-          <div class="title-block">
+          <div class="title-block title-text">
             {{ houseTitle }}
           </div>
           <div style="display: inline-block;position: absolute;bottom: 0;right: 20px">
@@ -52,7 +52,7 @@
                   <el-col :span=6>
                     <p style="color: black">{{ value }}: </p>
                   </el-col>
-                  <el-col :span=18>
+                  <el-col :span=18  class="describe-text">
                     {{ item }}
                   </el-col>
                 </el-row>
@@ -65,7 +65,7 @@
                   <el-col :span=6>
                     <p style="color: black">{{ value }}: </p>
                   </el-col>
-                  <el-col :span=18>
+                  <el-col :span=18  class="describe-text">
                     {{ item }}
                   </el-col>
                 </el-row>
@@ -113,7 +113,7 @@
                   <el-col :span=6>
                     <p style="color: black">{{ value }}: </p>
                   </el-col>
-                  <el-col :span=18>
+                  <el-col :span=18 class="describe-text">
                     {{ item }}
                   </el-col>
                 </el-row>
@@ -126,7 +126,7 @@
                   <el-col :span=6>
                     <p style="color: black">{{ value }}: </p>
                   </el-col>
-                  <el-col :span=18>
+                  <el-col :span=18 class="describe-text">
                     {{ item }}
                   </el-col>
                 </el-row>
@@ -335,7 +335,16 @@ body {
   margin-top: 50px;
   text-align: center;
 }
-
+.describe-text{
+  word-wrap: break-word;
+  word-break: normal;
+  max-width: 300px;
+}
+.title-text{
+  word-wrap: break-word;
+  word-break: normal;
+  /*max-width: 300px;*/
+}
 
 .blob-btn {
   $numOfBlobs: 4;

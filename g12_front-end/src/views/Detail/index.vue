@@ -449,16 +449,19 @@ body {
     flex-direction: row;
     display: flex;
     padding: 20px;
+    justify-content: center;
   }
 
   .detail-left {
     flex: 2;
     padding: 10px;
+    width: 66.6%;
   }
 
   .detail-right {
     flex: 1;
     padding: 10px;
+    width: 33.3%;
   }
 
   .title-block {

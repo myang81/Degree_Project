@@ -1,6 +1,7 @@
 <template>
   <el-card class="check-block"
-           :class="{'check-block_show':choiceCardVisible.more&&!choiceCardVisible.init,'check-block_hide':(!choiceCardVisible.more&&!choiceCardVisible.init)}">
+           :class="{'check-block_show':choiceCardVisible.more&&!choiceCardVisible.init,'check-block_hide':(!choiceCardVisible.more&&!choiceCardVisible.init)}" style="
+    z-index: 210">
     <el-form ref="form" :model="form" label-width="120px">
       <el-form-item label="house structure" prop="houseStructure">
         <el-checkbox-group v-model="form.houseStructure">

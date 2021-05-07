@@ -11,6 +11,11 @@
               </el-form-item>
             </el-row>
             <el-row>
+              <el-form-item label="title" prop="title">
+                <el-input v-model="form.describe"></el-input>
+              </el-form-item>
+            </el-row>
+            <el-row>
               <el-col :span="24">
                 <el-form-item label="unit-price" prop="unitPrice" style="text-align: left" >
                   <el-input :loading="loading" v-model="form.unitPrice" style="max-width: 200px;width: 60%" v-b-tooltip.hover title="The house price is predicted by the system algorithm, and the error is about 8000￥/m2"></el-input><span style="padding-left: 10px">￥/m2</span>
@@ -58,6 +63,7 @@ name: "index",
         unitPrice: '',
         totalPrice: '',
         imgUrlList:[],
+        describe:''
       },
       loading:true,
       global: global,
@@ -102,10 +108,10 @@ name: "index",
     onSubmit() {
       this.$refs['ruleForm'].validate((valid) => {
         if (valid) {
+          console.log(this.form)
           addPublishList(this.form).then((res)=>{
             this.$router.push({name: 'detail', query: {houseId: res.data.houseId}})
           });
-          console.log(this.form)
         }
       })
     },

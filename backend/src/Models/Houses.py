@@ -149,8 +149,12 @@ class House(db.Model):
             direction_str += ""
         else:
             direction_str += self.west_north + " "
-            firstPics=self.imgUrl.split(',')
-            first=firstPics[0]
+
+        first='https://img1.baidu.com/it/u=1947907598,3262319172&fm=26&fmt=auto&gp=0.jpg'
+        if self.imgUrl !="None":
+            firstPics = self.imgUrl.split(',')
+            first = firstPics[0]
+
 
         return {'title': self.title,
                 'position': self.Specific_area,

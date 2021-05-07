@@ -91,11 +91,14 @@ def del_collection():
         houseId = request.json.get('houseId')
         user = User.query.filter(User.id == userId).first()
         house = House.query.filter(House.id == houseId).first()
-        user.collections.remove(house)
-        house.setCollected("false")
-        db.session.add(user)
-        db.session.add(house)
-        db.session.commit()
+        if house in user.collections:
+            user.collections.remove(house)
+            house.setCollected("false")
+            db.session.add(user)
+            db.session.add(house)
+            db.session.commit()
+        else:
+            pass
         return {
             "success": 1,
             "data": {

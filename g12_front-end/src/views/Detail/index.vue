@@ -36,7 +36,7 @@
 
             </div>
             <div class="recommend-div full-width">
-              <Recommendation></Recommendation>
+              <Recommendation :height="'150px'"></Recommendation>
             </div>
           </div>
           <div class="detail-right">
@@ -168,7 +168,13 @@
       </div>
 
     </div>
-
+    <b-modal ref="confirm-modal" title="Secondary confirmation" centered hide-footer>
+      <div class="d-block text-center">
+        <h3>Are you sure you want to buy this house?</h3>
+      </div>
+      <b-button class="mt-3" variant="outline-danger" block @click="hideModal">NoNoNoNo</b-button>
+      <b-button class="mt-2" variant="outline-primary" block @click="confirmModal">I'm ready</b-button>
+    </b-modal>
   </div>
 </template>
 
@@ -231,7 +237,7 @@ export default {
           this.houseDetail = res.data.houseDetail;
           this.pictureList=res.data.housePicture;
           this.houseTitle=res.data.title;
-          if(this.pictureList.length===0||this.pictureList[0]==="None"||typeof (this.pictureList)!=='object') {
+          if(this.pictureList.length===0||this.pictureList[0]==="None"||typeof (this.pictureList)!=='object'||this.pictureList[0]===null) {
             this.pictureList=['https://img1.baidu.com/it/u=1947907598,3262319172&fm=26&fmt=auto&gp=0.jpg', 'https://img1.baidu.com/it/u=1267115342,3426495198&fm=26&fmt=auto&gp=0.jpg', 'https://img1.baidu.com/it/u=632875621,3849475090&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=428922356,2955791946&fm=26&fmt=auto&gp=0.jpg', 'https://img1.baidu.com/it/u=1206287871,1293580609&fm=26&fmt=auto&gp=0.jpg']
           }
         }
@@ -271,12 +277,30 @@ export default {
         console.log( this.collected)
       })
     },
+    hideModal() {
+      this.$refs['confirm-modal'].hide()
+    },
     handleBuy(){
-      this.$confirm('Are you sure you want to buy this house?', 'Secondary confirmation', {
-        confirmButtonText: 'confirm',
-        cancelButtonText: 'cancel',
-        type: 'warning'
-      }).then(() => {
+      this.$refs['confirm-modal'].show()
+
+      // this.$confirm('Are you sure you want to buy this house?', 'Secondary confirmation', {
+      //   confirmButtonText: 'confirm',
+      //   cancelButtonText: 'cancel',
+      //   type: 'warning',
+      //   center: true
+      // }).then(() => {
+      //   buyHouse({houseId:this.houseId,userId:this.$store.state.userId}).then((res)=>{
+      //     if(res.success){
+      //       this.$message({
+      //         type: 'success',
+      //         message: 'Successful purchase'
+      //       });
+      //       this.sold="TRUE"
+      //     }
+      //   });
+      // }).catch();
+    },
+    confirmModal(){
         buyHouse({houseId:this.houseId,userId:this.$store.state.userId}).then((res)=>{
           if(res.success){
             this.$message({
@@ -284,9 +308,9 @@ export default {
               message: 'Successful purchase'
             });
             this.sold="TRUE"
+            this.hideModal()
           }
-        });
-      }).catch();
+        }).catch();
     }
   }
 }

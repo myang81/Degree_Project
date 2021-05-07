@@ -337,6 +337,7 @@ img {
 
 .el-dropdown {
   vertical-align: top;
+  z-index: 600
 }
 
 .el-dropdown + .el-dropdown {

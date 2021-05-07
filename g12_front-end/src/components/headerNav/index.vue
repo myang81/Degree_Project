@@ -58,7 +58,7 @@ export default {
   data() {
     return {
         navContent_visitor: [{name: 'Login', router: '/login'}, {name: 'Register', router: '/register'}],
-        navContent_user: [{name: 'Center', router: '/center'}, {name: 'Collection', router: '/center/collection'}, {name: 'Start to Sale', router: '/center/sale'}]
+        navContent_user: [{name: 'House List', router: '/houseList'},{name: 'Center', router: '/center'}, {name: 'Collection', router: '/center/collection'}, {name: 'Start to Sale', router: '/center/sale'}]
     }
   },
   methods: {

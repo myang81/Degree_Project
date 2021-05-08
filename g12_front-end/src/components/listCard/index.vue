@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-card class="list-block desktop_card" v-for="(item,index) in houseList" :key="index" shadow="hover">
+        <el-card class="list-block desktop_card" v-for="(item,index) in houseList" :key="index+'pc'" shadow="hover">
           <div   @mouseenter="mouseover(index)" @mouseleave="mouseLeave(index)">
             <el-row class="house-item">
               <el-col :span=8 style="height: 100%;position: relative">
@@ -48,7 +48,7 @@
           <div v-if="item.sold==='TRUE'" class="sold-cover"></div>
 <!--            <div class="sold-cover"></div>-->
         </el-card>
-        <el-card class="list-block mobile_card" v-for="(item,index) in houseList" :key="index" shadow="hover" @mouseenter="mouseover(index)" @mouseleave="mouseLeave(index)">
+        <el-card class="list-block mobile_card" v-for="(item,index) in houseList" :key="index+'mobile'" shadow="hover" @mouseenter="mouseover(index)" @mouseleave="mouseLeave(index)">
             <el-row class="house-item">
                     <el-image class="item-img" :src=item.imgUrl fit="cover"></el-image>
                     <div class="item-collection item-little" @click="handleCollect(index,item.collected)">

@@ -6,20 +6,20 @@
       <div class="head-content">
         <div class="choice-button-group">
 
-          <div class="choice-div">
-            <el-button class="choice-button" @click="handleChoiceButton('date')">
-              date
-            </el-button>
-            <el-card class="choice-card" :class="{'choice-card-show':choiceCardVisible.date}">
-              <vc-date-picker v-model="choice.dateRange" :columns="$screens({ default: 1, lg: 2 })"
-                              is-range
-                              style="border: 0"/>
-              <div class="choice-card-bottom">
-                <span class="cancel" @click="handleHideChoice">Cancel</span>
-                <span class="confirm" @click="handleConfirmChoice">Confirm</span>
-              </div>
-            </el-card>
-          </div>
+<!--          <div class="choice-div">-->
+<!--            <el-button class="choice-button" @click="handleChoiceButton('date')">-->
+<!--              date-->
+<!--            </el-button>-->
+<!--            <el-card class="choice-card" :class="{'choice-card-show':choiceCardVisible.date}">-->
+<!--              <vc-date-picker v-model="choice.dateRange" :columns="$screens({ default: 1, lg: 2 })"-->
+<!--                              is-range-->
+<!--                              style="border: 0"/>-->
+<!--              <div class="choice-card-bottom">-->
+<!--                <span class="cancel" @click="handleHideChoice">Cancel</span>-->
+<!--                <span class="confirm" @click="handleConfirmChoice">Confirm</span>-->
+<!--              </div>-->
+<!--            </el-card>-->
+<!--          </div>-->
 
           <div class="choice-div">
             <el-button class="choice-button" @click="handleChoiceButton('type')">
@@ -30,7 +30,7 @@
               <div>
                 <el-row :gutter=20>
                   <el-checkbox-group v-model="form.district">
-                    <el-col :span=8 v-for="(value,key) in global.district" :key="value">
+                    <el-col :span=8 v-for="(value,key) in global.district" :key="value+'district'">
                       <el-checkbox :label="value" name="type" :value="value">{{ key }}</el-checkbox>
                     </el-col>
                   </el-checkbox-group>
@@ -186,7 +186,7 @@
                     <el-tab-pane label="cheapest" name="fourth"></el-tab-pane>
                   </el-tabs>
                 </div>-->
-        <div class="list-container">
+        <div class="list-container" ref="scroll">
           <p style="" class="list-header_title">We find {{ total }} houses for you:</p>
           <listCard :houseList="houseList" @mouseover="mouseover" @mouseLeave="mouseLeave"></listCard>
           <el-pagination
@@ -413,9 +413,12 @@ export default {
               for(let i=0;i<this.houseList.length;i++){
                 this.markerList.push(L.marker({lat:this.houseList[i].latitude,lng: this.houseList[i].longitude}).addTo(this.map).bindPopup(this.houseList[i].totalPrice+"million"))
               }
+                // this.$refs.scroll.scrollTo(0)
             }
           })
-            }
+            this.$refs.scroll.scrollTop = 0;
+            // console.log(this.$refs.scroll)
+        }
         this.loading = false
       }).catch(() => {
         this.loading = false

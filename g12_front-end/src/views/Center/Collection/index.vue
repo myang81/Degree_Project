@@ -44,8 +44,8 @@
                 <div class="bottom clearfix">
                   <b-row>
                     <b-col :span="16">
-                      <div class="time" style="text-align: left">{{ item.collectDate }}
-                      </div>
+<!--                      <div class="time" style="text-align: left">{{ item.collectDate }}-->
+<!--                      </div>-->
                     </b-col>
                     <b-col :span="8" style="text-align: right">
                       <el-dropdown @command="handleCommand(item)">

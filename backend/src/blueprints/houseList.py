@@ -146,7 +146,7 @@ def getHouse():
         pageNum = None
         pageSize = None
         searchString = None
-        userId=request.json.get('userId')
+        userId = request.json.get('userId')
         timeRange = request.json.get('timeRange')
         if timeRange == [0, 0]:
             timeRange = [0, 9999990]
@@ -384,18 +384,18 @@ def getHouse():
             p_end = total
         filter_List = filter_List[p_start:p_end]
 
-        user=User.query.filter(User.id==userId).first()
-        houses=user.collections
-        hids=[]
+        user = User.query.filter(User.id == userId).first()
+        houses = user.collections
+        hids = []
         for i in houses:
             hids.append(i.id)
 
         for item in filter_List:
             hid = item['houseId']
             if hid in hids:
-                item['collected']="true"
+                item['collected'] = "true"
             else:
-                item["collected"]="false"
+                item["collected"] = "false"
         # convertListToEnum(filter_List)
         # houses=House.query.filter(House.price >argdict['totalPriceRange'][0],House.price<argdict['totalPriceRange'][1],
         #                                 House.floor_area >argdict['area'][0],House.floor_area<argdict['area'][1],
@@ -626,7 +626,7 @@ def recommend(c_id):
                 return False
         return True
 
-    if c_id is None:
+    if c_id is None or c_id == '':
         document = {}
         document_id = 0
         houses = House.query.filter(House.saled == 'FALSE').all()
@@ -736,7 +736,8 @@ def prediction():
     for i in range(len(direction) - 1):
         direction_convert[int(direction[i])] = 1
 
-    predictArray = [property_, area, houseStructure, buildingType, buildingStructure, decoration, elevatorNum / houseNum,
+    predictArray = [property_, area, houseStructure, buildingType, buildingStructure, decoration,
+                    elevatorNum / houseNum,
                     heating, elevator, district, community_convert, region, hall, kitchen, bathroom, floorType, floors]
     for element in direction_convert:
         predictArray.append(element)

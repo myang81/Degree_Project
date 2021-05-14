@@ -315,7 +315,7 @@ export default {
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 *, *:before, *:after {
   box-sizing: border-box;
   margin: 0;
@@ -326,10 +326,6 @@ $openSans: 'Open Sans', Helvetica, Arial, sans-serif;
 $cyan: #FF1493;
 $dark: rgb(205, 205, 206);
 $borderW: 6px;
-body {
-  background: #333;
-  font-family: $openSans;
-}
 
 .buttons {
   margin-top: 50px;

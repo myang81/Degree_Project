@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, session, flash, redirect,request,u
 from src.extension import db
 from src.Models.Users import User
 from src.Models.Houses import House
+import random
 
 collection=Blueprint('collection',__name__)
 
@@ -139,6 +140,15 @@ def detail():
             houseDetial["heating"]=house.heating
             houseDetial["elecator"]=house.elevator
             housePictrue=house.imgUrl.split(",")
+            if housePictrue[0]=="None":
+                h=[]
+                i=0
+                for i in range(0,5):
+                    id = random.randint(0, 95)
+                    randomurl = 'http://127.0.0.1:5000/static/images/' + str(id) + '.jpg'
+                    h.append(randomurl)
+
+                housePictrue=h
             return {
                 "success": 1,
                 "data":{

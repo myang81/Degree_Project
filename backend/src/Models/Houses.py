@@ -1,6 +1,7 @@
 # coding: utf-8
 from src.extension import db
 from src.Models.Users import User
+import random
 
 
 
@@ -152,7 +153,13 @@ class House(db.Model):
         else:
             direction_str += self.west_north + " "
 
-        first='https://img1.baidu.com/it/u=1947907598,3262319172&fm=26&fmt=auto&gp=0.jpg'
+
+
+        id=random.randint(0, 95)
+        randomurl='http://127.0.0.1:5000/static/images/'+str(id)+'.jpg'
+
+        # first='https://img1.baidu.com/it/u=1947907598,3262319172&fm=26&fmt=auto&gp=0.jpg'
+        first = randomurl
         if self.imgUrl !="None":
             firstPics = self.imgUrl.split(',')
             first = firstPics[0]

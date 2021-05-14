@@ -74,7 +74,7 @@
                 rules: {
                     name: [
                         {required: true, message: 'please enter username', trigger: 'blur'},
-                        {min: 5, max: 12, message: '5-12', trigger: 'blur'}
+                        {min: 5, max: 12, message: 'please enter username with 5-12 letters', trigger: 'blur'}
                     ],
                     password: [
                         {required: true, message: 'please enter password', trigger: 'blur'},
@@ -82,7 +82,7 @@
                     ],
                     prp: [
                         {required: true, message: 'please repeat password', trigger: 'blur'},
-                        {validator: validatePass2, trigger: 'blur'}
+                        {validator: validatePass2,message: 'different password entered', trigger: 'blur'}
                     ],
                 },
                 imgList: [

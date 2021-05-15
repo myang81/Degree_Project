@@ -689,8 +689,14 @@ def recommend(c_id):
             recommend_list.append(document[random.randint(0, len(document) - 1)])
     r_lenth = len(recommend_list)
     return_list = []
+    random_index = []
     for i in range(0, 3):
-        return_list.append(recommend_list[random.randint(0, r_lenth - 1)])
+        temp = random.randint(0, r_lenth - 1)
+        while temp in random_index:
+            temp = random.randint(0, r_lenth - 1)
+        random_index.append(temp)
+    for i in range(0, 3):
+        return_list.append(recommend_list[random_index[i]])
     print(return_list)
     return return_list
 
@@ -706,6 +712,8 @@ def returnCommunity():
         "error": None
     }
 
+
+estimator = joblib.load('model.pkl')
 
 @houseList.route("/prediction", methods=['GET', 'POST'])
 def prediction():
@@ -744,7 +752,6 @@ def prediction():
     predictArray.append(room)
     # Load Model
     print(os.getcwd())
-    estimator = joblib.load('model.pkl')
     # 产权信息 建筑面积 户型结构 建筑类型 建筑结构 装修 梯户比 供暖 电梯 区域 小区 具体区域 厅 厨 卫 楼层类型 总层数 东南西北东南东北西南西北 室
     # estimate_price = estimator.predict(
     #     [[0, 100, 0, 0, 0, 0, 1, 0, 0, 10, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1]])

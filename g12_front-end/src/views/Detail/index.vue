@@ -36,7 +36,7 @@
 
             </div>
             <div class="recommend-div full-width">
-              <Recommendation :height="'150px'"></Recommendation>
+              <Recommendation @handleClickTitle="handleClickTitle" :height="'150px'"></Recommendation>
             </div>
           </div>
           <div class="detail-right">
@@ -136,7 +136,7 @@
 
             </div>
             <div class="recommend-div full-width">
-              <Recommendation></Recommendation>
+              <Recommendation @handleClickTitle="handleClickTitle"></Recommendation>
             </div>
 
           </div>
@@ -223,6 +223,12 @@ export default {
     };
   },
   methods: {
+    handleClickTitle(houseId){
+      console.log('handleChangeHouse2')
+      this.houseId=houseId
+      this.getHouseDetail()
+      this.getSellerDetail()
+    },
     getHouseDetail() {
 
        // console.log("--------userId--------", this.$store.state)

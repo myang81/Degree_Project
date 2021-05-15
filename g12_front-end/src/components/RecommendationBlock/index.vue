@@ -71,12 +71,14 @@ export default {
       }
     })
   },
-  mounted() {
-  },
   methods: {
     handleClickTitle(houseId){
-      this.$router.push({name: 'detail', query: {houseId: houseId}})
-      this.$router.go(0)
+      if(this.$route.name!=='detail'){
+        this.$router.push({name: 'detail', query: {houseId: houseId}})
+      }else {
+        console.log('handleChangeHouse1')
+        this.$emit("handleClickTitle",houseId)
+      }
     },
   }
 }

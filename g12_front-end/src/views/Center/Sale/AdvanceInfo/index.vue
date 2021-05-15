@@ -38,14 +38,18 @@
             <b-row :gutter=30 style="text-align: left;">
               <b-col style="display: inline-block" cols="12" sm="6">
                 <el-form-item label="elevatorNum" prop="elevatorNum">
-                  <b-form-input type="number" v-model="form.elevatorNum" class="sale-form_numberInput"
-                                ></b-form-input>
+<!--                  <b-form-input type="number" v-model="form.elevatorNum" class="sale-form_numberInput"-->
+<!--                                ></b-form-input>-->
+                  <el-input-number v-model="form.elevatorNum" controls-position="right" min="0" class="sale-form_numberInput"
+                                   ></el-input-number>
                 </el-form-item>
               </b-col>
               <b-col style="display: inline-block" cols="12" sm="6">
                 <el-form-item label="houseNum" prop="houseNum">
-                  <b-form-input type="number" v-model="form.houseNum"
-                                class="sale-form_numberInput"></b-form-input>
+<!--                  <b-form-input type="number" v-model="form.houseNum"-->
+<!--                                class="sale-form_numberInput"></b-form-input>-->
+                  <el-input-number v-model="form.houseNum" controls-position="right" min="0" class="sale-form_numberInput"
+                                   ></el-input-number>
                 </el-form-item>
 
               </b-col>

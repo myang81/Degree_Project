@@ -328,7 +328,7 @@
                     });
                     // this.map.locate({setView: true, maxZoom: 16});
                     L.tileLayer(
-                        "http://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}",
+                        "http://webrd0{s}.is.autonavi.com/appmaptile?lang=en&size=1&scale=1&style=8&x={x}&y={y}&z={z}",
                         // 'http://mt0.google.cn/vt/lyrs=y@160000000&hl=zh-CN&gl=CN&src=app&y={y}&x={x}&z={z}&s=Ga',
                         {
                             subdomains: ["1", "2", "3", "4"],
@@ -592,7 +592,6 @@
         font-weight: bold;
         cursor: pointer;
     }
-
     .choice-card-bottom {
         width: 100%;
         overflow: auto;

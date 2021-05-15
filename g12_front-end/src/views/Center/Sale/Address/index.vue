@@ -37,12 +37,12 @@
             <b-row>
               <b-col cols="12" md="6">
                 <el-form-item label="longitude"  prop="lng">
-                  <el-input v-model="form.lng"></el-input>
+                  <el-input v-model="form.lng" readonly></el-input>
                 </el-form-item>
               </b-col>
               <b-col cols="12" md="6">
                 <el-form-item label="latitude" prop="lat">
-                  <el-input v-model="form.lat"></el-input>
+                  <el-input v-model="form.lat" readonly></el-input>
                 </el-form-item>
               </b-col>
             </b-row>
@@ -1381,15 +1381,20 @@ name: "address",
     },
     initMap(){
       var _this=this;
-      const map = L.map('map', {
+      var map = L.map('map', {
+        center: {
+          lat:  39.90,
+          lng: 116.40
+        }, zoom: 8
       });
       L.Marker.prototype.options.icon = L.icon({
         iconUrl: icon,
         shadowUrl: iconShadow
       });
-      map.locate({setView: true, maxZoom: 16});
+
+      // map.locate({setView: true, maxZoom: 16});
       L.tileLayer(
-          "http://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}",
+          "http://webrd0{s}.is.autonavi.com/appmaptile?lang=en&size=1&scale=1&style=8&x={x}&y={y}&z={z}",
           {
             subdomains: ["1", "2", "3", "4"],
             attribution: "高德"

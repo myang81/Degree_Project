@@ -32,7 +32,7 @@
 }
     body{
         margin: 0;
-        background-color: #eeeef1;
+        /*background-color: #eeeef1;*/
     }
     p{
         margin: 0;
@@ -71,7 +71,7 @@ p{
   width: 100%;
 }
 .mg-b-20{
-  margin-bottom: 20px;
+  margin-bottom: 20px!important;
 }
 .mg-b-8{
   margin-bottom: 8px;

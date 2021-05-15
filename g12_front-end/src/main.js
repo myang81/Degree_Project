@@ -21,7 +21,6 @@ Vue.use(VCalendar, {
 
 // 路由跳转
 router.beforeEach((to, from, next) => {
-  // console.log("localStorage.token",localStorage)
   if (store.state.token||localStorage) {  // 判断是否存在token，如果存在的话，则每个http header都加上token
     if(store.state.token==null) {
       store.commit('set_token', [localStorage.token,localStorage.userId])
@@ -30,16 +29,6 @@ router.beforeEach((to, from, next) => {
   if (to.meta.required) {
     // 检查localStorage
     if (store.state.token) {
-      // store.commit('set_token', localStorage.token)
-      // // 添加axios头部Authorized
-      // axios.defaults.auth = {
-      //   username: store.state.token,
-      //   password: store.state.token,
-      // };
-      // console.log("localStorage.token","put token into auth")
-      // console.log("service.defaults.auth",axios)
-      // iview的页面加载条
-      // iView.LoadingBar.start();
       next()
     } else {
       next({

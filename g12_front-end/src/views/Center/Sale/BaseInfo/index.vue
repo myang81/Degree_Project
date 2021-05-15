@@ -9,8 +9,9 @@
               <b-row>
                 <b-col style="display: inline-block" cols="12">
                   <el-form-item label="area" style="text-align: left;" prop="area">
-                    <b-form-input type="number" v-model="form.area" class="sale-form_numberInput"
-                                  style="width: 70%"></b-form-input>
+<!--                    <b-form-input min="0" type="number" v-model="form.area" ></b-form-input>-->
+                    <el-input-number v-model="form.area" controls-position="right" min="0" class="sale-form_numberInput"
+                                     style="width: 70%"></el-input-number>
                     <span style="padding-left: 20px">m2</span>
                   </el-form-item>
                 </b-col>
@@ -68,7 +69,7 @@
                 </b-col>
                 <b-col style="display: inline-block" cols="12">
                   <el-form-item label="Total floors" style="    text-align: left;" prop="floors">
-                    <el-input-number v-model="form.floors" controls-position="right"></el-input-number>
+                    <el-input-number v-model="form.floors" controls-position="right" min="0"></el-input-number>
                   </el-form-item>
                 </b-col>
               </b-row>
@@ -92,7 +93,7 @@ export default {
   data() {
     return {
       form: {
-        area:'',
+        area:undefined,
         property: undefined,
         houseStructure: undefined,
         buildingType: undefined,

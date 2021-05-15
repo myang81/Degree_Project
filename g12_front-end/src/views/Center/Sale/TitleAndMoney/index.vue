@@ -18,12 +18,12 @@
             <el-row>
               <el-col :span="24">
                 <el-form-item label="unit-price" prop="unitPrice" style="text-align: left" >
-                  <el-input :loading="loading" v-model="form.unitPrice" style="max-width: 200px;width: 60%" v-b-tooltip.hover title="The house price is predicted by the system algorithm, and the error is about 8000￥/m2"></el-input><span style="padding-left: 10px">￥/m2</span>
+                  <el-input :disabled="loading" v-model="form.unitPrice" style="max-width: 200px;width: 60%" v-b-tooltip.hover title="The house price is predicted by the system algorithm, and the error is about 8000￥/m2"></el-input><span style="padding-left: 10px">￥/m2</span>
                 </el-form-item>
               </el-col>
               <el-col :span="24">
                 <el-form-item label="total-price" prop="totalPrice" style="text-align: left">
-                  <el-input :loading="loading" v-model="form.totalPrice" style="max-width: 200px;width: 60%"></el-input><span style="padding-left: 10px">￥</span>
+                  <el-input :disabled="loading" v-model="form.totalPrice" style="max-width: 200px;width: 60%"></el-input><span style="padding-left: 10px">￥</span>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -45,7 +45,6 @@
         </div>
       </el-col>
     </b-row>
-
   </div>
 </template>
 
@@ -63,7 +62,7 @@ name: "index",
         unitPrice: '',
         totalPrice: '',
         imgUrlList:[],
-        describe:''
+        describe:'',
       },
       loading:true,
       global: global,

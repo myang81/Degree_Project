@@ -2,7 +2,7 @@
 from src.extension import db
 from src.Models.Users import User
 import random
-
+from flask import url_for
 
 
 
@@ -156,8 +156,8 @@ class House(db.Model):
 
 
         id=random.randint(0, 95)
-        randomurl='http://127.0.0.1:5000/static/images/'+str(id)+'.jpg'
 
+        randomurl = url_for('static', _external=True, filename='images/' + str(id) + '.jpg')
         # first='https://img1.baidu.com/it/u=1947907598,3262319172&fm=26&fmt=auto&gp=0.jpg'
         first = randomurl
         if self.imgUrl !="None":

@@ -145,7 +145,9 @@ def detail():
                 i=0
                 for i in range(0,5):
                     id = random.randint(0, 95)
-                    randomurl = 'http://127.0.0.1:5000/static/images/' + str(id) + '.jpg'
+                    ip='http://123.56.67.98:5000/'
+                    # randomurl = 'http://127.0.0.1:5000/static/images/' + str(id) + '.jpg'
+                    randomurl=url_for('static', _external=True, filename='images/'+str(id) + '.jpg')
                     h.append(randomurl)
 
                 housePictrue=h

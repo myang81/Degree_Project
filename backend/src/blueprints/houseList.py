@@ -768,6 +768,7 @@ def prediction():
     }
 
 
+@houseList.route("/update_bm25", methods=['GET', 'POST'])
 def update_bm25():
     while True:
         # time.sleep(3600)

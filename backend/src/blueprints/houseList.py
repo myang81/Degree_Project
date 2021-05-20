@@ -770,22 +770,26 @@ def prediction():
 
 @houseList.route("/update_bm25", methods=['GET', 'POST'])
 def update_bm25():
-    while True:
-        # time.sleep(3600)
-        document = {}
-        document_id = 0
-        houses = House.query.filter().all()
-        for h in houses:
-            temp_h = h.generateDetail()
-            document[document_id] = temp_h
-            document_id += 1
-        #####Search Engine
-        stopwords = set()  # A set to store the stopwords
-        with open("stopwords.txt") as f:
-            for line in f:
-                line = line[:-1]  # Remove the /n in the back of the line
-                stopwords.add(line)
-        preProcessing(document)
+    # while True:
+    #     # time.sleep(3600)
+    document = {}
+    document_id = 0
+    houses = House.query.filter().all()
+    for h in houses:
+        temp_h = h.generateDetail()
+        document[document_id] = temp_h
+        document_id += 1
+    #####Search Engine
+    stopwords = set()  # A set to store the stopwords
+    with open("stopwords.txt") as f:
+        for line in f:
+            line = line[:-1]  # Remove the /n in the back of the line
+            stopwords.add(line)
+    preProcessing(document)
+    return {
+        "success": 1,
+        "error": None
+    }
 
 
 # t1 = threading.Thread(target=update_bm25())  # 通过target指定子线程要执行的任务。可以通过args=元组 来指定test1的参数。

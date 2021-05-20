@@ -14,7 +14,7 @@
               <input placeholder="Password" v-model="form.password"/>
             </el-form-item>
             <el-form-item label="">
-              <el-checkbox style="color: white" label="remember your password?" name="type" v-model="form.remember"></el-checkbox>
+              <el-checkbox style="color: white" label="Stay logged in?" name="type" v-model="form.remember"></el-checkbox>
             </el-form-item>
             <el-form-item>
               <div class="submit-w3l">

@@ -167,7 +167,13 @@ export function addPublishList(data){
     })
 }
 
-
+export function update_bm25(params){
+    return axios({
+        url:'/update_bm25',
+        method:'get',
+        params
+    })
+}
 
 
 

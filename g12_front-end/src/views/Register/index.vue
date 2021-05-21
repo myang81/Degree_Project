@@ -63,7 +63,21 @@
                     callback();
                 }
             };
-            return {
+
+          var checkEmail = (rule, value, callback) => {
+            const mailReg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/
+            if (!value) {
+              return callback(new Error('please repeat email'))
+            }
+            setTimeout(() => {
+              if (mailReg.test(value)) {
+                callback()
+              } else {
+                callback(new Error('Please enter the correct email format'))
+              }
+            }, 100)
+          }
+                    return {
                 form: {
                     name: undefined,
                     password: undefined,
@@ -78,12 +92,18 @@
                     ],
                     password: [
                         {required: true, message: 'please enter password', trigger: 'blur'},
-                        {validator: validatePass, trigger: 'blur'}
+                      {min: 5, max: 12, message: 'please enter password with 5-12 letters', trigger: 'blur'},
+                      {validator: validatePass, trigger: 'blur'}
                     ],
                     prp: [
                         {required: true, message: 'please repeat password', trigger: 'blur'},
-                        {validator: validatePass2,message: 'different password entered', trigger: 'blur'}
+                      {min: 5, max: 12, message: 'please enter password with 5-12 letters', trigger: 'blur'},
+                      {validator: validatePass2,message: 'different password entered', trigger: 'blur'}
                     ],
+                  email:[
+                    {required: true, message: 'please repeat email', trigger: 'blur'},
+                    { validator: checkEmail, trigger: 'blur' }
+                  ]
                 },
                 imgList: [
                     {

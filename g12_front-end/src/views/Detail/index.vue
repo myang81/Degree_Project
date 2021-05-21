@@ -243,7 +243,7 @@ export default {
           this.houseDetail = res.data.houseDetail;
           this.pictureList=res.data.housePicture;
           this.houseTitle=res.data.title;
-          if(this.pictureList.length===0||this.pictureList[0]==="None"||typeof (this.pictureList)!=='object'||this.pictureList[0]===null) {
+          if(this.pictureList.length===0||this.pictureList[0]==="None"||this.pictureList[0]===""||typeof (this.pictureList)!=='object'||this.pictureList[0]===null) {
             this.pictureList=['https://img1.baidu.com/it/u=1947907598,3262319172&fm=26&fmt=auto&gp=0.jpg', 'https://img1.baidu.com/it/u=1267115342,3426495198&fm=26&fmt=auto&gp=0.jpg', 'https://img1.baidu.com/it/u=632875621,3849475090&fm=26&fmt=auto&gp=0.jpg', 'https://img2.baidu.com/it/u=428922356,2955791946&fm=26&fmt=auto&gp=0.jpg', 'https://img1.baidu.com/it/u=1206287871,1293580609&fm=26&fmt=auto&gp=0.jpg']
           }
         }

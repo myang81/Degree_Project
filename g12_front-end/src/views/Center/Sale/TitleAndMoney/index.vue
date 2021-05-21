@@ -1,5 +1,5 @@
 <template>
-  <div style="display: flex;height: 100%;flex-direction: column">
+      <div style="display: flex;height: 100%;flex-direction: column">
     <P class="center-title">Title and Price</P>
     <b-row style="height: 100%;width: 100%">
       <el-col :span=24>
@@ -45,12 +45,14 @@
         </div>
       </el-col>
     </b-row>
+          <div  v-if="globalLoading" v-loading="globalLoading" element-loading-text="Please wait for the listing" style="position: absolute;width: 100%;height: 100%;top:0;left: 0" class="address_block">
+  </div>
   </div>
 </template>
 
 <script>
 import global from "@/assets/global";
-import {prediction,addPublishList} from '@/utils/api'
+import {prediction,addPublishList,update_bm25} from '@/utils/api'
 
 
 export default {
@@ -64,6 +66,7 @@ name: "index",
         imgUrlList:[],
         describe:'',
       },
+      globalLoading:false,
       loading:true,
       global: global,
       rules: {
@@ -113,7 +116,13 @@ name: "index",
           console.log(this.form)
           this.form.userId= this.$store.state.userId
           addPublishList(this.form).then((res)=>{
-            this.$router.push({name: 'detail', query: {houseId: res.data.houseId}})
+            if(res.success){
+                this.globalLoading=true
+              update_bm25().then(()=>{
+                this.globalLoading=false
+                this.$router.push({name: 'detail', query: {houseId: res.data.houseId}})
+              })
+            }
           });
         }
       })
@@ -175,9 +184,18 @@ name: "index",
   from {left:-100%;}
   to {left: 0}
 }
+
 </style>
 <style>
   .tooltip-inner{
     max-width: 300px!important;
   }
+  .address_block .el-loading-spinner .el-loading-text {
+  color: #409EFF;
+  margin: 3px 0;
+  font-size: 14px;
+  left: 0;
+  position: absolute;
+  transform: translate(calc(-50% + 25px), 60px)
+}
 </style>

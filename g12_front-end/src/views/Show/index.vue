@@ -416,6 +416,7 @@
                             if (this.screenWidth >= 768) {
                                 this.initMap()
                                 this.markerList = []
+                                this.map.clearLayers();
                                 for (let i = 0; i < this.houseList.length; i++) {
                                     this.markerList.push(L.marker({
                                         lat: this.houseList[i].latitude,

@@ -1,5 +1,5 @@
 import random
-
+import threading
 import joblib
 from flask import Blueprint, render_template, session, flash, redirect, request, url_for
 from src.extension import db
@@ -9,7 +9,8 @@ from src.Models.Users import User
 from src.Utility import enumMachine
 import math
 import re
-from time import time
+# from time import time
+import time
 import os
 import json
 from src.blueprints.search_community import searchCommunity
@@ -35,7 +36,7 @@ def preProcessing(document):
     Fij = {}  # Frequency of term i in document j, key is the document number, value is a dict
     k = 1  # k for BM25
     b = 0.75  # b for BM25
-    t1 = time()
+    # t1 = time()
     for docs in document.values():
         temp_l = []
         for v in docs.values():
@@ -66,7 +67,7 @@ def preProcessing(document):
             else:
                 Ni[terms] += 1
         Fij[get_keys(document, docs)[0]] = newDict
-    t2 = time()
+    # t2 = time()
     for terms in Ni.keys():
         Ni[terms] = math.log2(
             (N - Ni[terms] + 0.5) / (Ni[terms] + 0.5))  # Calculate the value for future calculations
@@ -83,7 +84,7 @@ def preProcessing(document):
     js = json.dumps(index)  # use json to store the dict in the txt file
     with open("home_search.txt", "w") as f:
         f.write(js)
-    t3 = time()
+    # t3 = time()
     print("Document processing completed")
 
 
@@ -293,10 +294,10 @@ def getHouse():
 
         ######### indexing finish
         file = open('home_search.txt', 'r')  # open the index file and store to a dictionary
-        t4 = time()
+        # t4 = time()
         js = file.read()
         index = json.loads(js)
-        t5 = time()
+        # t5 = time()
         print("done")
         query = searchString
         query = query.lower()
@@ -715,6 +716,7 @@ def returnCommunity():
 
 estimator = joblib.load('model.pkl')
 
+
 @houseList.route("/prediction", methods=['GET', 'POST'])
 def prediction():
     # s_string = request.json.get('searchString')
@@ -764,3 +766,31 @@ def prediction():
         },
         "error": None
     }
+
+
+@houseList.route("/update_bm25", methods=['GET', 'POST'])
+def update_bm25():
+    # while True:
+    #     # time.sleep(3600)
+    document = {}
+    document_id = 0
+    houses = House.query.filter().all()
+    for h in houses:
+        temp_h = h.generateDetail()
+        document[document_id] = temp_h
+        document_id += 1
+    #####Search Engine
+    stopwords = set()  # A set to store the stopwords
+    with open("stopwords.txt") as f:
+        for line in f:
+            line = line[:-1]  # Remove the /n in the back of the line
+            stopwords.add(line)
+    preProcessing(document)
+    return {
+        "success": 1,
+        "error": None
+    }
+
+
+# t1 = threading.Thread(target=update_bm25())  # 通过target指定子线程要执行的任务。可以通过args=元组 来指定test1的参数。
+# t1.start()

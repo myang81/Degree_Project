@@ -62,7 +62,7 @@ def get_collection():
             info={}
             info["houseId"]=item.id
             info["sold"]=item.isSold()
-            info["imgUrl"]=item.imgUrl
+            info["imgUrl"]=item.getImg()
             info["title"]=item.title
             info["date"]=item.PublishTime
             info["seller"]=current_user.username
@@ -147,7 +147,8 @@ def detail():
                     id = random.randint(0, 95)
                     ip='http://123.56.67.98:5000/'
                     # randomurl = 'http://127.0.0.1:5000/static/images/' + str(id) + '.jpg'
-                    randomurl=url_for('static', _external=True, filename='images/'+str(id) + '.jpg')
+                    # randomurl=url_for('static', _external=True, filename='images/'+str(id) + '.jpg')
+                    randomurl='https://636638.freep.cn/636638/'+str(id) + '.jpg'
                     h.append(randomurl)
 
                 housePictrue=h

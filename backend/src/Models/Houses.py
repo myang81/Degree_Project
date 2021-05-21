@@ -61,6 +61,18 @@ class House(db.Model):
     publishments_users = db.relationship('User', secondary=publishments, backref=db.backref('publishments', lazy='dynamic'),
                                        lazy='dynamic')
 
+    def getImg(self):
+        id=random.randint(0, 95)
+
+        #randomurl = url_for('static', _external=True, filename='images/' + str(id) + '.jpg')
+        # first='https://img1.baidu.com/it/u=1947907598,3262319172&fm=26&fmt=auto&gp=0.jpg'
+        randomurl='https://636638.freep.cn/636638/'+str(id) + '.jpg'
+        first = randomurl
+        if self.imgUrl !="None":
+            firstPics = self.imgUrl.split(',')
+            first = firstPics[0]
+
+
     def generateDirection(self):
 
         direction_str = ""
@@ -157,8 +169,9 @@ class House(db.Model):
 
         id=random.randint(0, 95)
 
-        randomurl = url_for('static', _external=True, filename='images/' + str(id) + '.jpg')
+        #randomurl = url_for('static', _external=True, filename='images/' + str(id) + '.jpg')
         # first='https://img1.baidu.com/it/u=1947907598,3262319172&fm=26&fmt=auto&gp=0.jpg'
+        randomurl='https://636638.freep.cn/636638/'+str(id) + '.jpg'
         first = randomurl
         if self.imgUrl !="None":
             firstPics = self.imgUrl.split(',')

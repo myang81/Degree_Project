@@ -284,6 +284,7 @@
                 houseList: [],
                 mapInited: false,
                 markerList: [],
+                markerLayer: undefined,
             }
         },
         created() {
@@ -412,19 +413,21 @@
                     if (res.success) {
                         this.houseList = res.data.houseList;
                         this.total = res.data.total
-                        this.$nextTick(() => {
-                            if (this.screenWidth >= 768) {
-                                this.initMap()
+                        // this.$nextTick(() => {
+                        if (this.screenWidth >= 768) {
+                            if(this.markerLayer)this.markerLayer.clearLayers();
+                            this.initMap()
                                 this.markerList = []
-                                this.map.clearLayers();
                                 for (let i = 0; i < this.houseList.length; i++) {
                                     this.markerList.push(L.marker({
                                         lat: this.houseList[i].latitude,
                                         lng: this.houseList[i].longitude
-                                    }).addTo(this.map).bindPopup(this.houseList[i].totalPrice + "million"))
+                                    }).bindPopup(this.houseList[i].totalPrice + "million"));
+                                    this.markerLayer = L.layerGroup(this.markerList)
+                                    this.map.addLayer(this.markerLayer)
                                 }
                             }
-                        })
+                        // })
                         this.$refs.scroll.scrollTop = 0;
                     }
                     this.loading = false
@@ -593,6 +596,7 @@
         font-weight: bold;
         cursor: pointer;
     }
+
     .choice-card-bottom {
         width: 100%;
         overflow: auto;

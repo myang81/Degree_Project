@@ -51,7 +51,7 @@ export default {
       form: {
         userName: undefined,
         password: undefined,
-        remember: undefined
+        remember: true
       },
       rules: {
         userName: [

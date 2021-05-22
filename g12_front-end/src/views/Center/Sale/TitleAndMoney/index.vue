@@ -58,6 +58,15 @@ import {prediction,addPublishList,update_bm25} from '@/utils/api'
 export default {
 name: "index",
   data() {
+    var checkNum = (rule, value, callback) => {
+      setTimeout(() => {
+        if (!Number.isInteger(value)) {
+          callback(new Error('Please enter a numeric value'));
+        } else {
+          callback();
+        }
+      }, 100);
+    };
     return {
       form: {
         title: '',
@@ -78,9 +87,11 @@ name: "index",
         ],
         unitPrice: [
           {required: true, message: 'please enter unit price', trigger: 'blur'},
+          { validator: checkNum, trigger: 'blur' }
         ],
         totalPrice: [
           {required: true, message: 'please enter total price', trigger: 'blur'},
+          { validator: checkNum, trigger: 'blur' }
         ]
       }
     }
@@ -114,7 +125,9 @@ name: "index",
       this.$refs['ruleForm'].validate((valid) => {
         if (valid) {
           console.log(this.form)
-          this.form.userId= this.$store.state.userId
+          this.form.userId= this.$store.state.userId;
+          this.form.unitPrice=parseInt(this.form.unitPrice).toString();
+          this.form.totalPrice=parseInt(this.form.totalPrice).toString();
           addPublishList(this.form).then((res)=>{
             if(res.success){
                 this.globalLoading=true
